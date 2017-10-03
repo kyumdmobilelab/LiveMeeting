@@ -84,6 +84,8 @@ The primary responsibility of the initialization function is to call the EasyRTC
  - self-video-id - a string containing the id of the first video tag.
  - array-of-caller-video-ids - an array containing the id of the second video tag.
  - successCallback - a function to call on successful connection.
+ - failureCallback - a function to call if media could not be allocated or the
+       connection could not be established.
 
 The initialization function is also a good place to register a callback to
 find out who else is hooked up to the server. The callback is registered using EasyRTC.setRoomOccupantListener.
@@ -95,6 +97,9 @@ Here is an example initialization function:
          easyrtc.easyApp("Company_Chat_Line", "self", ["caller"],
              function(myId) {
                 console.log("My easyrtcid is " + myId);
+             },
+             function(errorCode, errorText) {
+                 console.log(errorText);
              }
          );
      }
@@ -256,7 +261,7 @@ because there won't be any automatically added hangup buttons. The HTML ends up 
          <body onload="my_init()">
             <div id="otherClients"> </div>
             <video style="float:left" id="self" width="300" height="200"></video>
-            <video style="float:left" id="caller" width="300" height="200">/video>
+            <video style="float:left" id="caller" width="300" height="200"></video>
         </body>
     </html>
 
@@ -274,7 +279,7 @@ The new initialization looks like:
               function(){       // success callback
                   var selfVideo = document.getElementById("self");
                   easyrtc.setVideoObjectSrc(selfVideo, easyrtc.getLocalStream());
-                  easyrtc.connect("Company_Chat_Line", connectSuccess, connectFailure);
+                  easyrtc.connect("CompanyChatLine", connectSuccess, connectFailure);
               },
               connectFailure
         );

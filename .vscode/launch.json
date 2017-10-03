@@ -1,0 +1,14 @@
+{
+        "version": "0.2.0",
+        "configurations": [
+
+            {
+                "type": "node",
+                "request": "launch",
+                "name": "Launch Server",
+                "program": "${workspaceRoot}\\server_example\\server.js",
+                "cwd": "${workspaceRoot}\\server_example",
+                "console": "internalConsole"
+            }
+        ]
+    }

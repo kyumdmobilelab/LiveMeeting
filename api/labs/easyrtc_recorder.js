@@ -1,4 +1,4 @@
-/* global define, module, require, console */
+/* global define, module, require, console, MediaRecorder */
 /*!
   Script: easyrtc_recorder.js
 
@@ -31,8 +31,6 @@
     POSSIBILITY OF SUCH DAMAGE.
 */
 
-"use strict";
-
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         //RequireJS (AMD) build system
@@ -48,6 +46,8 @@
         root.easyrtc = factory(window.easyrtc);
   }
 }(this, function (easyrtc, undefined) {
+
+"use strict";
 
     /**
      * Provides methods for building MediaStream recorders.
@@ -93,6 +93,8 @@
    };
 
    var mimeType;
+   var audioBitRate;
+   var videoBitRate;
 
    /**
      * Set the desired codec for the video encoding. 
@@ -114,6 +116,20 @@
        }
    };
 
+   /** Sets the target bit rate of the audio encoder. 
+     * @param bitrate bits per second
+     */
+   easyrtc.setRecordingAudioBitRate = function(bitRate) {
+      audioBitRate = bitRate;
+   }
+
+   /** Sets the target bit rate of the video encoder. 
+     * @param bitrate bits per second
+     */
+   easyrtc.setRecordingVideoBitRate = function(bitRate) {
+      videoBitRate = bitRate;
+   }
+
    if( easyrtc.supportsRecording()) {
        easyrtc.setRecordingVideoCodec("vp8");
    }
@@ -132,7 +148,17 @@
            return null;
         }
 
-        var mediaRecorder = new MediaRecorder(mediaStream, {mimeType: mimeType});
+        var recorderOptions = { mimeType:mimeType};
+
+        if( audioBitRate ) {
+               recorderOptions.audioBitsPerSecond = audioBitRate;
+        }
+
+        if( videoBitRate ) {
+               recorderOptions.videoBitsPerSecond = videoBitRate;
+        }
+
+        var mediaRecorder = new MediaRecorder(mediaStream, recorderOptions);
         if( !mediaRecorder ) {
            console.log("no media recorder");
            return;
@@ -141,22 +167,22 @@
 
         mediaRecorder.onerror = function(e) {
            console.log("Media recording error:", e);
-        }
+        };
 
         mediaRecorder.onwarning = function(e) {
            console.log("Media recording error:", e);
-        }
+        };
     
         mediaRecorder.onstart = function(e) {
            console.log("Media recording started");
-        }
+        };
 
         mediaRecorder.onstop = function(e) {
            console.log("Media recording stopped");
-        }
+        };
 
         return mediaRecorder;
-   };
+   }
 
    /** This method creates a media recorder and populates it's ondataavailable
      * method so that your own callback gets called with the data.
@@ -172,9 +198,11 @@
        if( !mediaRecorder) {
            return null;
        }
+
        mediaRecorder.ondataavailable = function(e) {
            dataCallback(e.data);
-       }
+       };
+
        return mediaRecorder;
    };
 
@@ -204,7 +232,8 @@
        mediaRecorder.onstop = function() {
             blobCallback( new Blob(chunks, {type:"video/webm"}));
             chunks = [];
-       }
+       };
+       
        return mediaRecorder;
    };
 
