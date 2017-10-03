@@ -6208,10 +6208,12 @@ var Easyrtc = function() {
                         if (self._desiredVideoProperties.height &&
                                 (self.nativeVideoHeight !== self._desiredVideoProperties.height ||
                                         self.nativeVideoWidth !== self._desiredVideoProperties.width)) {
+                            /*
                             self.showError(self.errCodes.MEDIA_WARNING,
                                     self.format(self.getConstantString("resolutionWarning"),
                                     self._desiredVideoProperties.width, self._desiredVideoProperties.height,
                                     self.nativeVideoWidth, self.nativeVideoHeight));
+                            */
                         }
                         self.setVideoObjectSrc(videoObj, null);
                         if (videoObj.removeNode) {
@@ -9852,6 +9854,14 @@ return new Easyrtc();
         function hideVideo(video) {
             easyrtc.setVideoObjectSrc(video, "");
             video.style.visibility = "hidden";
+
+            for (let i = 0; i < video.parentNode.childNodes.length; i++) {
+                if (video.parentNode.childNodes[i].className == "easyrtc_usernameLabel") {
+                    video.parentNode.childNodes[i].innerText = "";
+                    video.parentNode.childNodes[i].style.backgroundColor = "";
+                    break;
+                }        
+            }
         }
 
         if (!validateVideoIds(monitorVideoId, videoIdsP)) {
@@ -9996,6 +10006,17 @@ return new Easyrtc();
 
             for (i = 0; i < numPEOPLE; i++) {
                 video = getIthVideo(i);
+
+                let name = this.idToName(caller);
+                for (let i = 0; i < video.parentNode.childNodes.length; i++) {
+                    if (video.parentNode.childNodes[i].className == "easyrtc_usernameLabel") {
+                        video.parentNode.childNodes[i].innerText = "Name: " + name;
+                        video.parentNode.childNodes[i].style.backgroundColor = "#F0F0F0";
+                        break;
+                    }        
+                }
+
+
                 if (videoIsFree(video)) {
                     setCallerOfVideo(video, caller);
                     if (onCall) {
@@ -10020,7 +10041,7 @@ return new Easyrtc();
             setCallerOfVideo(video, caller);
         });
 
-        var addControls, parentDiv, closeButton, i;
+        var addControls, parentDiv, closeButton, i, usernameLabel;
         if (autoAddCloseButtons) {
 
             addControls = function(video) {
@@ -10036,6 +10057,13 @@ return new Easyrtc();
                     }
                 };
                 parentDiv.appendChild(closeButton);
+
+                //test: add username label
+                usernameLabel = document.createElement("div");
+                usernameLabel.className = "easyrtc_usernameLabel";
+                usernameLabel.innerText = "";
+                parentDiv.appendChild(usernameLabel);
+
             };
 
             for (i = 0; i < numPEOPLE; i++) {

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <!--skip-->
+        <title>EasyRTC Demo: Simple Video+Audio</title>
+        <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
+
+        <!--hide-->
+        <link rel="stylesheet" type="text/css" href="css/landing2.css" />
+        <link rel="stylesheet" type="text/css" href="css/demo_recording2.css" />
+        <!-- Prettify Code -->
+        <script type="text/javascript" src="js/prettify/prettify.js"></script>
+        <script type="text/javascript" src="js/prettify/loadAndFilter.js"></script>
+        <script type="text/javascript" src="js/prettify/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="js/prettify/prettify.css" />
+
+        <!--show-->
+        <!-- Assumes global locations for socket.io.js and easyrtc.js -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <script type="text/javascript" src="/easyrtc/labs/easyrtc_recorder.js"></script>
+        <script type="text/javascript" src="js/demo_recording2.js"></script>
+
+    </head>
+    <body onload="connect();">
+        <!--hide-->
+        <div id="container">
+            <div id="main">
+                <!-- Main Content -->
+                <br />
+                <button type="button" id="listButton" onclick="listButton_Click()">+</button>
+                
+                <!--show-->
+                <div id="demoContainer">
+                    <div id="connectControls">
+                        <div id="iam">Not yet connected...</div>
+                        <br />
+                        <div id="roomname">Room: </div>
+                        <br />
+                        <strong>Connected users:</strong>
+                        <div id="otherClients"></div>
+                    </div>
+                    <div id="videos">
+                        <div style="position:relative;float:left;">
+                            <video autoplay="autoplay" class="easyrtcMirror" id="selfVideo" muted="muted" volume="0" ></video>
+                            <div class="easyrtc_meLabel">Me</div>
+                        </div>
+                        <div style="position:relative;float:left;">
+                            <video autoplay="autoplay" id="callerVideo"></video>
+                        </div>
+                        <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
+                    </div>
+                    <div id="recordButtons">
+                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp8');" checked="checked" id="useVP8" name="codecUsed"> VP8 </input>
+                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp9');" id="useVP9" name="codecUsed"> VP9 </input>
+                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('h264');" id="useH264" name="codecUsed"> H264 </input>
+                        <br>
+                        <button id="startRecording" disabled="disabled" onclick="startRecording();" >Start recording</button> 
+                        <button id="stopRecording" disabled="disabled" onclick="endRecording();" >End/finish recording</button> 
+                       <br>
+                       download links for videos: self:<a id="selfDownloadLink"></a>
+                        &nbsp;&nbsp;caller:<a id="callerDownloadLink"></a>
+                    </div>
+                </div>
+                <!--hide-->
+                <br style="clear:both;" />
+                <!-- End Main Content -->
+            </div>
+        </div>
+        <hr />
+        <div id="map"></div>
+        <!--show-->
+    </body>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpb2TeDYNQgecFfMRMQPvp57Td9AWbzk&callback=initMap">
+    </script>
+</html>
