@@ -14,7 +14,7 @@ var app = express();
 app.use(serveStatic('static', {'index': ['index.html']}));
 
 // Start Express http server on port 8080
-var webServer = http.createServer(app).listen(process.env.PORT);
+var webServer = http.createServer(app).listen(8080);
 
 /*
 // Start Express https server on port 8443
@@ -66,6 +66,6 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 });
 
 //listen on port 8080
-webServer.listen(process.env.PORT, function () {
+webServer.listen(8080, function () {
     console.log('listening on https://localhost');
 });

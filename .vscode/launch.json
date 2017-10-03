@@ -9,6 +9,15 @@
                 "program": "${workspaceRoot}\\server_example\\server.js",
                 "cwd": "${workspaceRoot}\\server_example",
                 "console": "internalConsole"
+            },
+
+            {
+                "type": "node",
+                "request": "launch",
+                "name": "Launch SSL Server",
+                "program": "${workspaceRoot}\\server_example\\server_ssl.js",
+                "cwd": "${workspaceRoot}\\server_example",
+                "console": "internalConsole"
             }
         ]
     }
