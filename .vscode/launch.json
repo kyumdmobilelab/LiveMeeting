@@ -24,8 +24,8 @@
                 "type": "node",
                 "request": "launch",
                 "name": "Launch Test Server",
-                "program": "${workspaceRoot}\\server_example\\server_test.js",
-                "cwd": "${workspaceRoot}\\server_example",
+                "program": "${workspaceRoot}\\server.js",
+                "cwd": "${workspaceRoot}",
                 "console": "internalConsole"
             }
         ]
