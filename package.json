@@ -25,9 +25,9 @@
     "url": "https://github.com/priologic/easyrtc/issues"
   },
   "scripts": {
-    "start": "server.js"
+    "start": "node server.js"
   },
-  "main": "index",
+  "main": "server.js",
   "dependencies": {
     "async": "0.2.x",
     "colors": "*",
