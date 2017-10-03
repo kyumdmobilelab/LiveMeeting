@@ -24,6 +24,7 @@
   "bugs": {
     "url": "https://github.com/priologic/easyrtc/issues"
   },
+  "start script": "server_example/server.js",
   "main": "index",
   "dependencies": {
     "async": "0.2.x",
