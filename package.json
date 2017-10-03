@@ -27,7 +27,7 @@
   "scripts": {
     "start": "node server.js"
   },
-  "main": "server.js",
+  "main": "index",
   "dependencies": {
     "async": "0.2.x",
     "colors": "*",
