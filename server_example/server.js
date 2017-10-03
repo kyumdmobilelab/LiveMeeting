@@ -1,5 +1,5 @@
 // Load required modules
-var https    = require("https");            // https server core module
+var http    = require("http");            // https server core module
 var express = require("express");           // web framework external module
 var serveStatic = require('serve-static');  // serve static files
 var socketIo = require("socket.io");        // web socket external module
@@ -14,8 +14,9 @@ var app = express();
 app.use(serveStatic('static', {'index': ['index.html']}));
 
 // Start Express http server on port 8080
-//var webServer = http.createServer(app).listen(8080);
+var webServer = http.createServer(app).listen(process.env.PORT);
 
+/*
 // Start Express https server on port 8443
 var webServer = https.createServer(
 {
@@ -23,6 +24,7 @@ var webServer = https.createServer(
     cert: fs.readFileSync("../../ssl_keys/my_sitename.crt")
 }, 
 app).listen(443);
+*/
 
 
 // Start Socket.io so it attaches itself to Express server
@@ -63,7 +65,7 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
     });
 });
 
-//listen on port 8443
-webServer.listen(443, function () {
-    console.log('listening on https://localhost:443');
+//listen on port 8080
+webServer.listen(process.env.PORT, function () {
+    console.log('listening on https://localhost');
 });
