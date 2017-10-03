@@ -22,7 +22,7 @@ var webServer = https.createServer(
     key:  fs.readFileSync("../../ssl_keys/my_sitename.key"),
     cert: fs.readFileSync("../../ssl_keys/my_sitename.crt")
 }, 
-app).listen(8443);
+app).listen(443);
 
 
 // Start Socket.io so it attaches itself to Express server
@@ -64,6 +64,6 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 });
 
 //listen on port 8443
-webServer.listen(8443, function () {
-    console.log('listening on https://localhost:8443');
+webServer.listen(443, function () {
+    console.log('listening on https://localhost:443');
 });
