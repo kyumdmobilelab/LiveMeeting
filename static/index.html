@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Live App</title>
+    <link rel="stylesheet" type="text/css" href="css/landing.css" />
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <h1 style="color:white;text-align:center;">&nbsp;&nbsp;Live App</h1>
+    </div>
+    <div id="main">
+<br />
+<br />
+    <!-- Main Content -->
+<fieldset style="width:280px;margin-left:auto;margin-right:auto;">
+    <legend style="text-align:center;">&nbsp;Login&nbsp;</legend>
+    <p style="text-align:center;">User:&nbsp;&nbsp;&nbsp;
+        <input type="text" name="username" id="usernameText" size="15" maxlength="30">
+    </p>
+            
+    <p style="text-align:center;">Room:&nbsp;
+        <input type="text" name="room" id="roomText" size="15" maxlength="30">
+    </p>
+    <br />
+    <input type="checkbox" id="rememberCheckbox" onchange="toggleCheckbox(this)" style="float:left;">Remember Me
+    <button type="button" onclick="gotoMeeting()" style="width:75px;float:right;">Go</button>
+    <br />
+</fieldset>
+
+<br />
+<br />
+
+    <!-- End Main Content -->
+    </div>
+    <div id="footer">
+    </div>
+</div>
+</body>
+<script>
+    if (localStorage.getItem("rememberChecked") == "true") {
+        document.getElementById("rememberCheckbox").checked = true;
+
+        if (localStorage.getItem("username") !== "") {
+            document.getElementById("usernameText").value = localStorage.getItem("username");
+        }
+        if (localStorage.getItem("roomname") !== "") {
+            document.getElementById("roomText").value = localStorage.getItem("roomname");
+        }
+    }
+
+    function toggleCheckbox(element) {
+        //console.log(element.checked)
+        localStorage.setItem("rememberChecked", element.checked);
+        if (element.checked == false) {
+            localStorage.removeItem("username");
+            localStorage.removeItem("roomname");
+        }
+    }
+
+    function gotoMeeting() {
+        let username = document.getElementById("usernameText").value;
+        let room = document.getElementById("roomText").value;
+
+        if (username == "") {
+            window.alert("Please input a User Name!!");
+            return;
+        }
+
+        if (room == "") {
+            window.alert("Please input a Room Name!!");
+            return;
+        }
+
+        if (localStorage.getItem("rememberChecked") == "true") {
+            localStorage.setItem("username", username);
+            localStorage.setItem("roomname", room);
+        }
+
+        window.location.href = "liveapp.html?" + "user=" + username + "&room=" + room;
+    }
+</script>
+</html>
