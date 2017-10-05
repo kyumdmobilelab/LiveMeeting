@@ -1,4 +1,13 @@
 
+if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(updateMyPosition);
+}
+
+function updateMyPosition(position) {
+    console.log(position.coords.latitude + ", " + position.coords.longitude);
+    let pLabel = document.getElementById("MyPosition");
+    pLabel.innerText = position.coords.latitude + ", " + position.coords.longitude
+}
 
 function listButton_Click() {
     if (document.getElementById("connectControls").style.display == 'none') {
