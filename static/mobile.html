@@ -3,20 +3,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Live App</title>
-    <link rel="stylesheet" type="text/css" href="css/landing.css" />
+    <link rel="stylesheet" type="text/css" href="css/landing_mobile.css" />
 </head>
 <body>
+<br />
 <br />
 
 <div id="container">
     <div id="header">
-        <h1 style="color:white;text-align:center;">&nbsp;&nbsp;Live App (Desktop)</h1>
+        <h2 style="color:white;text-align:center;">&nbsp;&nbsp;Live App (Mobile)</h2>
     </div>
     <div id="main">
 <br />
 <br />
     <!-- Main Content -->
-<fieldset style="width:280px;margin-left:auto;margin-right:auto;">
+<fieldset style="width:250px;margin-left:auto;margin-right:auto;">
     <legend style="text-align:center;">&nbsp;Login&nbsp;</legend>
     <p style="text-align:center;">User:&nbsp;&nbsp;&nbsp;
         <input type="text" name="username" id="usernameText" size="15" maxlength="30">
@@ -27,7 +28,7 @@
     </p>
     <br />
     <input type="checkbox" id="rememberCheckbox" onchange="toggleCheckbox(this)" style="float:left;">Remember Me
-    <button type="button" onclick="gotoMeeting()" style="width:70px;float:right;">Go</button>
+    <button type="button" onclick="gotoMeeting()" style="width:60px;float:right;">Go</button>
     <br />
 </fieldset>
 
@@ -80,7 +81,7 @@
             localStorage.setItem("roomname", room);
         }
 
-        window.location.href = "liveapp.html?" + "user=" + username + "&room=" + room;
+        window.location.href = "liveapp.html?" + "user=" + username + "&room=" + room + "&isMobile=y";
     }
 </script>
 </html>

@@ -82,6 +82,13 @@ function connect() {
         document.getElementById("recordButtons").style.display = 'block';
     }
 
+    // is mobile
+    if (searchParams.get("isMobile") == "y") {
+        document.getElementById("recordButtons").style.display = 'none';
+    } else {
+        document.getElementById("recordButtons").style.display = 'block';
+    }
+
     
     if( !easyrtc.supportsRecording()) {
        //window.alert("This browser does not support recording. Try chrome or firefox.");
