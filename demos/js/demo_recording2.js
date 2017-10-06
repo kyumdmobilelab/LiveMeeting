@@ -29,6 +29,12 @@ function listButton_Click() {
 function leaveRoomButton_Click() {
     if (confirm("Leave this room?")) {
         easyrtc.hangupAll();
+
+        if (urlSearchParams.get("os") == "android") {
+            B4A.CallSub('leaveRoom', true);
+            return;
+        }
+
         if (/Mobi/.test(navigator.userAgent)) {
             // mobile
             window.location.href = "mobile.html";
