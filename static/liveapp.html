@@ -29,6 +29,7 @@
         <div id="container">
             <div id="main">
                 <!-- Main Content -->
+                <button type="button" id="leaveRoomButton" onclick="leaveRoomButton_Click()"  style="margin-top:5px;float:right;">Leave Room >></button>
                 <br />
                 <button type="button" id="listButton" onclick="listButton_Click()">+</button>
                 
@@ -71,7 +72,7 @@
         </div>
         <hr />
         <div id="map"></div>
-        <div style="margin-left:15px; margin-top:15px; height:40px;">
+        <div style="margin-left:15px; margin-top:10px; height:40px;">
             <input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)" style="float:left;">Track Yourself
             <button type="button" onclick="gotoMyLocation()" style="float:right;">Go to My Location</button>
         </div>

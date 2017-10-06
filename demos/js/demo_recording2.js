@@ -26,6 +26,17 @@ function listButton_Click() {
     }
 }
 
+function leaveRoomButton_Click() {
+    easyrtc.hangupAll();
+    if (/Mobi/.test(navigator.userAgent)) {
+        // mobile
+        window.location.href = "mobile.html";
+    } else {
+        // desktop
+        window.location.href = "index.html";
+    }
+}
+
 var trackYourselfTimerId = null;
 var myCurrentLocation = null;
 var personMap = null;
