@@ -1,5 +1,4 @@
 var urlSearchParams = new URLSearchParams(location.search);
-//window.alert(searchParams.get("user") + ", " + searchParams.get("room"));
 
 if (urlSearchParams.get("user") === null || 
     urlSearchParams.get("user") === "" ||
@@ -81,12 +80,12 @@ var selfEasyrtcid = "";
 function connect() {
     // user name
     if (urlSearchParams.get("user") != null) {
-        easyrtc.setUsername(searchParams.get("user"));        
+        easyrtc.setUsername(urlSearchParams.get("user"));        
     }
 
     // room
     if (urlSearchParams.get("room") != null) {
-        easyrtc.joinRoom(searchParams.get("room"), null, null, null);
+        easyrtc.joinRoom(urlSearchParams.get("room"), null, null, null);
     }
 
     // hide recordButtons
