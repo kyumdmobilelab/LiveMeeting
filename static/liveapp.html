@@ -71,8 +71,13 @@
         </div>
         <hr />
         <div id="map"></div>
-
+        <div style="margin-left:15px; margin-top:15px; height:40px;">
+            <input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)" style="float:left;">Track Yourself
+            <button type="button" onclick="gotoMyLocation()" style="float:right;">Go to My Location</button>
+        </div>
+        <hr />
         <div id="MyPosition"></div>
+        <br />
         <!--show-->
     </body>
     <script async defer

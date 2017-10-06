@@ -14,15 +14,8 @@ if (urlSearchParams.get("user") === null ||
     }
 }
 
-
 if (navigator.geolocation) {
     navigator.geolocation.watchPosition(updateMyPosition);
-}
-
-function updateMyPosition(position) {
-    console.log(position.coords.latitude + ", " + position.coords.longitude);
-    let pLabel = document.getElementById("MyPosition");
-    pLabel.innerText = position.coords.latitude + ", " + position.coords.longitude
 }
 
 function listButton_Click() {
@@ -33,6 +26,8 @@ function listButton_Click() {
     }
 }
 
+var trackYourselfTimerId = null;
+var myCurrentLocation = null;
 var personMap = null;
 var markerArray = [];
 
@@ -73,6 +68,34 @@ function initMap() {
     }, 10000);
 }
 
+function updateMyPosition(position) {
+    console.log(position.coords.latitude + ", " + position.coords.longitude);
+    let pLabel = document.getElementById("MyPosition");
+    pLabel.innerText = position.coords.latitude + ", " + position.coords.longitude
+
+    myCurrentLocation = position;
+}
+
+function gotoMyLocation() {
+    let center = new google.maps.LatLng(myCurrentLocation.coords.latitude, myCurrentLocation.coords.longitude);
+    personMap.panTo(center);
+}
+
+function toggleTrackYourselfCheckbox(element) {
+    //console.log(element.checked)
+    if (element.checked == true) {
+        trackYourselfTimerId = window.setInterval(function() {
+            console.log("trackYourself Timer ...");
+            gotoMyLocation();
+        }, 3000);
+    } else {
+        if (trackYourselfTimerId != null) {
+            window.clearInterval(trackYourselfTimerId);
+        }
+    }
+}
+
+//-------------------------------------------------------------------//
 
 var selfEasyrtcid = "";
 
@@ -98,6 +121,9 @@ function connect() {
     // is mobile
     if (urlSearchParams.get("isMobile") == "y") {
         document.getElementById("recordButtons").style.display = 'none';
+        let trackYourselfCheckbox = document.getElementById("trackYourselfCheckbox");
+        trackYourselfCheckbox.checked = true;
+        toggleTrackYourselfCheckbox(trackYourselfCheckbox);
     } else {
         document.getElementById("recordButtons").style.display = 'block';
     }
