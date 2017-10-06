@@ -71,14 +71,6 @@ function initMap() {
         //geolocation IS NOT available
     }
 
-    window.setInterval(function() {
-        console.log("timer...");
-        if (personMap != null) {
-            while(markerArray.length){
-                markerArray.pop().setMap(null);
-            }
-        }
-    }, 10000);
 }
 
 function updateMyPosition(position) {
@@ -155,6 +147,27 @@ function connect() {
     easyrtc.setRoomOccupantListener(convertListToButtons);
     easyrtc.easyApp("easyrtc.audioVideoSimple", "selfVideo", ["callerVideo"], loginSuccess, loginFailure);
 
+
+    // 每幾秒就更新一下地圖
+    window.setInterval(function() {
+        console.log("timer...");
+        if (personMap != null) {
+            // 刪除地圖裡的 marker
+            while(markerArray.length){
+                markerArray.pop().setMap(null);
+            }
+            //
+            //...
+        }
+    }, 8000);
+
+    //如果是 mobile 端，持續送出本地座標
+    if (urlSearchParams.get("isMobile") == "y") {
+        window.setInterval(function() {
+            console.log("mobile timer ...");
+            
+        }, 4000);
+    }
  }
 
 
