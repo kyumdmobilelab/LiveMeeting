@@ -53,9 +53,9 @@
                         <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
                     </div>
                     <div id="recordButtons">
-                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp8');" checked="checked" id="useVP8" name="codecUsed"> VP8 </input>
+                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp8');" id="useVP8" name="codecUsed"> VP8 </input>
                         <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp9');" id="useVP9" name="codecUsed"> VP9 </input>
-                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('h264');" id="useH264" name="codecUsed"> H264 </input>
+                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('h264');" checked="checked" id="useH264" name="codecUsed"> H264 </input>
                         <br>
                         <button id="startRecording" disabled="disabled" onclick="startRecording();" >Start recording</button> 
                         <button id="stopRecording" disabled="disabled" onclick="endRecording();" >End/finish recording</button> 

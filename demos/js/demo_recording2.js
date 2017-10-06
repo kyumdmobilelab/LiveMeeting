@@ -1,3 +1,20 @@
+var urlSearchParams = new URLSearchParams(location.search);
+//window.alert(searchParams.get("user") + ", " + searchParams.get("room"));
+
+if (urlSearchParams.get("user") === null || 
+    urlSearchParams.get("user") === "" ||
+    urlSearchParams.get("room") === null ||
+    urlSearchParams.get("room") === "") 
+{
+    if (/Mobi/.test(navigator.userAgent)) {
+        // mobile
+        window.location.href = "mobile.html";
+    } else {
+        // desktop
+        window.location.href = "index.html";
+    }
+}
+
 
 if (navigator.geolocation) {
     navigator.geolocation.watchPosition(updateMyPosition);
@@ -59,31 +76,28 @@ function initMap() {
 
 
 var selfEasyrtcid = "";
-var searchParams = null;
+
 
 function connect() {
-    searchParams = new URLSearchParams(location.search);
-    //window.alert(searchParams.get("user") + ", " + searchParams.get("room"));
-
     // user name
-    if (searchParams.get("user") != null) {
+    if (urlSearchParams.get("user") != null) {
         easyrtc.setUsername(searchParams.get("user"));        
     }
 
     // room
-    if (searchParams.get("room") != null) {
+    if (urlSearchParams.get("room") != null) {
         easyrtc.joinRoom(searchParams.get("room"), null, null, null);
     }
 
     // hide recordButtons
-    if (searchParams.get("hideRecord") == "y") {
+    if (urlSearchParams.get("hideRecord") == "y") {
         document.getElementById("recordButtons").style.display = 'none';
     } else {
         document.getElementById("recordButtons").style.display = 'block';
     }
 
     // is mobile
-    if (searchParams.get("isMobile") == "y") {
+    if (urlSearchParams.get("isMobile") == "y") {
         document.getElementById("recordButtons").style.display = 'none';
     } else {
         document.getElementById("recordButtons").style.display = 'block';
