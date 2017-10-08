@@ -54,6 +54,8 @@
                         <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
                     </div>
                     <div id="recordButtons">
+                    <fieldset style="width:450px;margin-left:5px;">
+                    <legend style="text-align:left;">&nbsp;&nbsp;Record Video&nbsp;&nbsp;</legend>
                         <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp8');" id="useVP8" name="codecUsed"> VP8 </input>
                         <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp9');" id="useVP9" name="codecUsed"> VP9 </input>
                         <input type="radio" onclick="easyrtc.setRecordingVideoCodec('h264');" checked="checked" id="useH264" name="codecUsed"> H264 </input>
@@ -63,6 +65,7 @@
                        <br>
                        download links for videos: self:<a id="selfDownloadLink"></a>
                         &nbsp;&nbsp;caller:<a id="callerDownloadLink"></a>
+                    </fieldset>
                     </div>
                 </div>
                 <!--hide-->

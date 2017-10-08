@@ -29,19 +29,31 @@ function listButton_Click() {
 function leaveRoomButton_Click() {
     if (confirm("Leave this room?")) {
         easyrtc.hangupAll();
-
-        if (urlSearchParams.get("os") == "android") {
-            B4A.CallSub('leaveRoom', true);
-            return;
+        let currentRoomName = urlSearchParams.get("room");
+        if (currentRoomName === null || currentRoomName === "")  {
+            currentRoomName = "default";
         }
+        
+        easyrtc.leaveRoom(currentRoomName, 
+            function(roomName) {
+                console.log("No longer in room " + roomName);
 
-        if (/Mobi/.test(navigator.userAgent)) {
-            // mobile
-            window.location.href = "mobile.html";
-        } else {
-            // desktop
-            window.location.href = "index.html";
-        }
+                if (urlSearchParams.get("os") == "android") {
+                    B4A.CallSub('leaveRoom', true);
+                    return;
+                }
+        
+                if (/Mobi/.test(navigator.userAgent)) {
+                    // mobile
+                    window.location.href = "mobile.html";
+                } else {
+                    // desktop
+                    window.location.href = "index.html";
+                }
+            },
+            function(errorCode, errorText, roomName) {
+                console.log("had problems leaving " + roomName);
+            });
     }
 }
 
