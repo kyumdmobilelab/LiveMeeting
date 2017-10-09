@@ -53,19 +53,29 @@
                         </div>
                         <!-- each caller video needs to be in it's own div so it's close button can be positioned correctly -->
                     </div>
+                    <!--
+                    <div id="controlPanel">
+                        <fieldset style="width:170px;margin-left:5px;">
+                            <legend style="text-align:left;">&nbsp; Control &nbsp;</legend>
+                            <div><input type="checkbox" id="videoDisableCheckbox" onchange="toggleVideoDisableCheckbox(this)">Disable My Video</div> 
+                            <div><input type="checkbox" id="audioDisableCheckbox" onchange="toggleAudioDisableCheckbox(this)">Disable My Audio</div>
+                        </fieldset>
+                    </div>
+                    -->
+                    
                     <div id="recordButtons">
-                    <fieldset style="width:450px;margin-left:5px;">
-                    <legend style="text-align:left;">&nbsp;&nbsp;Record Video&nbsp;&nbsp;</legend>
-                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp8');" id="useVP8" name="codecUsed"> VP8 </input>
-                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp9');" id="useVP9" name="codecUsed"> VP9 </input>
-                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('h264');" checked="checked" id="useH264" name="codecUsed"> H264 </input>
-                        <br>
-                        <button id="startRecording" disabled="disabled" onclick="startRecording();" >Start recording</button> 
-                        <button id="stopRecording" disabled="disabled" onclick="endRecording();" >End/finish recording</button> 
-                       <br>
-                       download links for videos: self:<a id="selfDownloadLink"></a>
-                        &nbsp;&nbsp;caller:<a id="callerDownloadLink"></a>
-                    </fieldset>
+                        <fieldset style="width:420px;margin-left:5px;">
+                        <legend style="text-align:left;">&nbsp; Record Video &nbsp;</legend>
+                            <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp8');" id="useVP8" name="codecUsed"> VP8 </input>
+                            <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp9');" id="useVP9" name="codecUsed"> VP9 </input>
+                            <input type="radio" onclick="easyrtc.setRecordingVideoCodec('h264');" checked="checked" id="useH264" name="codecUsed"> H264 </input>
+                            <br>
+                            <button id="startRecording" disabled="disabled" onclick="startRecording();" >Start recording</button> 
+                            <button id="stopRecording" disabled="disabled" onclick="endRecording();" >End/finish recording</button> 
+                            <br>
+                            download links for videos: self:<a id="selfDownloadLink"></a>
+                            &nbsp;&nbsp;caller:<a id="callerDownloadLink"></a>
+                        </fieldset>
                     </div>
                 </div>
                 <!--hide-->
@@ -76,8 +86,8 @@
         <hr />
         <div id="map"></div>
         <div style="margin-left:15px; margin-top:10px; height:40px;">
-            <input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)" style="float:left;">Track Yourself
             <button type="button" onclick="gotoMyLocation()" style="float:right;">Go to My Location</button>
+            <div id="trackYourself"><input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)" style="float:left;">Track Yourself</div>
         </div>
         <hr />
         <div id="MyPosition"></div>

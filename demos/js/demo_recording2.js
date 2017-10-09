@@ -94,7 +94,7 @@ function initMap() {
 function updateMyPosition(position) {
     console.log(position.coords.latitude + ", " + position.coords.longitude);
     let pLabel = document.getElementById("MyPosition");
-    pLabel.innerText = position.coords.latitude + ", " + position.coords.longitude
+    pLabel.innerText = "Current Location: " + position.coords.latitude + ", " + position.coords.longitude
 
     myCurrentLocation = position;
 }
@@ -117,6 +117,25 @@ function toggleTrackYourselfCheckbox(element) {
         }
     }
 }
+
+function toggleVideoDisableCheckbox(element) {
+    console.log(element.checked)
+    if (element.checked == true) {
+        easyrtc.enableVideo(false);
+    } else {
+        easyrtc.enableVideo(true);
+    }
+}
+
+function toggleAudioDisableCheckbox(element) {
+    console.log(element.checked)
+    if (element.checked == true) {
+        easyrtc.enableAudio(false);
+    } else {
+        easyrtc.enableAudio(true);
+    }
+}
+
 
 //-------------------------------------------------------------------//
 
@@ -149,6 +168,9 @@ function connect() {
         toggleTrackYourselfCheckbox(trackYourselfCheckbox);
     } else {
         document.getElementById("recordButtons").style.display = 'block';
+        document.getElementById("callerVideo").style.height = "320px";
+        document.getElementById("callerVideo").style.width = "480px";
+        document.getElementById("trackYourself").style.display = 'none';
     }
 
     

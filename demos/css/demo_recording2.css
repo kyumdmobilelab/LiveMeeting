@@ -32,9 +32,15 @@
     margin-bottom: 5px;
 }
 
-#recordButtons {
+#controlPanel {
     clear:both;
     margin-left:15px;
+}
+
+#recordButtons {
+    clear:both;
+    margin-left:10px;
+    padding-top: 5px;
 }
 
 #listButton {
