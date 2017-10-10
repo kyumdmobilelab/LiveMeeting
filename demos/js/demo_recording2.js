@@ -80,7 +80,8 @@ function initMap() {
             let marker = new google.maps.Marker({
                 position: center,
                 title: "123456",
-                label: {text: "123456", color: "#5151A2",  fontSize: "18px", fontWeight: "bold"},
+                label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
+                icon: "images/marker-s.png",
                 map: personMap
             });
             markerArray.push(marker);
