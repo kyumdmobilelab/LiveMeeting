@@ -217,8 +217,9 @@ function addToConversation(who, msgType, content) {
     // Escape html special characters, then add linefeeds.
     content = content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     content = content.replace(/\n/g, '<br />');
-    document.getElementById('conversation').innerHTML +=
-    "<b>&nbsp;" + easyrtc.idToName(who) + ":</b>&nbsp;" + content + "<br />";
+    let conversationObj = document.getElementById('conversation');
+    conversationObj.innerHTML += "<b>&nbsp;" + easyrtc.idToName(who) + ":</b>&nbsp;" + content + "<br />";
+    conversationObj.scrollTop = conversationObj.scrollHeight;
 }
 
 function sendMessageButton_Click(){
