@@ -141,7 +141,7 @@ function toggleAudioDisableCheckbox(element) {
 //-------------------------------------------------------------------//
 
 var selfEasyrtcid = "";
-
+var easyrtcidArray = null;
 
 function connect() {
     // user name
@@ -184,6 +184,8 @@ function connect() {
         if( easyrtc.isRecordingTypeSupported("vp8")) document.getElementById("useVP8").disabled = false;
     }
 
+    
+    easyrtc.setPeerListener(addToConversation);
     easyrtc.setVideoDims(640,480);
     easyrtc.setRoomOccupantListener(convertListToButtons);
     easyrtc.easyApp("easyrtc.audioVideoSimple", "selfVideo", ["callerVideo"], loginSuccess, loginFailure);
@@ -209,7 +211,33 @@ function connect() {
             
         }, 4000);
     }
- }
+}
+
+function addToConversation(who, msgType, content) {
+    // Escape html special characters, then add linefeeds.
+    content = content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    content = content.replace(/\n/g, '<br />');
+    document.getElementById('conversation').innerHTML +=
+    "<b>&nbsp;" + easyrtc.idToName(who) + ":</b>&nbsp;" + content + "<br />";
+}
+
+function sendMessageButton_Click(){
+    sendStuffP2P();
+}
+
+function sendStuffP2P() {
+    var text = document.getElementById('sendMessageText').value;
+    if(text.replace(/\s/g, "").length === 0) { // Don't send just whitespace
+        return;
+    }
+
+    for(let easyrtcid in easyrtcidArray) {
+        easyrtc.sendPeerMessage(easyrtcid, "im",  text);
+    }
+    
+    addToConversation("Me", "message", text);
+    document.getElementById('sendMessageText').value = "";
+}
 
 
 function clearConnectList() {
@@ -239,6 +267,7 @@ function convertListToButtons (roomName, data, isPrimary) {
         let br = document.createElement("br");
         otherClientDiv.appendChild(br);
     }
+    easyrtcidArray = data;
 }
 
 
