@@ -19,7 +19,7 @@
     float:left;
     border:1px solid gray;
     margin-left:15px;
-    margin-top:5px;
+    margin-top:10px;
     margin-bottom: 5px;
 }
 
@@ -28,7 +28,7 @@
     width:300px;
     border:1px solid gray;
     margin-left:15px;
-    margin-top:5px;
+    margin-top:10px;
     margin-bottom: 5px;
 }
 
@@ -44,6 +44,11 @@
 }
 
 #listButton {
+    margin-left:5px;
+    margin-top:10px;
+}
+
+#listDetails {
     margin-left:5px;
     margin-top:10px;
 }
