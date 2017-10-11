@@ -25,28 +25,23 @@
 
         <style type="text/css">
             #stuffToSend {width:300px;}
-            #sendMessageArea{
-                float:left;
-                width:400px;
-                padding-right:20px;
-            }
             #sendMessageText{
-                margin-left:15px;
+                margin-left:5px;
                 margin-top:5px;
                 margin-bottom: 5px;
             }
             #receiveMessageArea {
                 width: 350px;
-                height:320px;
+                height:330px;
                 overflow-y:hidden;
-                padding-left: 30px;
+                padding-left: 5px;
                 padding-top: 5px;
             }
             #conversation {
                 width: 280px;
                 height:220px;
                 border:solid 1px gray;
-                margin-left:15px;
+                margin-left:5px;
                 margin-top:5px;
                 margin-bottom: 5px;
             }
@@ -89,10 +84,10 @@
 
                     
                     <div id="receiveMessageArea">
-                        <div style="margin-left:15px;">Received Messages:</div>
+                        <div style="margin-left:5px;">Received Messages:</div>
                         <div id="conversation"></div>
-                        <div style="margin-left:15px;margin-top:10px;">Send Messages:</div>
-                        <input type="text" id="sendMessageText" name="sendMessageText" size="30" maxlength="150"/>
+                        <div style="margin-left:5px;margin-top:10px;">Send Messages:</div>
+                        <input type="text" id="sendMessageText" name="sendMessageText" size="20" maxlength="150"/>
                         <button type="button" onclick="sendMessageButton_Click()" style="width:55px;">Send</button>
                     </div>
                     
