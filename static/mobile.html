@@ -39,6 +39,15 @@
     <p style="text-align:center;">Room:&nbsp;
         <input type="text" name="room" id="roomText" size="15" maxlength="30">
     </p>
+    <p style="text-align:center;">Or choose a room :&nbsp;
+        <select name="selectRoom" onchange="selectRoom(this)">
+            <option value=""></option>
+            <option value="NorthArea">北區</option>
+            <option value="SouthArea">南區</option>
+            <option value="EastArea">東區</option>
+            <option value="WestArea">西區</option>
+        </select>
+    </p>
     <br />
     <input type="checkbox" id="rememberCheckbox" onchange="toggleCheckbox(this)" style="float:left;">Remember Me
     <button type="button" onclick="gotoMeeting()" style="width:60px;float:right;">Go</button>
@@ -68,6 +77,10 @@
         if (localStorage.getItem("roomname") !== "") {
             document.getElementById("roomText").value = localStorage.getItem("roomname");
         }
+    }
+
+    function selectRoom(e) {
+        document.getElementById("roomText").value = e.value;
     }
 
     function toggleCheckbox(element) {
