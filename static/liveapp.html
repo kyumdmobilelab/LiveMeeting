@@ -23,30 +23,6 @@
         <script type="text/javascript" src="/easyrtc/labs/easyrtc_recorder.js"></script>
         <script type="text/javascript" src="/demos/js/demo_recording2.js"></script>
 
-        <style type="text/css">
-            #stuffToSend {width:300px;}
-            #sendMessageText{
-                margin-left:5px;
-                margin-top:5px;
-                margin-bottom: 5px;
-            }
-            #receiveMessageArea {
-                width: 350px;
-                height:330px;
-                overflow-y:hidden;
-                padding-left: 5px;
-                padding-top: 5px;
-            }
-            #conversation {
-                width: 280px;
-                height:220px;
-                border:solid 1px gray;
-                overflow-y:scroll;
-                margin-left:5px;
-                margin-top:5px;
-                margin-bottom: 5px;
-            }
-        </style>
     </head>
     <body onload="connect();">
         <!--hide-->
@@ -104,7 +80,7 @@
                     -->
                     
                     <div id="recordButtons">
-                        <fieldset style="width:420px;margin-left:5px;">
+                        <fieldset>
                         <legend style="text-align:left;">&nbsp; Record Video &nbsp;</legend>
                             <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp8');" id="useVP8" name="codecUsed"> VP8 </input>
                             <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp9');" id="useVP9" name="codecUsed"> VP9 </input>
@@ -117,6 +93,7 @@
                             &nbsp;&nbsp;caller:<a id="callerDownloadLink"></a>
                         </fieldset>
                     </div>
+                    
                 </div>
                 <!--hide-->
                 <br style="clear:both;" />

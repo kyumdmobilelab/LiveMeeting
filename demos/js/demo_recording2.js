@@ -169,8 +169,8 @@ function connect() {
         toggleTrackYourselfCheckbox(trackYourselfCheckbox);
     } else {
         document.getElementById("recordButtons").style.display = 'block';
-        document.getElementById("callerVideo").style.height = "320px";
-        document.getElementById("callerVideo").style.width = "480px";
+        // document.getElementById("callerVideo").style.height = "320px";
+        // document.getElementById("callerVideo").style.width = "480px";
         document.getElementById("trackYourself").style.display = 'none';
     }
 
@@ -285,7 +285,7 @@ function loginSuccess(easyrtcid) {
     if (easyrtc.username == null) {
         document.getElementById("iam").innerHTML = "I am \"" + easyrtc.cleanId(easyrtcid) + "\".";
     } else {
-        document.getElementById("iam").innerHTML = "I am \"" + easyrtc.username + "\". (" + easyrtc.cleanId(easyrtcid) + ")";
+        document.getElementById("iam").innerHTML = "I am \"" + easyrtc.username + "\".";
     }
     document.getElementById("startRecording").disabled = false;
 }
