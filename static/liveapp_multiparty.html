@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multiparty Chatroom</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+         <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
+
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <link rel="stylesheet" type="text/css" href="/demos/css/demo_room2.css" />
+        <script type="text/javascript" src="/demos/js/demo_multiparty2.js"></script>
+    </head>
+
+    <body onload="appInit()">
+        <div id="fullpage"  class="boxCommon" style="background-image:url(images/irongrip.png)">
+            <video id="box0" class="transit boxCommon thumbCommon easyrtcMirror" muted="muted" volume="0" ></video>
+            <video id="box1" class="transit boxCommon thumbCommon" style="visibility:hidden"></video>
+            <video id="box2" class="transit boxCommon thumbCommon" style="visibility:hidden"></video>
+            <video id="box3" class="transit boxCommon thumbCommon" style="visibility:hidden"></video>
+            <div id="textentryBox" onsubmit="sendText()" style="display:none" >
+                <input type="text" id="textentryField"  class="transit boxcommon" /><br>
+                <button id="textentrySubmit" style="float:right;margin-right:1em" onclick="sendText()">Send</button>
+                <button id="textentryCancel" style="float:left;margin-left:1em" onclick="cancelText()">Cancel</button>
+            </div>
+
+            <img id="killButton" class="transit boxCommon" onclick="killActiveBox()" src="images/button_close.png" style="display:none;z-index:3" alt="close button" />
+            <img id="muteButton" class="transit boxCommon" onclick ="muteActiveBox()" src="images/button_mute.png" style="display:none;z-index:3" alt="mute button" />
+            <img id="textEntryButton" class="transit boxCommon" onclick ="showTextEntry()" src="images/textEntry.png" style="z-index:3;display:none" alt="text button" />
+        </div>
+        <div id="controlBlock">
+            <div id="map" style="visibility:hidden"></div>
+            <hr />
+            <div id="connectControls">
+                <div id="iam">Not yet connected...</div>
+                <div id="roomname">Room: </div>
+                <br />
+                <strong>Connected users:</strong>
+                <div id="otherClients"></div>
+            </div>
+            <div id="mutedControls">
+                <!--<div style="text-align:center">Muted Controls</div>
+                <hr />-->
+                <fieldset>
+                    <legend style="text-align:center;">&nbsp; Muted Controls &nbsp;</legend>
+                    <div id="mutedUsers"></div>
+                </fieldset>
+                
+            </div>
+            <div id="recordButtons">
+                <fieldset>
+                    <legend style="text-align:left;">&nbsp; Record Video &nbsp;</legend>
+                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp8');" id="useVP8" name="codecUsed"> VP8 </input>
+                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp9');" id="useVP9" name="codecUsed"> VP9 </input>
+                        <input type="radio" onclick="easyrtc.setRecordingVideoCodec('h264');" checked="checked" id="useH264" name="codecUsed"> H264 </input>
+                        <br>
+                        <button id="startRecording" disabled="disabled" onclick="startRecording();" >Start recording</button> 
+                        <button id="stopRecording" disabled="disabled" onclick="endRecording();" >End/finish recording</button> 
+                        <br>
+                        download links for videos: self:<a id="selfDownloadLink"></a>
+                        &nbsp;&nbsp;caller:<a id="callerDownloadLink"></a>
+                </fieldset>
+            </div>
+        </div>
+    </body>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpb2TeDYNQgecFfMRMQPvp57Td9AWbzk&callback=initMap">
+    </script>
+</html>

@@ -40,6 +40,10 @@
             <option value="WestArea">西區</option>
         </select>
     </p>
+    <p style="text-align:center;margin-top:30px;">
+        <input type="radio" name="GroupVideoRadios" value="one"/>One Video
+        <input type="radio" name="GroupVideoRadios" value="group" checked="checked"/>Group Video
+    </p>
     <br />
     <input type="checkbox" id="rememberCheckbox" onchange="toggleCheckbox(this)" style="float:left;">Remember Me
     <button type="button" onclick="gotoMeeting()" style="width:70px;float:right;">Go</button>
@@ -102,7 +106,18 @@
             localStorage.setItem("roomname", room);
         }
 
-        window.location.href = "liveapp.html?" + "user=" + username + "&room=" + room;
+        let radios = document.getElementsByName('GroupVideoRadios');
+
+        for (let i=0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                if (radios[i].value == "one") {
+                    window.location.href = "liveapp.html?" + "user=" + username + "&room=" + room;
+                } else {
+                    window.location.href = "liveapp_multiparty.html?" + "user=" + username + "&room=" + room;
+                }
+                break;
+            }
+        }
     }
 </script>
 </html>

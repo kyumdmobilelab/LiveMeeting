@@ -1,0 +1,131 @@
+#demoContainer {
+    position:relative;
+}
+#connectControls {
+    float:left;
+    width:180px;
+    text-align:center;
+    border: 2px solid black;
+    margin-left:15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+#otherClients {
+    height:150px;
+    overflow-y:scroll;
+}
+#selfVideo {
+    height:225px;
+    width:300px;
+    float:left;
+    border:1px solid gray;
+    margin-left:15px;
+    margin-top:10px;
+    margin-bottom: 5px;
+}
+
+#callerVideo {
+    height:225px;
+    width:300px;
+    border:1px solid gray;
+    margin-left:15px;
+    margin-right: 15px;
+    margin-top:10px;
+    margin-bottom: 5px;
+}
+
+#box0 {
+    height:225px;
+    width:300px;
+    float:left;
+    border:1px solid gray;
+    margin-left:15px;
+    margin-top:10px;
+    margin-bottom: 5px;
+}
+
+#box1 {
+    height:225px;
+    width:300px;
+    border:1px solid gray;
+    margin-left:15px;
+    margin-right: 15px;
+    margin-top:10px;
+    margin-bottom: 5px;
+}
+#box2 {
+    height:225px;
+    width:300px;
+    border:1px solid gray;
+    margin-left:15px;
+    margin-right: 15px;
+    margin-top:10px;
+    margin-bottom: 5px;
+}
+#box3 {
+    height:225px;
+    width:300px;
+    border:1px solid gray;
+    margin-left:15px;
+    margin-right: 15px;
+    margin-top:10px;
+    margin-bottom: 5px;
+}
+
+#controlPanel {
+    clear:both;
+    margin-left:15px;
+}
+
+#recordButtons {
+    /*clear: both;*/
+    float: left;
+    height:120px;
+    width:450px;
+    margin-left:10px;
+    margin-top: 25px;
+}
+
+#listButton {
+    margin-left:5px;
+    margin-top:10px;
+}
+
+#listDetails {
+    margin-left:5px;
+    margin-top:10px;
+}
+
+#map {
+    width: 100%;
+    height: 450px;
+    background-color: grey;
+}
+
+#stuffToSend {
+    width:300px;
+}
+
+#sendMessageText{
+    margin-left:5px;
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+#receiveMessageArea {
+    clear: left;
+    width:300px;
+    height:320px;
+    float:left;
+    margin-left:15px;
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+#conversation {
+    width: 280px;
+    height:220px;
+    border:solid 1px gray;
+    overflow-y:scroll;
+    margin-left:5px;
+    margin-top:5px;
+    margin-bottom: 5px;
+}
