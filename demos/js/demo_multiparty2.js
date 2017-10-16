@@ -715,6 +715,7 @@ function messageListener(easyrtcid, msgType, content) {
     }
 }
 
+var currentTextTracks = [];
 
 function appInit() {
 
@@ -765,10 +766,27 @@ function appInit() {
             document.getElementById('textEntryButton').style.display = 'block';
         }
         document.getElementById(getIdOfBox(slot+1)).style.visibility = "visible";
+
+        //------
+        let video = document.getElementById(getIdOfBox(slot+1));
+        let userName = " " + easyrtc.idToName(easyrtcid) + " ";
+
+        if (currentTextTracks[slot]) {
+            let currentTextTrack = currentTextTracks[slot];
+            let currentCue = currentTextTrack.cues[0];
+            currentTextTrack.removeCue(currentCue);
+            currentTextTrack.addCue(new VTTCue(0, Number.MAX_SAFE_INTEGER, userName));
+        } else {
+            let newTextTrack = video.addTextTrack("captions", "sample");
+            newTextTrack.mode = "showing";
+            newTextTrack.addCue(new VTTCue(0, Number.MAX_SAFE_INTEGER, userName));
+            currentTextTracks[slot] = newTextTrack;
+        }
+        //------
+
         handleWindowResize();
 
-        console.log("getConnection count="  + easyrtc.getConnectionCount() );
-        
+        console.log("getConnection count="  + easyrtc.getConnectionCount() ); 
     });
 
 
@@ -777,6 +795,10 @@ function appInit() {
         if(activeBox > 0 && slot+1 == activeBox) {
             collapseToThumb();
         }
+
+        
+        
+
         setTimeout(function() {
             document.getElementById(getIdOfBox(slot+1)).style.visibility = "hidden";
 
@@ -821,14 +843,12 @@ function showUserList(otherPeople) {
     clearConnectList();
 
     let otherClientDiv = document.getElementById('otherClients');
-    // for (let i=0; i<easyrtc.getConnectionCount(); i++) {
-        // let easyrtcid = easyrtc.getIthCaller(i);
 
     for(let easyrtcid in otherPeople) {
         let button = document.createElement('button');
         button.onclick = function(easyrtcid) {
             return function() {
-                //performCall(easyrtcid);
+                performCall(easyrtcid);
             };
         }(easyrtcid);
 
@@ -841,8 +861,7 @@ function showUserList(otherPeople) {
     }
 
     let mutedUsersDiv = document.getElementById('mutedUsers');
-    // for (let i=0; i<easyrtc.getConnectionCount(); i++) {
-    //     let easyrtcid = easyrtc.getIthCaller(i);
+
     for(let easyrtcid in otherPeople) {
         let checkbox = document.createElement('input');
         checkbox.type = "checkbox";
@@ -858,4 +877,11 @@ function showUserList(otherPeople) {
 
         mutedUsersDiv.appendChild(pNode);        
     }
+}
+
+
+function performCall(otherEasyrtcid) {
+    let slot = easyrtc.getSlotOfCaller(otherEasyrtcid);
+    console.log(slot);
+    expandThumb(slot+1);
 }
