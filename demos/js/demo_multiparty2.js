@@ -501,6 +501,9 @@ function updateMuteImage(toggle) {
             videoObject.muted = isMuted;
         }
         muteButton.src = isMuted?"images/button_unmute.png":"images/button_mute.png";
+
+        let muteCheckbox = document.getElementById( "checkbox_" + muteCheckboxIds[getIdOfBox(activeBox)] );
+        muteCheckbox.checked = isMuted;
     }
     else {
         muteButton.style.display = "none";
@@ -521,7 +524,8 @@ function expandThumb(whichBox) {
         if( whichBox > 0) {
             document.getElementById('muteButton').style.display = "block";
             updateMuteImage();
-            document.getElementById('killButton').style.display = "block";
+            //document.getElementById('killButton').style.display = "block";
+            document.getElementById('killButton').style.display = "none";
         }
     }
     updateMuteImage(false);
@@ -682,7 +686,7 @@ function showMessage(startX, startY, content) {
             textObject.className = "boxCommon";
             textObject.style.left = Math.floor(centerEndX-fullW/8) + "px";
             textObject.style.top = Math.floor(centerEndY) + "px";
-            textObject.style.fontSize = "36pt";
+            textObject.style.fontSize = "16pt";
             textObject.style.width = (fullW*.4) + "px";
             textObject.style.height = (fullH*.4) + "px";
             textObject.style.zIndex = 6;
@@ -705,17 +709,21 @@ function showMessage(startX, startY, content) {
 }
 
 function messageListener(easyrtcid, msgType, content) {
+    console.log(easyrtc.idToName(easyrtcid));
+
     for(var i = 0; i < maxCALLERS; i++) {
         if( easyrtc.getIthCaller(i) == easyrtcid) {
             var startArea = document.getElementById(getIdOfBox(i+1));
             var startX = parseInt(startArea.offsetLeft) + parseInt(startArea.offsetWidth)/2;
             var startY = parseInt(startArea.offsetTop) + parseInt(startArea.offsetHeight)/2;
-            showMessage(startX, startY, content);
+            let msg = easyrtc.idToName(easyrtcid) + ": " + content;
+            showMessage(startX, startY, msg);
         }
     }
 }
 
 var currentTextTracks = [];
+var muteCheckboxIds = {};
 
 function appInit() {
 
@@ -787,6 +795,8 @@ function appInit() {
         handleWindowResize();
 
         console.log("getConnection count="  + easyrtc.getConnectionCount() ); 
+
+        muteCheckboxIds[getIdOfBox(slot+1)] = easyrtcid;
     });
 
 
@@ -796,11 +806,9 @@ function appInit() {
             collapseToThumb();
         }
 
-        
-        
-
         setTimeout(function() {
             document.getElementById(getIdOfBox(slot+1)).style.visibility = "hidden";
+            document.getElementById(getIdOfBox(slot+1)).muted = false;
 
             if( easyrtc.getConnectionCount() == 0 ) { // no more connections
                 expandThumb(0);
@@ -811,6 +819,7 @@ function appInit() {
 
             console.log("getConnection count="  + easyrtc.getConnectionCount() );
 
+            muteCheckboxIds[getIdOfBox(slot+1)] = "";
         },20);
     });
 }
@@ -865,10 +874,15 @@ function showUserList(otherPeople) {
     for(let easyrtcid in otherPeople) {
         let checkbox = document.createElement('input');
         checkbox.type = "checkbox";
-        //checkbox.name = "name";
+        checkbox.name = easyrtcid;
         checkbox.className = "mutedCheckbox";
-        checkbox.value = easyrtcid;
-        checkbox.id = easyrtcid;
+        checkbox.id = "checkbox_" + easyrtcid;
+
+        checkbox.onchange = function(e, easyrtcid) {
+            return function() {
+                performMutedCall(easyrtcid, e.checked);
+            };
+        }(checkbox, easyrtcid);
         
         let pNode = document.createElement('p');
         let label = document.createTextNode(easyrtc.idToName(easyrtcid));
@@ -884,4 +898,43 @@ function performCall(otherEasyrtcid) {
     let slot = easyrtc.getSlotOfCaller(otherEasyrtcid);
     console.log(slot);
     expandThumb(slot+1);
+}
+
+function performMutedCall(otherEasyrtcid, isMuted) {
+    let slot = easyrtc.getSlotOfCaller(otherEasyrtcid);
+    let videoObject = document.getElementById(getIdOfBox(slot+1));
+    videoObject.muted = isMuted;
+    updateMuteImage(false);
+}
+
+
+function leaveRoomButton_Click() {
+    if (confirm("Leave this room?")) {
+        easyrtc.hangupAll();
+        let currentRoomName = urlSearchParams.get("room");
+        if (currentRoomName === null || currentRoomName === "")  {
+            currentRoomName = "default";
+        }
+        
+        easyrtc.leaveRoom(currentRoomName, 
+            function(roomName) {
+                console.log("No longer in room " + roomName);
+
+                if (urlSearchParams.get("os") == "android") {
+                    B4A.CallSub('leaveRoom', true);
+                    return;
+                }
+        
+                if (/Mobi/.test(navigator.userAgent)) {
+                    // mobile
+                    window.location.href = "mobile.html";
+                } else {
+                    // desktop
+                    window.location.href = "index.html";
+                }
+            },
+            function(errorCode, errorText, roomName) {
+                console.log("had problems leaving " + roomName);
+            });
+    }
 }
