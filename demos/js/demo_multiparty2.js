@@ -499,6 +499,10 @@ function updateMuteImage(toggle) {
         if( toggle) {
             isMuted = !isMuted;
             videoObject.muted = isMuted;
+
+            if (urlSearchParams.get("os") == "android") {
+                B4A.CallSub('allMutedChange', true);
+            }
         }
         muteButton.src = isMuted?"images/button_unmute.png":"images/button_mute.png";
 
@@ -814,6 +818,10 @@ function appInit() {
             document.getElementById(getIdOfBox(slot+1)).style.visibility = "hidden";
             document.getElementById(getIdOfBox(slot+1)).muted = false;
 
+            if (urlSearchParams.get("os") == "android") {
+                B4A.CallSub('allMutedChange', true);
+            }
+
             if( easyrtc.getConnectionCount() == 0 ) { // no more connections
                 expandThumb(0);
                 document.getElementById('textEntryButton').style.display = 'none';
@@ -927,25 +935,13 @@ function mutedOtherBoxes(whichBox) {
                     muteCheckbox.checked = true;
                 }
             }
+
+            if (urlSearchParams.get("os") == "android") {
+                B4A.CallSub('allMutedChange', true);
+            }
         }
     }
 }
-
-// Android Use:
-function allBoxesMuted(isMuted) {
-    for (let key in muteCheckboxIds) {
-        let videoObject = document.getElementById(key);
-
-        if (isMuted == true) {
-            videoObject.muted = true;
-        } else {
-            videoObject.muted = false;
-        }
-        
-        updateMuteImage(false);
-    }
-}
-
 
 function leaveRoomButton_Click() {
     if (confirm("Leave this room?")) {
@@ -977,3 +973,20 @@ function leaveRoomButton_Click() {
             });
     }
 }
+
+
+//--- Android Use: ---
+function allBoxesMuted(isMuted) {
+    for (let key in muteCheckboxIds) {
+        let videoObject = document.getElementById(key);
+
+        if (isMuted == true) {
+            videoObject.muted = true;
+        } else {
+            videoObject.muted = false;
+        }
+        
+        updateMuteImage(false);
+    }
+}
+//--------------------
