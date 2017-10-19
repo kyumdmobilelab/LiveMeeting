@@ -777,6 +777,19 @@ function appInit() {
         easyrtc.showError("LOST-CONNECTION", "Lost connection to signaling server");
     });
     easyrtc.setOnCall( function(easyrtcid, slot) {
+        //-- mobile: --
+        if (urlSearchParams.get("isMobile") == "y") {
+            let username = easyrtc.idToName(easyrtcid).toLowerCase();
+            if (username !== "master") {
+                setTimeout( function() {
+                    easyrtc.hangup(easyrtcid);
+                }, 400);
+                return;
+            }            
+        }
+        //-------------
+
+
         boxUsed[slot+1] = true;
         if(activeBox == 0 ) { // first connection
             collapseToThumb();
