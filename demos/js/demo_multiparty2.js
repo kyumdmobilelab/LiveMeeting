@@ -45,9 +45,9 @@ function reshapeFull(parentw, parenth) {
 
 function reshapeTextEntryBox(parentw, parenth) {
     return {
-        left:parentw/4,
+        left:parentw/10,
         top:parenth/4,
-        width:parentw/2,
+        width:(parentw/5)*4,
         height: parenth/4
     }
 }
