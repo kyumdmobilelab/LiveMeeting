@@ -918,11 +918,28 @@ function mutedOtherBoxes(whichBox) {
     
             if (key == getIdOfBox(whichBox)) {
                 videoObject.muted = false;
-                muteCheckbox.checked = false;
+                if (muteCheckbox) {
+                    muteCheckbox.checked = false;
+                }
             } else {
                 videoObject.muted = true;
-                muteCheckbox.checked = true;
+                if (muteCheckbox) {
+                    muteCheckbox.checked = true;
+                }
             }
+        }
+    }
+}
+
+// Android Use:
+function allBoxesMuted(isMuted) {
+    for (let key in muteCheckboxIds) {
+        let videoObject = document.getElementById(key);
+
+        if (isMuted == true) {
+            videoObject.muted = true;
+        } else {
+            videoObject.muted = false;
         }
     }
 }
