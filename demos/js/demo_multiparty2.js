@@ -500,6 +500,7 @@ function updateMuteImage(toggle) {
             isMuted = !isMuted;
             videoObject.muted = isMuted;
 
+            // android:
             if (urlSearchParams.get("os") == "android") {
                 B4A.CallSub('allMutedChange', true);
             }
@@ -805,6 +806,11 @@ function appInit() {
         console.log("getConnection count="  + easyrtc.getConnectionCount() ); 
 
         muteCheckboxIds[getIdOfBox(slot+1)] = easyrtcid;
+
+        // android:
+        if (urlSearchParams.get("os") == "android") {
+            B4A.CallSub('allMutedChange', true);
+        }
     });
 
 
@@ -818,6 +824,7 @@ function appInit() {
             document.getElementById(getIdOfBox(slot+1)).style.visibility = "hidden";
             document.getElementById(getIdOfBox(slot+1)).muted = false;
 
+            // android:
             if (urlSearchParams.get("os") == "android") {
                 B4A.CallSub('allMutedChange', true);
             }
@@ -936,6 +943,7 @@ function mutedOtherBoxes(whichBox) {
                 }
             }
 
+            // android:
             if (urlSearchParams.get("os") == "android") {
                 B4A.CallSub('allMutedChange', true);
             }
@@ -955,6 +963,7 @@ function leaveRoomButton_Click() {
             function(roomName) {
                 console.log("No longer in room " + roomName);
 
+                // android:
                 if (urlSearchParams.get("os") == "android") {
                     B4A.CallSub('leaveRoom', true);
                     return;
