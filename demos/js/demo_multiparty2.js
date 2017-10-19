@@ -941,6 +941,8 @@ function allBoxesMuted(isMuted) {
         } else {
             videoObject.muted = false;
         }
+        
+        updateMuteImage(false);
     }
 }
 
