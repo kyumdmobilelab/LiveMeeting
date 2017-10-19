@@ -512,6 +512,10 @@ function updateMuteImage(toggle) {
 
 
 function expandThumb(whichBox) {
+    //------------------------------
+    mutedOtherBoxes(whichBox)
+    //------------------------------
+    
     var lastActiveBox = activeBox;
     if( activeBox >= 0 ) {
         collapseToThumbHelper();
@@ -893,7 +897,6 @@ function showUserList(otherPeople) {
     }
 }
 
-
 function performCall(otherEasyrtcid) {
     let slot = easyrtc.getSlotOfCaller(otherEasyrtcid);
     console.log(slot);
@@ -905,6 +908,23 @@ function performMutedCall(otherEasyrtcid, isMuted) {
     let videoObject = document.getElementById(getIdOfBox(slot+1));
     videoObject.muted = isMuted;
     updateMuteImage(false);
+}
+
+function mutedOtherBoxes(whichBox) {
+    for (let key in muteCheckboxIds) {
+        if (muteCheckboxIds[key]) {
+            let videoObject = document.getElementById(key);
+            let muteCheckbox = document.getElementById( "checkbox_" + muteCheckboxIds[key] );
+    
+            if (key == getIdOfBox(whichBox)) {
+                videoObject.muted = false;
+                muteCheckbox.checked = false;
+            } else {
+                videoObject.muted = true;
+                muteCheckbox.checked = true;
+            }
+        }
+    }
 }
 
 
