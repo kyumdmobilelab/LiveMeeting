@@ -518,7 +518,9 @@ function updateMuteImage(toggle) {
 
 function expandThumb(whichBox) {
     //------------------------------
-    mutedOtherBoxes(whichBox)
+    if (urlSearchParams.get("isMobile") !== "y") {
+        mutedOtherBoxes(whichBox)
+    }
     //------------------------------
     
     var lastActiveBox = activeBox;
