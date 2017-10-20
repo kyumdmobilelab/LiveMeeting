@@ -785,7 +785,7 @@ function appInit() {
             if (username !== "master") {
                 setTimeout( function() {
                     easyrtc.hangup(easyrtcid);
-                }, 400);
+                }, 100);
                 return;
             }            
         }
