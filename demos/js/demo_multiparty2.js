@@ -1031,6 +1031,14 @@ var caller2Recorder = null;
 var caller3Recorder = null;
 
 function startRecording() {
+    let nowdate = new Date().toLocaleDateString().replace(/\//g, '-');;
+    let nowtime = new Date().toLocaleTimeString('en-US', { hour12: false, 
+                                                           hour: "numeric", 
+                                                           minute: "numeric",
+                                                           second: "numeric" });
+    let timeStr = nowdate + "_" + nowtime;
+    console.log(timeStr);
+
     var selfLink = document.getElementById("selfDownloadLink");
     selfLink.innerText = "";
 
