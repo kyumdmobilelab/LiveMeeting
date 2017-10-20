@@ -622,6 +622,7 @@ function loginSuccess(easyrtcid) {
     } else {
         document.getElementById("iam").innerHTML = "I am "  + easyrtc.username + ".";
     }
+    document.getElementById("startRecording").disabled = false;
 }
 
 
@@ -772,6 +773,16 @@ function appInit() {
     }
 
 
+    // support record?
+    if( !easyrtc.supportsRecording()) {
+        document.getElementById("recordButtons").style.display = 'none';
+     } else {
+         if( easyrtc.isRecordingTypeSupported("h264")) document.getElementById("useH264").disabled = false;
+         if( easyrtc.isRecordingTypeSupported("vp9")) document.getElementById("useVP9").disabled = false;
+         if( easyrtc.isRecordingTypeSupported("vp8")) document.getElementById("useVP8").disabled = false;
+     }
+
+
     easyrtc.setRoomOccupantListener(callEverybodyElse);
     easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3"], loginSuccess);
     easyrtc.setPeerListener(messageListener);
@@ -790,7 +801,6 @@ function appInit() {
             }            
         }
         //-------------
-
 
         boxUsed[slot+1] = true;
         if(activeBox == 0 ) { // first connection
@@ -827,7 +837,6 @@ function appInit() {
             B4A.CallSub('allMutedChange', true);
         }
     });
-
 
     easyrtc.setOnHangup(function(easyrtcid, slot) {
         boxUsed[slot+1] = false;
@@ -1014,3 +1023,89 @@ function allBoxesMuted(isMuted) {
     }
 }
 //--------------------
+
+
+var selfRecorder = null;
+var caller1Recorder = null;
+var caller2Recorder = null;
+var caller3Recorder = null;
+
+function startRecording() {
+    var selfLink = document.getElementById("selfDownloadLink");
+    selfLink.innerText = "";
+
+    // self video
+    selfRecorder = easyrtc.recordToFile( easyrtc.getLocalStream(), 
+               selfLink, "self_Video");
+    if( selfRecorder ) {
+       document.getElementById("startRecording").disabled = true;
+       document.getElementById("stopRecording").disabled = false;
+    }
+    else {
+       window.alert("failed to start recorder for self");
+       return;
+    }
+
+    // caller 1 video
+    var caller1Link = document.getElementById("caller1DownloadLink");
+    caller1Link.innerText = "";
+
+    if( easyrtc.getIthCaller(0)) {
+       caller1Recorder = easyrtc.recordToFile(
+           easyrtc.getRemoteStream(easyrtc.getIthCaller(0), null), 
+             caller1Link, "caller1_Video");
+       if( !caller1Recorder ) {
+          window.alert("failed to start recorder for caller 1");
+       }
+    } else {
+       caller1Recorder = null;
+    }
+
+    // caller 2 video
+    var caller2Link = document.getElementById("caller2DownloadLink");
+    caller2Link.innerText = "";
+
+    if( easyrtc.getIthCaller(1)) {
+       caller2Recorder = easyrtc.recordToFile(
+           easyrtc.getRemoteStream(easyrtc.getIthCaller(1), null), 
+             caller2Link, "caller2_Video");
+       if( !caller2Recorder ) {
+          window.alert("failed to start recorder for caller 2");
+       }
+    } else {
+       caller2Recorder = null;
+    }
+
+    // caller 3 video
+    var caller3Link = document.getElementById("caller3DownloadLink");
+    caller3Link.innerText = "";
+
+    if( easyrtc.getIthCaller(2)) {
+       caller3Recorder = easyrtc.recordToFile(
+           easyrtc.getRemoteStream(easyrtc.getIthCaller(2), null), 
+             caller3Link, "caller3_Video");
+       if( !caller3Recorder ) {
+          window.alert("failed to start recorder for caller 3");
+       }
+    } else {
+       caller3Recorder = null;
+    }
+}
+
+function endRecording() {
+    if( selfRecorder ) {
+       selfRecorder.stop();
+    }
+    if( caller1Recorder ) {
+       caller1Recorder.stop();
+    }
+    if( caller2Recorder ) {
+        caller2Recorder.stop();
+    }
+    if( caller3Recorder ) {
+        caller3Recorder.stop();
+    }
+    document.getElementById("startRecording").disabled = false;
+    document.getElementById("stopRecording").disabled = true;
+}
+

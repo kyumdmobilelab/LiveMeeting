@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+        <script type="text/javascript" src="/easyrtc/labs/easyrtc_recorder.js"></script>
         <link rel="stylesheet" type="text/css" href="/demos/css/demo_room2.css" />
         <script type="text/javascript" src="/demos/js/demo_multiparty2.js"></script>
     </head>
@@ -58,8 +59,11 @@
                         <button id="startRecording" disabled="disabled" onclick="startRecording();" >Start recording</button> 
                         <button id="stopRecording" disabled="disabled" onclick="endRecording();" >End/finish recording</button> 
                         <br>
-                        download links for videos: self:<a id="selfDownloadLink"></a>
-                        &nbsp;&nbsp;caller:<a id="callerDownloadLink"></a>
+                        &nbsp;download links for videos: <br />
+                        &nbsp;&nbsp;&nbsp;self :&nbsp;<a id="selfDownloadLink"></a><br />
+                        &nbsp;&nbsp;&nbsp;caller 1 :&nbsp;<a id="caller1DownloadLink"></a><br />
+                        &nbsp;&nbsp;&nbsp;caller 2 :&nbsp;<a id="caller2DownloadLink"></a><br />
+                        &nbsp;&nbsp;&nbsp;caller 3 :&nbsp;<a id="caller3DownloadLink"></a><br />
                 </fieldset>
             </div>
         </div>
