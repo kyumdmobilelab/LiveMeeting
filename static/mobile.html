@@ -40,7 +40,7 @@
         <input type="text" name="room" id="roomText" size="15" maxlength="30">
     </p>
     <p style="text-align:center;">Or choose a room :&nbsp;
-        <select name="selectRoom" onchange="selectRoom(this)">
+        <select id="selectRoom" name="selectRoom" onchange="selectRoom(this)">
             <option value=""></option>
             <option value="NorthArea">北區</option>
             <option value="SouthArea">南區</option>
@@ -82,6 +82,16 @@
         }
         if (localStorage.getItem("roomname") !== "") {
             document.getElementById("roomText").value = localStorage.getItem("roomname");
+
+            if (localStorage.getItem("roomname") === "NorthArea") {
+                document.getElementById("selectRoom").selectedIndex = "1";
+            } else if (localStorage.getItem("roomname") === "SouthArea") {
+                document.getElementById("selectRoom").selectedIndex = "2";
+            } else if (localStorage.getItem("roomname") === "EastArea") {
+                document.getElementById("selectRoom").selectedIndex = "3";
+            } else if (localStorage.getItem("roomname") === "WestArea") {
+                document.getElementById("selectRoom").selectedIndex = "4";
+            }
         }
     }
 

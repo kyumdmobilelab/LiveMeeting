@@ -81,7 +81,6 @@ body {
 }
 
 #controlBlock {
-    /*height: 850px;*/
     float: right;
     background-color: #fdfdfd;
 }
@@ -92,44 +91,3 @@ body {
     float:right;
 }
 
-#map {
-    height: 500px;
-    float: right;
-    background-color: grey;
-    margin-bottom: 2px;
-}
-
-#connectControls {
-    float:left;
-    width:180px;
-    text-align:center;
-    border: 2px solid #535353;
-    margin-left:15px;
-    margin-right: 5px;
-    margin-bottom: 20px;
-    margin-top: 15px;
-}
-
-#otherClients {
-    height:110px;
-    overflow-y:scroll;
-}
-
-#mutedControls {
-    float:left;
-    margin-top: 10px;
-    margin-left:10px;
-    margin-bottom: 10px;
-}
-
-#mutedUsers {
-    height:140px;
-}
-
-#recordButtons {
-    float:left;
-    width:350px;
-    margin-top:10px;
-    margin-bottom: 20px;
-    margin-left:10px;
-}

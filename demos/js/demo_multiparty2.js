@@ -14,6 +14,11 @@ if (urlSearchParams.get("user") === null ||
     }
 }
 
+if (navigator.geolocation) {
+    if (urlSearchParams.get("os") !== "android") {
+        navigator.geolocation.watchPosition(updateMyPosition);
+    }
+}
 
 
 //-----------------------------------------------------------//
@@ -869,14 +874,53 @@ function appInit() {
 
 //----------------------------------------------------------------//
 
+var personMap = null;
+
 function initMap() {
+    // is mobile
+    if (urlSearchParams.get("isMobile") == "y") {
+        return;
+    }
+
     let uluru = {lat: 25.0782782, lng: 121.537494};
     let myMap = document.getElementById('map');
     personMap = new google.maps.Map(myMap, {
         zoom: 15,
         center: uluru
     });
+
+    if ("geolocation" in navigator) {
+        //geolocation is available
+        navigator.geolocation.getCurrentPosition(function(position) {
+            let center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            personMap.setCenter(center)
+
+            // let marker = new google.maps.Marker({
+            //     position: center,
+            //     title: "123456",
+            //     label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
+            //     icon: "images/marker-s.png",
+            //     map: personMap
+            // });
+            // markerArray.push(marker);
+        });
+    } else {
+        //geolocation IS NOT available
+    }
 }
+
+var myCurrentLocation = null;
+
+function gotoMyLocation() {
+    let center = new google.maps.LatLng(myCurrentLocation.coords.latitude, myCurrentLocation.coords.longitude);
+    personMap.panTo(center);
+}
+
+function updateMyPosition(position) {
+    console.log(position.coords.latitude + ", " + position.coords.longitude);
+    myCurrentLocation = position;
+}
+
 
 function clearConnectList() {
     var otherClientDiv = document.getElementById('otherClients');
@@ -1037,19 +1081,18 @@ function startRecording() {
                                                            minute: "numeric",
                                                            second: "numeric" });
     let timeStr = nowdate + "_" + nowtime;
-    console.log(timeStr);
+    //console.log(timeStr);
 
     var selfLink = document.getElementById("selfDownloadLink");
     selfLink.innerText = "";
 
     // self video
     selfRecorder = easyrtc.recordToFile( easyrtc.getLocalStream(), 
-               selfLink, "self_Video");
+               selfLink, ("self_" + timeStr) );
     if( selfRecorder ) {
        document.getElementById("startRecording").disabled = true;
        document.getElementById("stopRecording").disabled = false;
-    }
-    else {
+    } else {
        window.alert("failed to start recorder for self");
        return;
     }
@@ -1061,7 +1104,7 @@ function startRecording() {
     if( easyrtc.getIthCaller(0)) {
        caller1Recorder = easyrtc.recordToFile(
            easyrtc.getRemoteStream(easyrtc.getIthCaller(0), null), 
-             caller1Link, "caller1_Video");
+             caller1Link, ("caller1_" + timeStr) );
        if( !caller1Recorder ) {
           window.alert("failed to start recorder for caller 1");
        }
@@ -1076,7 +1119,7 @@ function startRecording() {
     if( easyrtc.getIthCaller(1)) {
        caller2Recorder = easyrtc.recordToFile(
            easyrtc.getRemoteStream(easyrtc.getIthCaller(1), null), 
-             caller2Link, "caller2_Video");
+             caller2Link, ("caller2_" + timeStr) );
        if( !caller2Recorder ) {
           window.alert("failed to start recorder for caller 2");
        }
@@ -1091,7 +1134,7 @@ function startRecording() {
     if( easyrtc.getIthCaller(2)) {
        caller3Recorder = easyrtc.recordToFile(
            easyrtc.getRemoteStream(easyrtc.getIthCaller(2), null), 
-             caller3Link, "caller3_Video");
+             caller3Link, ("caller3_" + timeStr) );
        if( !caller3Recorder ) {
           window.alert("failed to start recorder for caller 3");
        }
