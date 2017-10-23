@@ -91,3 +91,75 @@ body {
     float:right;
 }
 
+#fileDrop {
+    float: left;
+    width:90%;
+    /*text-align:center;*/
+    border: 2px solid #a8a8a8;
+    margin-left:5%;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    padding-top:0%;
+    background-color: #e7e7e7;
+}
+
+#fileDropText {
+    width:80%;
+    margin-left:10%;
+    text-align:center;
+    opacity:0.6;
+}
+
+#fileDropImage {
+    width:50%;
+    height: 50%;
+    margin-top: 20%;
+    margin-bottom:20%;
+    margin-left:25%;
+    margin-right: 25%;
+    opacity:0.2;
+}
+
+button {
+    background-color: #d84a38;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.8em;
+    margin: 0 0 1em 0;
+    padding: 0.5em 0.7em 0.6em 0.7em;
+}
+    
+button:active {
+    background-color: #cf402f;
+}
+    
+button:hover {
+    background-color: #cf402f;
+}
+    
+button[disabled] {
+    color: #ccc;
+}
+    
+button[disabled]:hover {
+    background-color: #d84a38;
+}
+
+button {
+    margin: 0 3px 10px 0;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 99px;
+}
+  
+button:last-of-type {
+    margin: 0;
+}
+
+#playButton {
+    width:50%;
+    margin-left:25%;
+    margin-top: 10px;
+}

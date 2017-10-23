@@ -517,22 +517,90 @@ function appInit() {
     }
     //setReshaper('muteButton', muteButtonReshaper);
 
-
     //updateMuteImage(false);
     window.onresize = handleWindowResize;
     handleWindowResize(); //initial call of the top-down layout manager
 
+    var fileDropZone = document.getElementById('fileDrop');
 
-    // easyrtc.setOnCall( function(easyrtcid, slot) {
-    //     console.log("getConnection count="  + easyrtc.getConnectionCount() );
-    //     boxUsed[slot+1] = true;
-    //     if(activeBox == 0 ) { // first connection
-    //         collapseToThumb();
-    //         document.getElementById('textEntryButton').style.display = 'block';
-    //     }
-    //     document.getElementById(getIdOfBox(slot+1)).style.visibility = "visible";
-    //     handleWindowResize();
-    // });
+    fileDropZone.addEventListener('drop', importByDrop, false);
+    fileDropZone.addEventListener('dragover', importDragOver, false);
+}
 
+
+//-----------------------------------------------------
+
+
+function importByDrop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    var files = e.dataTransfer.files;
+
+    if (files.length > 0) {
+        importFiles(files);
+    }
+}
+
+function importDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.effectAllowed = 'link';
+    e.dataTransfer.dropEffect = 'link';
+    return false;
+}
+
+var currentTextTracks = [];
+
+function importFiles(files) {
+    for (let i=0; i<files.length; ++i) {
+        let file = files[i];
+        if (file.type == 'video/webm') {
+            let video = document.getElementById(getIdOfBox(i));
+            let nameArray = file.name.split("_");
+            let userName = " " + nameArray[0] + " ";
+
+            //--------------
+            if (currentTextTracks[i]) {
+                let currentTextTrack = currentTextTracks[i];
+                let currentCue = currentTextTrack.cues[0];
+                currentTextTrack.removeCue(currentCue);
+                currentTextTrack.addCue(new VTTCue(0, Number.MAX_SAFE_INTEGER, userName));
+            } else {
+                let newTextTrack = video.addTextTrack("captions", "sample");
+                newTextTrack.mode = "showing";
+                newTextTrack.addCue(new VTTCue(0, Number.MAX_SAFE_INTEGER, userName));
+                currentTextTracks[i] = newTextTrack;
+            }
+            //--------------
+
+            
+            let url = URL.createObjectURL(file);
+            console.log(url);
+
+            let reader = new FileReader();
+            reader.onload = function() {
+                video.src = url;
+                //video.play();
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+}
+
+function playingVideos(e) {
+    if (e.innerText === "Play") {
+        for (let i=0; i<4; ++i) {
+            let video = document.getElementById(getIdOfBox(i));
+            video.play();
+        }
+        e.innerText = "Pause";
+    } else if (e.innerText === "Pause") {
+        for (let i=0; i<4; ++i) {
+            let video = document.getElementById(getIdOfBox(i));
+            video.pause();
+        }
+        e.innerText = "Play";
+    }
+    
 }
 
