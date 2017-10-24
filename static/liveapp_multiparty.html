@@ -63,11 +63,14 @@
                         <button id="startRecording" disabled="disabled" onclick="startRecording();" >Start recording</button> 
                         <button id="stopRecording" disabled="disabled" onclick="endRecording();" >End/finish recording</button> 
                         <br>
-                        &nbsp;download links for videos: <br />
-                        &nbsp;&nbsp;&nbsp;self :&nbsp;<a id="selfDownloadLink"></a><br />
-                        &nbsp;&nbsp;&nbsp;caller 1 :&nbsp;<a id="caller1DownloadLink"></a><br />
-                        &nbsp;&nbsp;&nbsp;caller 2 :&nbsp;<a id="caller2DownloadLink"></a><br />
-                        &nbsp;&nbsp;&nbsp;caller 3 :&nbsp;<a id="caller3DownloadLink"></a><br />
+                        &nbsp;download links for videos:
+                        <ul style="margin-top:2px; margin-bottom:0px;">
+                            <li>self :&nbsp;<a id="selfDownloadLink"></a></li>
+                            <li>caller 1 :&nbsp;<a id="caller1DownloadLink"></a></li>
+                            <li>caller 2 :&nbsp;<a id="caller2DownloadLink"></a></li>
+                            <li>caller 3 :&nbsp;<a id="caller3DownloadLink"></a></li>
+                        </ul>
+                        <button type="button" id="openVideoManagerButton" onclick="openVideoManagerButton_click()">Open VideoManager...</button>
                 </fieldset>
             </div>
         </div>

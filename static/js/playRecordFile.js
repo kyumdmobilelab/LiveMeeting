@@ -467,46 +467,6 @@ function muteActiveBox() {
     //updateMuteImage(true);
 }
 
-/*
-function callEverybodyElse(roomName, otherPeople) {
-
-    easyrtc.setRoomOccupantListener(null); // so we're only called once.
-
-    var list = [];
-    var connectCount = 0;
-    for (var easyrtcid in otherPeople) {
-        list.push(easyrtcid);
-    }
-    //
-    // Connect in reverse order. Latter arriving people are more likely to have
-    // empty slots.
-    //
-    function establishConnection(position) {
-        function callSuccess() {
-            connectCount++;
-            if (connectCount < maxCALLERS && position > 0) {
-                establishConnection(position - 1);
-            }
-        }
-        function callFailure(errorCode, errorText) {
-            easyrtc.showError(errorCode, errorText);
-            if (connectCount < maxCALLERS && position > 0) {
-                establishConnection(position - 1);
-            }
-        }
-        easyrtc.call(list[position], callSuccess, callFailure);
-
-    }
-    if (list.length > 0) {
-        establishConnection(list.length - 1);
-    }
-}*/
-
-/*
-function loginSuccess() {
-    expandThumb(0);  // expand the mirror image initially.
-}*/
-
 
 function appInit() {
 
@@ -538,13 +498,23 @@ function importByDrop(e) {
         video.src="";
     }
 
+    videoFileCount = 0;
+
     e.stopPropagation();
     e.preventDefault();
 
     var files = e.dataTransfer.files;
-    videoFileCount = files.length;
 
-    if (files.length > 0) {
+    if (files.length === 1 && 
+        files[0].type === "" && 
+        files[0].size%4096 === 0)
+    {
+        let dirReader = e.dataTransfer.items[0].webkitGetAsEntry().createReader();
+        dirReader.readEntries(function(entries) {
+            importFileEntries(entries);
+        });
+    }
+    else if (files.length > 0) {
         importFiles(files);
     }
 }
@@ -558,11 +528,53 @@ function importDragOver(e) {
 
 var currentTextTracks = [];
 
+function importFileEntries(entries) {
+    let box = 0;
+    for (let i=0; i < entries.length; i++) {
+        let fileExtension = entries[i].name.split('.').pop();
+        if (fileExtension === "webm") {
+            let video = document.getElementById(getIdOfBox(box));
+            let nameArray = entries[i].name.split("_");
+            let userName = " " + nameArray[0] + " ";
+
+            //--------------
+            if (currentTextTracks[i]) {
+                let currentTextTrack = currentTextTracks[i];
+                let currentCue = currentTextTrack.cues[0];
+                currentTextTrack.removeCue(currentCue);
+                currentTextTrack.addCue(new VTTCue(0, Number.MAX_SAFE_INTEGER, userName));
+            } else {
+                let newTextTrack = video.addTextTrack("captions", "sample");
+                newTextTrack.mode = "showing";
+                newTextTrack.addCue(new VTTCue(0, Number.MAX_SAFE_INTEGER, userName));
+                currentTextTracks[i] = newTextTrack;
+            }
+            //--------------
+
+            entries[i].file(function(file) {
+                let url = URL.createObjectURL(file);
+                console.log(url);
+        
+                let reader = new FileReader();
+                reader.onload = function() {
+                     video.src = url;
+                }
+                reader.readAsDataURL(file);
+            }, null);
+
+            box++;
+        }
+    }
+    videoFileCount = box;
+}
+
+
 function importFiles(files) {
+    let box = 0;
     for (let i=0; i<files.length; ++i) {
         let file = files[i];
         if (file.type == 'video/webm') {
-            let video = document.getElementById(getIdOfBox(i));
+            let video = document.getElementById(getIdOfBox(box));
             let nameArray = file.name.split("_");
             let userName = " " + nameArray[0] + " ";
 
@@ -580,6 +592,7 @@ function importFiles(files) {
             }
             //--------------
 
+            box++;
             
             let url = URL.createObjectURL(file);
             console.log(url);
@@ -591,9 +604,14 @@ function importFiles(files) {
             reader.readAsDataURL(file);
         }
     }
+    videoFileCount = box;
 }
 
 function playingVideos(button) {
+    if (videoFileCount === 0) {
+        return;
+    }
+
     if (button.innerText === "Play") {
         for (let i=0; i < videoFileCount; ++i) {
             let video = document.getElementById(getIdOfBox(i));
@@ -616,6 +634,9 @@ function videoPlayEnded(video) {
 }
 
 function videoPlayPause(video) {
+    if (videoFileCount === 0) {
+        return;
+    }
     console.log(video.id + " Pause.");
 
     for (let i=0; i < videoFileCount; ++i) {
@@ -626,6 +647,9 @@ function videoPlayPause(video) {
 }
 
 function videoPlaying(video) {
+    if (videoFileCount === 0) {
+        return;
+    }
     console.log(video.id + " Playing...");
 
     for (let i=0; i < videoFileCount; ++i) {

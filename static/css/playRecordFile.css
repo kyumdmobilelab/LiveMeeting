@@ -93,10 +93,11 @@ body {
 
 #fileDrop {
     float: left;
-    width:90%;
+    width:70%;
     /*text-align:center;*/
-    border: 2px solid #a8a8a8;
-    margin-left:5%;
+    border: 2px solid #c7c7c7;
+    border-style: dashed;
+    margin-left:15%;
     margin-bottom: 20px;
     margin-top: 25px;
     padding-top:0%;
@@ -107,16 +108,16 @@ body {
     width:80%;
     margin-left:10%;
     text-align:center;
-    opacity:0.6;
+    opacity:0.5;
 }
 
 #fileDropImage {
     width:50%;
     height: 50%;
-    margin-top: 20%;
-    margin-bottom:20%;
+    margin-top: 15%;
+    margin-bottom:15%;
     margin-left:25%;
-    margin-right: 25%;
+    margin-right:25%;
     opacity:0.2;
 }
 

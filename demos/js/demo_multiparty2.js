@@ -1051,6 +1051,11 @@ function leaveRoomButton_Click() {
     }
 }
 
+function openVideoManagerButton_click() {
+    let win = window.open('playRecordFile.html', '_blank');
+    win.focus();
+}
+
 
 //--- Android Use: ---
 function allBoxesMuted(isMuted) {
