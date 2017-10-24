@@ -25,9 +25,14 @@
                 <button id="textentryCancel" style="float:left;margin-left:1em" onclick="cancelText()">Cancel</button>
             </div>
 
+            <div id="mobileMap" style="display:none"></div>
+
             <img id="killButton" class="transit boxCommon" onclick="killActiveBox()" src="images/button_close.png" style="display:none;z-index:3" alt="close button" />
             <img id="muteButton" class="transit boxCommon" onclick ="muteActiveBox()" src="images/button_mute.png" style="display:none;z-index:3" alt="mute button" />
             <img id="textEntryButton" class="transit boxCommon" onclick ="showTextEntry()" src="images/textEntry.png" style="z-index:3;display:none" alt="text button" />
+        </div>
+        <div id="mobileControlBlock" style="visibility:hidden">
+            <button type="button" id="showMobileMapButton" onclick="showMobileMapButton_click()">Show Map</button>
         </div>
         <div id="controlBlock" style="visibility:hidden">
             <button type="button" id="leaveRoomButton" onclick="leaveRoomButton_Click()">Leave Room >></button>
@@ -70,7 +75,7 @@
                             <li>caller 2 :&nbsp;<a id="caller2DownloadLink"></a></li>
                             <li>caller 3 :&nbsp;<a id="caller3DownloadLink"></a></li>
                         </ul>
-                        <button type="button" id="openVideoManagerButton" onclick="openVideoManagerButton_click()">Open VideoManager...</button>
+                        <button type="button" id="openVideoManagerButton" onclick="openVideoManagerButton_click()">Open Video Manager...</button>
                 </fieldset>
             </div>
         </div>

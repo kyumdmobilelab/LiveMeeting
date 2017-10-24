@@ -57,6 +57,15 @@ body {
     opacity:1.0;
 }
 
+#mobileMap {
+    border:2px solid #01B468;
+    border-radius:10px;
+    z-index:5;
+    position: absolute;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 5px #000000;
+}
+
 #textentryBox {
     border:2px solid #a0ffa0;
     border-radius:10px;
@@ -81,9 +90,33 @@ body {
 }
 
 #controlBlock {
-    /*height: 850px;*/
     float: right;
-    background-color: #fdfdfd;
+    background-color: #fafafa;
+}
+
+#mobileControlBlock {
+    background-color: #e4e4e4;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#showMobileMapButton {
+    background-color: #01B468;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.0em;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    margin: 0 3px 10px 0;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 99px;
+
+    margin-top:10px;
+    margin-right: 10px;
+    float:right;
 }
 
 #leaveRoomButton {
@@ -137,6 +170,6 @@ body {
 #openVideoManagerButton {
     float:left;
     margin-top:15px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     margin-left:10px;
 }

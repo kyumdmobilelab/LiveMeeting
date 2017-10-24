@@ -63,6 +63,16 @@ function reshapeTextEntryField(parentw, parenth) {
     }
 }
 
+function reshapeMobileMap(parentw, parenth) {
+    return {
+        left:parentw/25,
+        top:parenth/4,
+        width:(parentw/10)*9,
+        height: (parenth/7)*5
+    }
+}
+
+
 var margin = 20;
 
 function reshapeToFullSize(parentw, parenth) {
@@ -453,10 +463,16 @@ function handleWindowResize() {
     // applyReshape(fullpage, window.innerWidth/2, window.innerHeight);
 
     if (urlSearchParams.get("isMobile") == "y") {
-        applyReshape(fullpage, window.innerWidth, window.innerHeight);
+        if (urlSearchParams.get("os") == "android") {  // Android app
+            applyReshape(fullpage, window.innerWidth, window.innerHeight);
+        } 
+        else {  // Mobile Chrome and Mobile Safari 
+            applyReshape(fullpage, window.innerWidth, (window.innerHeight/12)*11 );
+            document.getElementById('mobileControlBlock').style.height = (window.innerHeight/12) + "px";
+            document.getElementById('mobileControlBlock').style.width = window.innerWidth + "px";
+        }
     } else {
         applyReshape(fullpage, window.innerWidth/2, window.innerHeight);
-
         document.getElementById('controlBlock').style.width = (window.innerWidth/2) - 25 + "px";
         document.getElementById('map').style.width = (window.innerWidth/2) - 25 + "px";
         document.getElementById('map').style.visibility = "visible";
@@ -755,6 +771,14 @@ function appInit() {
     setReshaper('textentryField', reshapeTextEntryField);
     setReshaper('textEntryButton', reshapeTextEntryButton);
 
+    //
+    if (urlSearchParams.get("isMobile") == "y") {
+        if (urlSearchParams.get("os") !== "android") {
+            setReshaper('mobileMap', reshapeMobileMap);
+        }
+    }
+
+
     updateMuteImage(false);
     window.onresize = handleWindowResize;
     handleWindowResize(); //initial call of the top-down layout manager
@@ -773,6 +797,9 @@ function appInit() {
     // is mobile
     if (urlSearchParams.get("isMobile") == "y") {
         document.getElementById("controlBlock").style.display = 'none';
+        if (urlSearchParams.get("os") !== "android") {
+            document.getElementById("mobileControlBlock").style.visibility = "visible";
+        }
     } else {
         document.getElementById("controlBlock").style.visibility = "visible";
     }
@@ -877,17 +904,29 @@ function appInit() {
 var personMap = null;
 
 function initMap() {
-    // is mobile
-    if (urlSearchParams.get("isMobile") == "y") {
-        return;
-    }
+    
+    if (urlSearchParams.get("isMobile") == "y") {  // is mobile
+        if (urlSearchParams.get("os") === "android") {
+            return;
+        }
+        else {
+            let uluru = {lat: 25.0782782, lng: 121.537494};
+            let myMap = document.getElementById('mobileMap');
 
-    let uluru = {lat: 25.0782782, lng: 121.537494};
-    let myMap = document.getElementById('map');
-    personMap = new google.maps.Map(myMap, {
-        zoom: 15,
-        center: uluru
-    });
+            personMap = new google.maps.Map(myMap, {
+                zoom: 15,
+                center: uluru
+            });
+        }
+    }
+    else {  // Desktop Map
+        let uluru = {lat: 25.0782782, lng: 121.537494};
+        let myMap = document.getElementById('map');
+        personMap = new google.maps.Map(myMap, {
+            zoom: 15,
+            center: uluru
+        });
+    }
 
     if ("geolocation" in navigator) {
         //geolocation is available
@@ -904,8 +943,6 @@ function initMap() {
             // });
             // markerArray.push(marker);
         });
-    } else {
-        //geolocation IS NOT available
     }
 }
 
@@ -933,7 +970,6 @@ function clearConnectList() {
         mutedUsersDiv.removeChild(mutedUsersDiv.lastChild);
     }
 }
-
 
 function showUserList(otherPeople) {
     clearConnectList();
@@ -1054,6 +1090,16 @@ function leaveRoomButton_Click() {
 function openVideoManagerButton_click() {
     let win = window.open('playRecordFile.html', '_blank');
     win.focus();
+}
+
+function showMobileMapButton_click() {
+    if (document.getElementById('mobileMap').style.display === 'none'){
+        document.getElementById('mobileMap').style.display = "block";
+        document.getElementById('showMobileMapButton').innerText = "Hide Map";
+    } else {
+        document.getElementById('mobileMap').style.display = "none";
+        document.getElementById('showMobileMapButton').innerText = "Show Map";
+    }
 }
 
 
