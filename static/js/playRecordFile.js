@@ -530,12 +530,19 @@ function appInit() {
 
 //-----------------------------------------------------
 
+var videoFileCount = 0;
 
 function importByDrop(e) {
+    for (let i=0; i<4; ++i) {
+        let video = document.getElementById(getIdOfBox(i));
+        video.src="";
+    }
+
     e.stopPropagation();
     e.preventDefault();
 
     var files = e.dataTransfer.files;
+    videoFileCount = files.length;
 
     if (files.length > 0) {
         importFiles(files);
@@ -580,27 +587,51 @@ function importFiles(files) {
             let reader = new FileReader();
             reader.onload = function() {
                 video.src = url;
-                //video.play();
             }
             reader.readAsDataURL(file);
         }
     }
 }
 
-function playingVideos(e) {
-    if (e.innerText === "Play") {
-        for (let i=0; i<4; ++i) {
+function playingVideos(button) {
+    if (button.innerText === "Play") {
+        for (let i=0; i < videoFileCount; ++i) {
             let video = document.getElementById(getIdOfBox(i));
             video.play();
         }
-        e.innerText = "Pause";
-    } else if (e.innerText === "Pause") {
-        for (let i=0; i<4; ++i) {
+        button.innerText = "Pause";
+    } 
+    else if (button.innerText === "Pause") {
+        for (let i=0; i < videoFileCount; ++i) {
             let video = document.getElementById(getIdOfBox(i));
             video.pause();
         }
-        e.innerText = "Play";
+        button.innerText = "Play";
     }
-    
+}
+
+function videoPlayEnded(video) {
+    let playButton = document.getElementById('playButton');
+    playButton.innerText = "Play";
+}
+
+function videoPlayPause(video) {
+    console.log(video.id + " Pause.");
+
+    for (let i=0; i < videoFileCount; ++i) {
+        let videoObj = document.getElementById(getIdOfBox(i));
+        videoObj.pause();
+    }
+    document.getElementById('playButton').innerText = "Play";
+}
+
+function videoPlaying(video) {
+    console.log(video.id + " Playing...");
+
+    for (let i=0; i < videoFileCount; ++i) {
+        let videoObj = document.getElementById(getIdOfBox(i));
+        videoObj.play();
+    }
+    document.getElementById('playButton').innerText = "Pause";
 }
 

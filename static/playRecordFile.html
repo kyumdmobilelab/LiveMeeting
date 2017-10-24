@@ -14,10 +14,10 @@
 
     <body onload="appInit()">
         <div id="fullpage"  class="boxCommon" style="background-image:url(images/irongrip.png)">
-            <video id="box0" class="transit boxCommon thumbCommon" controls></video>
-            <video id="box1" class="transit boxCommon thumbCommon" controls></video>
-            <video id="box2" class="transit boxCommon thumbCommon" controls></video>
-            <video id="box3" class="transit boxCommon thumbCommon" controls></video>
+            <video id="box0" class="transit boxCommon thumbCommon" onended="videoPlayEnded(this)" onpause="videoPlayPause(this)" onplay="videoPlaying(this)" controls></video>
+            <video id="box1" class="transit boxCommon thumbCommon" onended="videoPlayEnded(this)" onpause="videoPlayPause(this)" onplay="videoPlaying(this)" controls></video>
+            <video id="box2" class="transit boxCommon thumbCommon" onended="videoPlayEnded(this)" onpause="videoPlayPause(this)" onplay="videoPlaying(this)" controls></video>
+            <video id="box3" class="transit boxCommon thumbCommon" onended="videoPlayEnded(this)" onpause="videoPlayPause(this)" onplay="videoPlaying(this)" controls></video>
         </div>
 
         <!--
@@ -26,7 +26,7 @@
 
         <div id="controlBlock">
             <div id="fileDrop">
-                <div id="fileDropText">Drag the files to here</div>
+                <div id="fileDropText">Drop the files to here</div>
                 <img src="images/videoFileIcon.png" id="fileDropImage">
             </div>
             <button type="button" id="playButton" onclick="playingVideos(this)">Play</button>

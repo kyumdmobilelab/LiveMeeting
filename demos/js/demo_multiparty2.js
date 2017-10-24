@@ -774,7 +774,7 @@ function appInit() {
     if (urlSearchParams.get("isMobile") == "y") {
         document.getElementById("controlBlock").style.display = 'none';
     } else {
-        
+        document.getElementById("controlBlock").style.visibility = "visible";
     }
 
 
