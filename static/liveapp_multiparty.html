@@ -30,9 +30,11 @@
                 <button type="button" id="closeMobileControlButton" onclick="closeMobileControlButton_click()">X</button>
                 <fieldset id="mobileControlFieldset">
                     <legend style="font-size: 1.2em;">&nbsp; Control Panel &nbsp;</legend>
-                    <div id="trackYourself"><input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)">Track yourself in Map</div>
+                    <p id="taskP">Task:&nbsp;
+                        <input type="text" id="taskNameText" size="15" maxlength="20">
+                    </p>
+                    <div id="trackYourself"><input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)">&nbsp;Track yourself in Map</div>
                 </fieldset>
-                
                 <button type="button" id="mobileLeaveRoomButton" onclick="leaveRoomButton_Click()">Leave Room</button>
             </div>
 

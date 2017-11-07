@@ -476,8 +476,8 @@ function handleWindowResize() {
             applyReshape(fullpage, window.innerWidth, window.innerHeight);
         } 
         else {  // Mobile Chrome and Mobile Safari 
-            applyReshape(fullpage, window.innerWidth, (window.innerHeight/12)*11 );
-            document.getElementById('mobileControlBlock').style.height = (window.innerHeight/12) + "px";
+            applyReshape(fullpage, window.innerWidth, (window.innerHeight-50) );
+            document.getElementById('mobileControlBlock').style.height = 50 + "px";
             document.getElementById('mobileControlBlock').style.width = window.innerWidth + "px";
         }
     } else {
@@ -914,12 +914,42 @@ function appInit() {
 var personMap = null;
 
 function initMap() {
-    
-    if (urlSearchParams.get("isMobile") == "y") {  // is mobile
+    if (urlSearchParams.get("isMobile") == "y") {
         if (urlSearchParams.get("os") === "android") {
             return;
         }
-        else {
+    } else {  // Desktop Map
+        let uluru = {lat: 25.0782782, lng: 121.537494};
+        let myMap = document.getElementById('map');
+        personMap = new google.maps.Map(myMap, {
+            zoom: 15,
+            center: uluru
+        });
+
+        if ("geolocation" in navigator) {
+            //geolocation is available
+            navigator.geolocation.getCurrentPosition(function(position) {
+                let center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                personMap.setCenter(center)
+    
+                // let marker = new google.maps.Marker({
+                //     position: center,
+                //     title: "123456",
+                //     label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
+                //     icon: "images/marker-s.png",
+                //     map: personMap
+                // });
+                // markerArray.push(marker);
+            });
+        }
+    }
+}
+ 
+function initializeMap() {
+    if (urlSearchParams.get("isMobile") == "y") {  // is mobile
+        if (urlSearchParams.get("os") === "android") {
+            return;
+        } else {
             let uluru = {lat: 25.0782782, lng: 121.537494};
             let myMap = document.getElementById('mobileMap');
 
@@ -928,39 +958,35 @@ function initMap() {
                 center: uluru
             });
         }
-    }
-    else {  // Desktop Map
-        let uluru = {lat: 25.0782782, lng: 121.537494};
-        let myMap = document.getElementById('map');
-        personMap = new google.maps.Map(myMap, {
-            zoom: 15,
-            center: uluru
-        });
-    }
 
-    if ("geolocation" in navigator) {
-        //geolocation is available
-        navigator.geolocation.getCurrentPosition(function(position) {
-            let center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            personMap.setCenter(center)
+        if ("geolocation" in navigator) {
+            //geolocation is available
+            navigator.geolocation.getCurrentPosition(function(position) {
+                if (personMap) {
+                    let center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    personMap.setCenter(center);
+                }
 
-            // let marker = new google.maps.Marker({
-            //     position: center,
-            //     title: "123456",
-            //     label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
-            //     icon: "images/marker-s.png",
-            //     map: personMap
-            // });
-            // markerArray.push(marker);
-        });
+                // let marker = new google.maps.Marker({
+                //     position: center,
+                //     title: "123456",
+                //     label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
+                //     icon: "images/marker-s.png",
+                //     map: personMap
+                // });
+                // markerArray.push(marker);
+            });
+        }
     }
 }
 
 var myCurrentLocation = null;
 
 function gotoMyLocation() {
-    let center = new google.maps.LatLng(myCurrentLocation.coords.latitude, myCurrentLocation.coords.longitude);
-    personMap.panTo(center);
+    if (personMap && myCurrentLocation) {
+        let center = new google.maps.LatLng(myCurrentLocation.coords.latitude, myCurrentLocation.coords.longitude);
+        personMap.panTo(center);
+    }
 }
 
 function updateMyPosition(position) {
@@ -1108,8 +1134,15 @@ function openVideoManagerButton_click() {
     win.focus();
 }
 
+var isMobileMapInit = false;
+
 function showMobileMapButton_click() {
     if (document.getElementById('mobileMap').style.display === 'none'){
+        if (isMobileMapInit == false) {
+            initializeMap();
+            isMobileMapInit = true;
+        }
+
         document.getElementById('mobileMap').style.display = "block";
         document.getElementById('showMobileMapButton').innerText = "Hide Map";
     } else {
