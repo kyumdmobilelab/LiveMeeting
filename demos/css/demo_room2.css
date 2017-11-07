@@ -66,6 +66,15 @@ body {
     box-shadow: 5px 5px 5px #000000;
 }
 
+#mobileControlsPanel {
+    border:2px solid #7B7B7B;
+    border-radius:10px;
+    z-index:5;
+    position: absolute;
+    background-color: #f5f5f5;
+    box-shadow: 5px 5px 5px #000000;
+}
+
 #textentryBox {
     border:2px solid #a0ffa0;
     border-radius:10px;
@@ -101,22 +110,46 @@ body {
     left: 0;
 }
 
-#showMobileMapButton {
-    background-color: #01B468;
+#showMobileControlsButton {
+    position: absolute;
+    background-color:#7B7B7B;
     border: none;
-    border-radius: 2px;
+    border-radius: 5px;
     color: white;
     font-family: 'Roboto', sans-serif;
     font-size: 1.0em;
-    padding: 0.5em 0.5em 0.5em 0.5em;
-    margin: 0 3px 10px 0;
-    padding-left: 2px;
-    padding-right: 2px;
-    width: 99px;
+    width: 125px;
+    height: 38px;
+    top: 15%;
+    left: 12px;
+}
 
-    margin-top:5px;
-    margin-right: 10px;
-    float:right;
+#closeMobileControlsButton {
+    position: absolute;
+    background-color:#FF5151;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25em;
+    width: 60px;
+    height: 30px;
+    top: 10px;
+    right: 10px;
+}
+
+#showMobileMapButton {
+    position: absolute;
+    background-color: #01B468;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.0em;
+    width: 105px;
+    height: 38px;
+    top: 15%;
+    right: 15px;
 }
 
 #leaveRoomButton {

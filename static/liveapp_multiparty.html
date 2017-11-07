@@ -26,12 +26,16 @@
             </div>
 
             <div id="mobileMap" style="display:none"></div>
+            <div id="mobileControlsPanel" style="display:none">
+                <button type="button" id="closeMobileControlsButton" onclick="closeMobileControlsButton_click()">X</button>
+            </div>
 
             <img id="killButton" class="transit boxCommon" onclick="killActiveBox()" src="images/button_close.png" style="display:none;z-index:3" alt="close button" />
             <img id="muteButton" class="transit boxCommon" onclick ="muteActiveBox()" src="images/button_mute.png" style="display:none;z-index:3" alt="mute button" />
             <img id="textEntryButton" class="transit boxCommon" onclick ="showTextEntry()" src="images/textEntry.png" style="z-index:3;display:none" alt="text button" />
         </div>
-        <div id="mobileControlBlock" style="visibility:hidden">
+        <div id="mobileControlBlock" style="visibility:hidden; ">
+            <button type="button" id="showMobileControlsButton" onclick="showMobileControlsButton_click()">Controls Panel</button>
             <button type="button" id="showMobileMapButton" onclick="showMobileMapButton_click()">Show Map</button>
         </div>
         <div id="controlBlock" style="visibility:hidden">

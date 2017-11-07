@@ -72,6 +72,15 @@ function reshapeMobileMap(parentw, parenth) {
     }
 }
 
+function reshapeMobileControlsPanel(parentw, parenth) {
+    return {
+        left:parentw/25,
+        top:parenth/4,
+        width:(parentw/10)*9,
+        height: (parenth/7)*5
+    }
+}
+
 
 var margin = 20;
 
@@ -775,6 +784,7 @@ function appInit() {
     if (urlSearchParams.get("isMobile") == "y") {
         if (urlSearchParams.get("os") !== "android") {
             setReshaper('mobileMap', reshapeMobileMap);
+            setReshaper('mobileControlsPanel', reshapeMobileControlsPanel);
         }
     }
 
@@ -1102,6 +1112,16 @@ function showMobileMapButton_click() {
     }
 }
 
+function showMobileControlsButton_click() {
+    if (document.getElementById('mobileControlsPanel').style.display === 'none'){
+        document.getElementById('mobileControlsPanel').style.display = "block";
+    }
+}
+
+function closeMobileControlsButton_click() {
+    document.getElementById('mobileControlsPanel').style.display = "none";
+}
+
 
 //--- Android Use: ---
 function allBoxesMuted(isMuted) {
@@ -1126,7 +1146,7 @@ var caller2Recorder = null;
 var caller3Recorder = null;
 
 function startRecording() {
-    let nowdate = new Date().toLocaleDateString().replace(/\//g, '-');;
+    let nowdate = new Date().toLocaleDateString().replace(/\//g, '-');
     let nowtime = new Date().toLocaleTimeString('en-US', { hour12: false, 
                                                            hour: "numeric", 
                                                            minute: "numeric",
