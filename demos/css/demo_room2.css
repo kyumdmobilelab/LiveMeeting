@@ -138,6 +138,39 @@ body {
     right: 10px;
 }
 
+#mobileControlsFieldset {
+    position: absolute;
+    width: 85%;
+    height: 60%;
+    top: 50px;
+    left: 3%;
+    border-radius: 10px;
+}
+
+
+#trackYourself {
+    position: absolute;
+    font-size: 1.3em;
+    width: 85%;
+    height: 40px;
+    top:20%;
+    left: 7%;
+}
+
+#mobileLeaveRoomButton {
+    position: absolute;
+    background-color:#FF9224;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3em;
+    width: 90%;
+    height: 40px;
+    bottom: 15px;
+    left: 5%;
+}
+
 #showMobileMapButton {
     position: absolute;
     background-color: #01B468;
@@ -151,6 +184,7 @@ body {
     top: 15%;
     right: 15px;
 }
+
 
 #leaveRoomButton {
     margin-top:5px;

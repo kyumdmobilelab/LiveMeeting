@@ -28,6 +28,12 @@
             <div id="mobileMap" style="display:none"></div>
             <div id="mobileControlsPanel" style="display:none">
                 <button type="button" id="closeMobileControlsButton" onclick="closeMobileControlsButton_click()">X</button>
+                <fieldset id="mobileControlsFieldset">
+                    <legend style="font-size: 1.2em;">&nbsp; Controls Panel &nbsp;</legend>
+                    <div id="trackYourself"><input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)">Track yourself in Map</div>
+                </fieldset>
+                
+                <button type="button" id="mobileLeaveRoomButton" onclick="leaveRoomButton_Click()">Leave Room</button>
             </div>
 
             <img id="killButton" class="transit boxCommon" onclick="killActiveBox()" src="images/button_close.png" style="display:none;z-index:3" alt="close button" />

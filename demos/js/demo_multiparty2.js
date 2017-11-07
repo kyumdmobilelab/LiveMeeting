@@ -66,16 +66,16 @@ function reshapeTextEntryField(parentw, parenth) {
 function reshapeMobileMap(parentw, parenth) {
     return {
         left:parentw/25,
-        top:parenth/4,
+        top:parenth/9,
         width:(parentw/10)*9,
-        height: (parenth/7)*5
+        height: (parenth/7)*6
     }
 }
 
 function reshapeMobileControlsPanel(parentw, parenth) {
     return {
         left:parentw/25,
-        top:parenth/4,
+        top:parenth/6,
         width:(parentw/10)*9,
         height: (parenth/7)*5
     }
@@ -1082,6 +1082,12 @@ function leaveRoomButton_Click() {
                     B4A.CallSub('leaveRoom', true);
                     return;
                 }
+
+                // isMobile
+                if (urlSearchParams.get("isMobile") == "y") {
+                    window.location.href = "mobile.html";
+                    return;
+                }
         
                 if (/Mobi/.test(navigator.userAgent)) {
                     // mobile
@@ -1121,6 +1127,24 @@ function showMobileControlsButton_click() {
 function closeMobileControlsButton_click() {
     document.getElementById('mobileControlsPanel').style.display = "none";
 }
+
+
+var trackYourselfTimerId = null;
+
+function toggleTrackYourselfCheckbox(element) {
+    //console.log(element.checked)
+    if (element.checked == true) {
+        trackYourselfTimerId = window.setInterval(function() {
+            console.log("trackYourself Timer ...");
+            gotoMyLocation();
+        }, 3000);
+    } else {
+        if (trackYourselfTimerId != null) {
+            window.clearInterval(trackYourselfTimerId);
+        }
+    }
+}
+
 
 
 //--- Android Use: ---
