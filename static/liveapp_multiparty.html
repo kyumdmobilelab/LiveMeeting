@@ -26,10 +26,10 @@
             </div>
 
             <div id="mobileMap" style="display:none"></div>
-            <div id="mobileControlsPanel" style="display:none">
-                <button type="button" id="closeMobileControlsButton" onclick="closeMobileControlsButton_click()">X</button>
-                <fieldset id="mobileControlsFieldset">
-                    <legend style="font-size: 1.2em;">&nbsp; Controls Panel &nbsp;</legend>
+            <div id="mobileControlPanel" style="display:none">
+                <button type="button" id="closeMobileControlButton" onclick="closeMobileControlButton_click()">X</button>
+                <fieldset id="mobileControlFieldset">
+                    <legend style="font-size: 1.2em;">&nbsp; Control Panel &nbsp;</legend>
                     <div id="trackYourself"><input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)">Track yourself in Map</div>
                 </fieldset>
                 
@@ -41,7 +41,7 @@
             <img id="textEntryButton" class="transit boxCommon" onclick ="showTextEntry()" src="images/textEntry.png" style="z-index:3;display:none" alt="text button" />
         </div>
         <div id="mobileControlBlock" style="visibility:hidden; ">
-            <button type="button" id="showMobileControlsButton" onclick="showMobileControlsButton_click()">Controls Panel</button>
+            <button type="button" id="showMobileControlButton" onclick="showMobileControlButton_click()">Control Panel</button>
             <button type="button" id="showMobileMapButton" onclick="showMobileMapButton_click()">Show Map</button>
         </div>
         <div id="controlBlock" style="visibility:hidden">

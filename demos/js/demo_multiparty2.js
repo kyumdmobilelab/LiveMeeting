@@ -72,7 +72,7 @@ function reshapeMobileMap(parentw, parenth) {
     }
 }
 
-function reshapeMobileControlsPanel(parentw, parenth) {
+function reshapeMobileControlPanel(parentw, parenth) {
     return {
         left:parentw/25,
         top:parenth/6,
@@ -784,7 +784,7 @@ function appInit() {
     if (urlSearchParams.get("isMobile") == "y") {
         if (urlSearchParams.get("os") !== "android") {
             setReshaper('mobileMap', reshapeMobileMap);
-            setReshaper('mobileControlsPanel', reshapeMobileControlsPanel);
+            setReshaper('mobileControlPanel', reshapeMobileControlPanel);
         }
     }
 
@@ -1118,14 +1118,14 @@ function showMobileMapButton_click() {
     }
 }
 
-function showMobileControlsButton_click() {
-    if (document.getElementById('mobileControlsPanel').style.display === 'none'){
-        document.getElementById('mobileControlsPanel').style.display = "block";
+function showMobileControlButton_click() {
+    if (document.getElementById('mobileControlPanel').style.display === 'none'){
+        document.getElementById('mobileControlPanel').style.display = "block";
     }
 }
 
-function closeMobileControlsButton_click() {
-    document.getElementById('mobileControlsPanel').style.display = "none";
+function closeMobileControlButton_click() {
+    document.getElementById('mobileControlPanel').style.display = "none";
 }
 
 
