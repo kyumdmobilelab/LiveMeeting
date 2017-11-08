@@ -151,7 +151,7 @@ body {
     left: 10%;
 }
 
-#taskNameText {
+#mobileTaskNameText {
     position: absolute;
     width: 60%;
     height: 20px;
@@ -210,6 +210,22 @@ body {
     float: right;
     background-color: grey;
     margin-bottom: 2px;
+}
+
+#taskNameDiv {
+    clear: both;
+    font-size: 1.2em;
+    width: 220px;
+    height: 25px;
+    margin-left:15px;
+    margin-bottom: 10px;
+}
+
+#taskNameText {
+    position: absolute;
+    font-size: 0.8em;
+    width: 160px;
+    height: 18px;
 }
 
 #connectControls {

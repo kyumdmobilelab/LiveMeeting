@@ -14,6 +14,28 @@ if (urlSearchParams.get("user") === null ||
     }
 }
 
+if ("geolocation" in navigator) {
+    //geolocation is available
+    navigator.geolocation.getCurrentPosition(function(position) {
+        myCurrentLocation = position;
+
+        // if (personMap) {
+        //     let center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        //     personMap.setCenter(center);
+        // }
+
+        // let marker = new google.maps.Marker({
+        //     position: center,
+        //     title: "123456",
+        //     label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
+        //     icon: "images/marker-s.png",
+        //     map: personMap
+        // });
+        // markerArray.push(marker);
+    });
+}
+
+
 if (navigator.geolocation) {
     if (urlSearchParams.get("os") !== "android") {
         navigator.geolocation.watchPosition(updateMyPosition);
@@ -919,29 +941,23 @@ function initMap() {
             return;
         }
     } else {  // Desktop Map
-        let uluru = {lat: 25.0782782, lng: 121.537494};
-        let myMap = document.getElementById('map');
-        personMap = new google.maps.Map(myMap, {
-            zoom: 15,
-            center: uluru
-        });
+        setTimeout(function(){
+            let uluru = {lat: 25.0782782, lng: 121.537494};
+            let myMap = document.getElementById('map');
 
-        if ("geolocation" in navigator) {
-            //geolocation is available
-            navigator.geolocation.getCurrentPosition(function(position) {
-                let center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                personMap.setCenter(center)
-    
-                // let marker = new google.maps.Marker({
-                //     position: center,
-                //     title: "123456",
-                //     label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
-                //     icon: "images/marker-s.png",
-                //     map: personMap
-                // });
-                // markerArray.push(marker);
+            personMap = new google.maps.Map(myMap, {
+                zoom: 15,
+                center: uluru
             });
-        }
+    
+            setTimeout(function(){
+                if (myCurrentLocation) {
+                    let center = new google.maps.LatLng(myCurrentLocation.coords.latitude, myCurrentLocation.coords.longitude);
+                    personMap.panTo(center);
+                }
+            }, 2500);
+
+        }, 2000);
     }
 }
  
@@ -959,23 +975,9 @@ function initializeMap() {
             });
         }
 
-        if ("geolocation" in navigator) {
-            //geolocation is available
-            navigator.geolocation.getCurrentPosition(function(position) {
-                if (personMap) {
-                    let center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                    personMap.setCenter(center);
-                }
-
-                // let marker = new google.maps.Marker({
-                //     position: center,
-                //     title: "123456",
-                //     label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
-                //     icon: "images/marker-s.png",
-                //     map: personMap
-                // });
-                // markerArray.push(marker);
-            });
+        if (myCurrentLocation) {
+            let center = new google.maps.LatLng(myCurrentLocation.coords.latitude, myCurrentLocation.coords.longitude);
+            personMap.panTo(center);
         }
     }
 }
@@ -1153,12 +1155,18 @@ function showMobileMapButton_click() {
 
 function showMobileControlButton_click() {
     if (document.getElementById('mobileControlPanel').style.display === 'none'){
+        if (localStorage.getItem("taskNameText") !== "") {
+            document.getElementById("mobileTaskNameText").value = localStorage.getItem("taskNameText");
+        }
         document.getElementById('mobileControlPanel').style.display = "block";
     }
 }
 
 function closeMobileControlButton_click() {
     document.getElementById('mobileControlPanel').style.display = "none";
+
+    let taskText = document.getElementById("mobileTaskNameText").value;
+    localStorage.setItem("taskNameText", taskText);
 }
 
 
