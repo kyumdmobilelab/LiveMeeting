@@ -65,7 +65,11 @@
 </div>
 </body>
 <script>
-    if (localStorage.getItem("rememberChecked") == "true") {
+    if (/Mobi/.test(navigator.userAgent)) {
+        // mobile
+        window.location.href = "mobile.html";
+    }
+    else if (localStorage.getItem("rememberChecked") == "true") {
         document.getElementById("rememberCheckbox").checked = true;
 
         if (localStorage.getItem("username") !== "") {
@@ -107,7 +111,6 @@
             window.alert("Please input a User Name!!");
             return;
         }
-
         if (room == "") {
             window.alert("Please input a Room Name!!");
             return;
@@ -131,9 +134,7 @@
         //     }
         // }
 
-
         window.location.href = "liveapp_multiparty.html?" + "user=" + username + "&room=" + room;
-        
     }
 </script>
 </html>
