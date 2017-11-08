@@ -675,6 +675,13 @@ function loginSuccess(easyrtcid) {
         document.getElementById("iam").innerHTML = "I am "  + easyrtc.username + ".";
     }
     document.getElementById("startRecording").disabled = false;
+
+
+    if (urlSearchParams.get("isMobile") === "y" && urlSearchParams.get("os") === "android") {
+        //...
+    }else {
+        sendLocationInfoToServer();
+    }
 }
 
 
@@ -982,7 +989,10 @@ function initializeMap() {
     }
 }
 
+
 var myCurrentLocation = null;
+var sendLocationInfoTimerId = null;
+
 
 function gotoMyLocation() {
     if (personMap && myCurrentLocation) {
@@ -995,6 +1005,13 @@ function updateMyPosition(position) {
     console.log(position.coords.latitude + ", " + position.coords.longitude);
     myCurrentLocation = position;
 }
+
+function sendLocationInfoToServer() {
+    sendLocationInfoTimerId = window.setInterval(function() {
+        console.log("Send Location Info Timer ...");
+    }, 3500);
+}
+
 
 
 function clearConnectList() {
@@ -1096,6 +1113,11 @@ function mutedOtherBoxes(whichBox) {
 function leaveRoomButton_Click() {
     if (confirm("Leave this room?")) {
         easyrtc.hangupAll();
+
+        if (sendLocationInfoTimerId) {
+            window.clearInterval(sendLocationInfoTimerId);
+        }
+
         let currentRoomName = urlSearchParams.get("room");
         if (currentRoomName === null || currentRoomName === "")  {
             currentRoomName = "default";
