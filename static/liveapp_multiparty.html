@@ -24,8 +24,10 @@
                 <button id="textentrySubmit" style="float:right;margin-right:1em" onclick="sendText()">Send</button>
                 <button id="textentryCancel" style="float:left;margin-left:1em" onclick="cancelText()">Cancel</button>
             </div>
-
-            <div id="mobileMap" style="display:none"></div>
+            <div id="mobileMapPanel" style="display:none">
+                <div id="trackYourself"><input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)">&nbsp;Track yourself in Map</div>
+                <div id="mobileMap"></div>
+            </div>
             <div id="mobileControlPanel" style="display:none">
                 <button type="button" id="closeMobileControlButton" onclick="closeMobileControlButton_click()">X</button>
                 <fieldset id="mobileControlFieldset">
@@ -33,7 +35,6 @@
                     <p id="taskP">Task:&nbsp;
                         <input type="text" id="mobileTaskNameText" size="15" maxlength="20">
                     </p>
-                    <div id="trackYourself"><input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)">&nbsp;Track yourself in Map</div>
                 </fieldset>
                 <button type="button" id="mobileLeaveRoomButton" onclick="leaveRoomButton_Click()">Leave Room</button>
             </div>

@@ -805,7 +805,7 @@ function appInit() {
     //
     if (urlSearchParams.get("isMobile") == "y") {
         if (urlSearchParams.get("os") !== "android") {
-            setReshaper('mobileMap', reshapeMobileMap);
+            setReshaper('mobileMapPanel', reshapeMobileMap);
             setReshaper('mobileControlPanel', reshapeMobileControlPanel);
         }
     }
@@ -1139,16 +1139,16 @@ function openVideoManagerButton_click() {
 var isMobileMapInit = false;
 
 function showMobileMapButton_click() {
-    if (document.getElementById('mobileMap').style.display === 'none'){
+    if (document.getElementById('mobileMapPanel').style.display === 'none'){
         if (isMobileMapInit == false) {
             initializeMap();
             isMobileMapInit = true;
         }
 
-        document.getElementById('mobileMap').style.display = "block";
+        document.getElementById('mobileMapPanel').style.display = "block";
         document.getElementById('showMobileMapButton').innerText = "Hide Map";
     } else {
-        document.getElementById('mobileMap').style.display = "none";
+        document.getElementById('mobileMapPanel').style.display = "none";
         document.getElementById('showMobileMapButton').innerText = "Show Map";
     }
 }
@@ -1185,7 +1185,6 @@ function toggleTrackYourselfCheckbox(element) {
         }
     }
 }
-
 
 
 //--- Android Use: ---

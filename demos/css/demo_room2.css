@@ -57,13 +57,30 @@ body {
     opacity:1.0;
 }
 
-#mobileMap {
+#mobileMapPanel {
     border:2px solid #01B468;
     border-radius:10px;
     z-index:5;
     position: absolute;
     background-color: #ffffff;
     box-shadow: 5px 5px 5px #000000;
+}
+
+#mobileMap {
+    position: absolute;
+    width: 100%;
+    top: 45px;
+    bottom: 0px;
+    border-radius:0px 0px 10px 10px;
+}
+
+#trackYourself {
+    position: absolute;
+    font-size: 1.0em;
+    width: 85%;
+    height: 40px;
+    top:10px;
+    left: 15px;
 }
 
 #mobileControlPanel {
@@ -133,14 +150,6 @@ body {
     border-radius: 10px;
 }
 
-#trackYourself {
-    position: absolute;
-    font-size: 1.2em;
-    width: 85%;
-    height: 40px;
-    top:90px;
-    left: 10%;
-}
 
 #taskP {
     position: absolute;
