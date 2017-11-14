@@ -18,20 +18,6 @@ if ("geolocation" in navigator) {
     //geolocation is available
     navigator.geolocation.getCurrentPosition(function(position) {
         myCurrentLocation = position;
-
-        // if (personMap) {
-        //     let center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        //     personMap.setCenter(center);
-        // }
-
-        // let marker = new google.maps.Marker({
-        //     position: center,
-        //     title: "123456",
-        //     label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
-        //     icon: "images/marker-s.png",
-        //     map: personMap
-        // });
-        // markerArray.push(marker);
     });
 }
 
@@ -621,6 +607,7 @@ function muteActiveBox() {
 
 var IsCallEverybodyElseFireTime = true;
 
+
 function callEverybodyElse(roomName, otherPeople) {
     document.getElementById("roomname").innerHTML = "Room: " + roomName;
 
@@ -1009,7 +996,63 @@ function updateMyPosition(position) {
 function sendLocationInfoToServer() {
     sendLocationInfoTimerId = window.setInterval(function() {
         console.log("Send Location Info Timer ...");
-    }, 3500);
+        if (myCurrentLocation) {
+            let latStr = "h=" +  myCurrentLocation.coords.latitude;
+            let lngStr = "&c=" + myCurrentLocation.coords.longitude;
+
+            let nameStr = "&d=";
+            if (easyrtc.username == null) {
+                nameStr = nameStr + easyrtc.cleanId(easyrtcid);
+            } else {
+                nameStr = nameStr + easyrtc.username;
+            }
+
+            let roomStr = "&r=";
+            if (urlSearchParams.get("room") != null) {
+                roomStr = roomStr + urlSearchParams.get("room");
+            } else {
+                roomStr = roomStr + "default";
+            }
+
+            let taskStr = "&t=";
+            if (localStorage.getItem("taskNameText")) {
+                taskStr = taskStr + localStorage.getItem("taskNameText");
+            }
+            
+            let url = "https://210.60.88.47/ok.asp?" + latStr + lngStr + nameStr + roomStr + taskStr;
+            
+            $.get(url, function(data){
+                console.log("html: " + data);
+            });
+        }
+    }, 4000);
+}
+
+var updateMapMarkersTimerId = null;
+
+function updatePersonMapMarkers() {
+    // if (personMap) {
+    //     let center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    //     personMap.setCenter(center);
+    // }
+
+    // let marker = new google.maps.Marker({
+    //     position: center,
+    //     title: "123456",
+    //     label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
+    //     icon: "images/marker-s.png",
+    //     map: personMap
+    // });
+    // markerArray.push(marker);
+
+    if (personMap) {
+        updateMapMarkersTimerId = window.setInterval(function() {
+            console.log("Update MapMarkers Timer ...");
+
+            
+
+        });
+    }
 }
 
 
