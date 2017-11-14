@@ -949,6 +949,8 @@ function initMap() {
                     let center = new google.maps.LatLng(myCurrentLocation.coords.latitude, myCurrentLocation.coords.longitude);
                     personMap.panTo(center);
                 }
+
+                updatePersonMapMarkers();
             }, 2500);
 
         }, 2000);
@@ -973,6 +975,8 @@ function initializeMap() {
             let center = new google.maps.LatLng(myCurrentLocation.coords.latitude, myCurrentLocation.coords.longitude);
             personMap.panTo(center);
         }
+
+        updatePersonMapMarkers();
     }
 }
 
@@ -994,67 +998,102 @@ function updateMyPosition(position) {
 }
 
 function sendLocationInfoToServer() {
-    sendLocationInfoTimerId = window.setInterval(function() {
-        console.log("Send Location Info Timer ...");
-        if (myCurrentLocation) {
-            let latStr = "h=" +  myCurrentLocation.coords.latitude;
-            let lngStr = "&c=" + myCurrentLocation.coords.longitude;
+    if (urlSearchParams.get("isMobile") == "y") {
+        if (urlSearchParams.get("os") == "android") {
+            return;
+        }
 
-            let nameStr = "&d=";
-            if (easyrtc.username == null) {
-                nameStr = nameStr + easyrtc.cleanId(easyrtcid);
-            } else {
-                nameStr = nameStr + easyrtc.username;
+        sendLocationInfoTimerId = window.setInterval(function() {
+            //console.log("Send Location Info Timer ...");
+            if (myCurrentLocation) {
+                let latStr = "h=" +  myCurrentLocation.coords.latitude;
+                let lngStr = "&c=" + myCurrentLocation.coords.longitude;
+
+                let nameStr = "&d=";
+                if (easyrtc.username == null) {
+                    nameStr = nameStr + easyrtc.cleanId(easyrtcid);
+                } else {
+                    nameStr = nameStr + easyrtc.username;
+                }
+
+                let roomStr = "&r=";
+                if (urlSearchParams.get("room") != null) {
+                    roomStr = roomStr + urlSearchParams.get("room");
+                } else {
+                    roomStr = roomStr + "default";
+                }
+
+                let taskStr = "&t=";
+                if (localStorage.getItem("taskNameText")) {
+                    taskStr = taskStr + localStorage.getItem("taskNameText");
+                }
+                
+                let url = "https://210.60.88.47/ok.asp?" + latStr + lngStr + nameStr + roomStr + taskStr;
+                //console.log(url);
+
+                $.get(url, function(data){
+                    console.log("Send Location to Server: " + data);
+                });
+            }
+        }, 4500);
+    }
+}
+
+var updateMapMarkersTimerId = null;
+var markerArray = [];
+
+function updatePersonMapMarkers() {
+    if (personMap) {
+        updateMapMarkersTimerId = window.setInterval(function() {
+            console.log("Update MapMarkers Timer ...");
+
+            // 刪除地圖裡的 marker
+            while(markerArray.length){
+                markerArray.pop().setMap(null);
             }
 
-            let roomStr = "&r=";
+            let roomStr = "r=";
             if (urlSearchParams.get("room") != null) {
                 roomStr = roomStr + urlSearchParams.get("room");
             } else {
                 roomStr = roomStr + "default";
             }
 
-            let taskStr = "&t=";
-            if (localStorage.getItem("taskNameText")) {
-                taskStr = taskStr + localStorage.getItem("taskNameText");
-            }
-            
-            let url = "https://210.60.88.47/ok.asp?" + latStr + lngStr + nameStr + roomStr + taskStr;
-            
+            let url = "https://210.60.88.47/liveid.asp?" + roomStr;
+            //console.log(url);
+
             $.get(url, function(data){
-                console.log("html: " + data);
+                //console.log("Map Markers: " + data);
+                let jsonObj = JSON.parse(data);
+                // console.log("Map Markers: " + JSON.stringify(jsonObj));
+                for (let i=0; i<jsonObj.length; i++) {
+                    let obj = jsonObj[i];
+                    let infoStr = "User: " + obj["id"] + "<BR>" + "Task: " + obj["t"];
+                    let nameStr = "User: " + obj["id"];
+                    let point = new google.maps.LatLng(obj["h"], obj["c"]);
+
+                    let infowindow = new google.maps.InfoWindow({
+                        content: infoStr
+                    });
+                    
+                    let marker = new google.maps.Marker({
+                        position: point,
+                        title: obj["id"],
+                        label: {text: nameStr, color: "#5151A2",  fontSize: "15px", fontWeight: "bold"},
+                        icon: "images/marker-s.png",
+                        map: personMap
+                    });
+
+                    marker.addListener('click', function() {
+                        infowindow.open(personMap, marker);
+                    });
+
+                    markerArray.push(marker);
+                }
             });
-        }
-    }, 4000);
-}
-
-var updateMapMarkersTimerId = null;
-
-function updatePersonMapMarkers() {
-    // if (personMap) {
-    //     let center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    //     personMap.setCenter(center);
-    // }
-
-    // let marker = new google.maps.Marker({
-    //     position: center,
-    //     title: "123456",
-    //     label: {text: "My Location", color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
-    //     icon: "images/marker-s.png",
-    //     map: personMap
-    // });
-    // markerArray.push(marker);
-
-    if (personMap) {
-        updateMapMarkersTimerId = window.setInterval(function() {
-            console.log("Update MapMarkers Timer ...");
-
-            
-
-        });
+        }, 5000);
     }
 }
-
 
 
 function clearConnectList() {
