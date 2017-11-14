@@ -1063,9 +1063,10 @@ function updatePersonMapMarkers() {
             //console.log(url);
 
             $.get(url, function(data){
-                //console.log("Map Markers: " + data);
+                console.log("Map Markers: " + data);
                 let jsonObj = JSON.parse(data);
                 // console.log("Map Markers: " + JSON.stringify(jsonObj));
+                
                 for (let i=0; i<jsonObj.length; i++) {
                     let obj = jsonObj[i];
                     let infoStr = "User: " + obj["id"] + "<BR>" + "Task: " + obj["t"];
