@@ -1070,7 +1070,7 @@ function updatePersonMapMarkers() {
                 for (let i=0; i<jsonObj.length; i++) {
                     let obj = jsonObj[i];
                     let infoStr = "User: " + obj["id"] + "<BR>" + "Task: " + obj["t"];
-                    let nameStr = "User: " + obj["id"];
+                    let nameStr = obj["id"];
                     let point = new google.maps.LatLng(obj["h"], obj["c"]);
 
                     let infowindow = new google.maps.InfoWindow({
@@ -1080,8 +1080,8 @@ function updatePersonMapMarkers() {
                     let marker = new google.maps.Marker({
                         position: point,
                         title: obj["id"],
-                        label: {text: nameStr, color: "#5151A2",  fontSize: "15px", fontWeight: "bold"},
-                        icon: "images/marker-s.png",
+                        label: {text: nameStr, color: "#5151A2",  fontSize: "16px", fontWeight: "bold"},
+                        icon: "images/Marker-5.png",
                         map: personMap
                     });
 
