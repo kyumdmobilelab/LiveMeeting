@@ -1028,7 +1028,7 @@ function sendLocationInfoToServer() {
                     taskStr = taskStr + localStorage.getItem("taskNameText");
                 }
                 
-                let url = "https://210.60.88.47/ok.asp?" + latStr + lngStr + nameStr + roomStr + taskStr;
+                let url = "https://mndliveapp.website/ok.asp?" + latStr + lngStr + nameStr + roomStr + taskStr;
                 //console.log(url);
 
                 $.get(url, function(data){
@@ -1059,7 +1059,7 @@ function updatePersonMapMarkers() {
                 roomStr = roomStr + "default";
             }
 
-            let url = "https://210.60.88.47/liveid.asp?" + roomStr;
+            let url = "https://mndliveapp.website/liveid.asp?" + roomStr;
             //console.log(url);
 
             $.get(url, function(data){
