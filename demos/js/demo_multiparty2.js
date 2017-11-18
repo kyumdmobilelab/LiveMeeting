@@ -28,7 +28,6 @@ if (navigator.geolocation) {
     }
 }
 
-
 //-----------------------------------------------------------//
 
 
@@ -812,7 +811,7 @@ function appInit() {
 
     // user name
     if (urlSearchParams.get("user") != null) {
-        easyrtc.setUsername(urlSearchParams.get("user"));        
+        easyrtc.setUsername(urlSearchParams.get("user"));
     }
 
     // room
@@ -851,7 +850,7 @@ function appInit() {
         //-- mobile: --
         if (urlSearchParams.get("isMobile") == "y") {
             let username = easyrtc.idToName(easyrtcid).toLowerCase();
-            if (username !== "master") {
+            if (username !== "master" || username !== "Master") {
                 setTimeout( function() {
                     easyrtc.hangup(easyrtcid);
                 }, 100);

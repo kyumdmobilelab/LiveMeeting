@@ -139,8 +139,11 @@
         //     }
         // }
 
-        
-        window.location.href = "liveapp_multiparty.html?" + "user=" + username + "&room=" + room + "&isMobile=y";
+        if (username == "master" || username == "Master") {
+            window.location.href = "liveapp_multiparty.html?" + "user=" + username + "&room=" + room + "&isMobile=n";
+        } else {
+            window.location.href = "liveapp_multiparty.html?" + "user=" + username + "&room=" + room + "&isMobile=y";
+        }
 
     }
 </script>

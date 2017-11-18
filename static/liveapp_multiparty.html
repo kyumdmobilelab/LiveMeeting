@@ -21,6 +21,7 @@
             <video id="box1" class="transit boxCommon thumbCommon" style="visibility:hidden" playsinline></video>
             <video id="box2" class="transit boxCommon thumbCommon" style="visibility:hidden" playsinline></video>
             <video id="box3" class="transit boxCommon thumbCommon" style="visibility:hidden" playsinline></video>
+            
             <div id="textentryBox" onsubmit="sendText()" style="display:none" >
                 <input type="text" id="textentryField"  class="transit boxcommon" /><br>
                 <button id="textentrySubmit" style="float:right;margin-right:1em" onclick="sendText()">Send</button>
@@ -79,7 +80,7 @@
                 </fieldset>
                 
             </div>
-            <div id="recordButtons">
+            <div id="recordButtons"  style="display:none">
                 <fieldset>
                     <legend style="text-align:left;">&nbsp; Record Video &nbsp;</legend>
                         <input type="radio" onclick="easyrtc.setRecordingVideoCodec('vp8');" id="useVP8" name="codecUsed"> VP8 </input>
