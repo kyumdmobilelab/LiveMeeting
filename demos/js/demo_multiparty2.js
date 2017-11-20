@@ -850,7 +850,7 @@ function appInit() {
         //-- mobile: --
         if (urlSearchParams.get("isMobile") == "y") {
             let username = easyrtc.idToName(easyrtcid).toLowerCase();
-            if (username !== "master" || username !== "Master") {
+            if (username !== "master") {
                 setTimeout( function() {
                     easyrtc.hangup(easyrtcid);
                 }, 100);
