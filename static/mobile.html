@@ -139,7 +139,7 @@
         //     }
         // }
 
-        if (username == "master" || username == "Master") {
+        if (username.toLowerCase() == "master") {
             window.location.href = "liveapp_multiparty.html?" + "user=" + username + "&room=" + room + "&isMobile=n";
         } else {
             window.location.href = "liveapp_multiparty.html?" + "user=" + username + "&room=" + room + "&isMobile=y";

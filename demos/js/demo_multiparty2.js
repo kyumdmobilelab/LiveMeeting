@@ -479,14 +479,14 @@ function handleWindowResize() {
     // applyReshape(fullpage, window.innerWidth/2, window.innerHeight);
 
     if (urlSearchParams.get("isMobile") == "y") {
+        applyReshape(fullpage, window.innerWidth, (window.innerHeight-35) );
+        document.getElementById('mobileControlBlock').style.height = 35 + "px";
+        document.getElementById('mobileControlBlock').style.width = window.innerWidth + "px";
+
         if (urlSearchParams.get("os") == "android") {  // Android app
-            applyReshape(fullpage, window.innerWidth, window.innerHeight);
+            document.getElementById('showMobileControlButton').style.display = 'none';
+            document.getElementById('showMobileMapButton').style.display = 'none';
         } 
-        else {  // Mobile Chrome and Mobile Safari 
-            applyReshape(fullpage, window.innerWidth, (window.innerHeight-50) );
-            document.getElementById('mobileControlBlock').style.height = 50 + "px";
-            document.getElementById('mobileControlBlock').style.width = window.innerWidth + "px";
-        }
     } else {
         applyReshape(fullpage, window.innerWidth/2, window.innerHeight);
         document.getElementById('controlBlock').style.width = (window.innerWidth/2) - 25 + "px";
@@ -539,7 +539,9 @@ function updateMuteImage(toggle) {
 
             // android:
             if (urlSearchParams.get("os") == "android") {
-                B4A.CallSub('allMutedChange', true);
+                if (typeof B4A !== 'undefined') {
+                    B4A.CallSub('allMutedChange', true);
+                }
             }
         }
         muteButton.src = isMuted?"images/button_unmute.png":"images/button_mute.png";
@@ -822,9 +824,7 @@ function appInit() {
     // is mobile
     if (urlSearchParams.get("isMobile") == "y") {
         document.getElementById("controlBlock").style.display = 'none';
-        if (urlSearchParams.get("os") !== "android") {
-            document.getElementById("mobileControlBlock").style.visibility = "visible";
-        }
+        document.getElementById("mobileControlBlock").style.visibility = "visible";
     } else {
         document.getElementById("controlBlock").style.visibility = "visible";
     }
@@ -891,7 +891,9 @@ function appInit() {
 
         // android:
         if (urlSearchParams.get("os") == "android") {
-            B4A.CallSub('allMutedChange', true);
+            if (typeof B4A !== 'undefined') {
+                B4A.CallSub('allMutedChange', true);
+            }
         }
     });
 
@@ -907,7 +909,9 @@ function appInit() {
 
             // android:
             if (urlSearchParams.get("os") == "android") {
-                B4A.CallSub('allMutedChange', true);
+                if (typeof B4A !== 'undefined') {
+                    B4A.CallSub('allMutedChange', true);
+                }
             }
 
             if( easyrtc.getConnectionCount() == 0 ) { // no more connections
@@ -1186,7 +1190,9 @@ function mutedOtherBoxes(whichBox) {
 
             // android:
             if (urlSearchParams.get("os") == "android") {
-                B4A.CallSub('allMutedChange', true);
+                if (typeof B4A !== 'undefined') {
+                    B4A.CallSub('allMutedChange', true);
+                }
             }
         }
     }
@@ -1211,7 +1217,9 @@ function leaveRoomButton_Click() {
 
                 // android:
                 if (urlSearchParams.get("os") == "android") {
-                    B4A.CallSub('leaveRoom', true);
+                    if (typeof B4A !== 'undefined') {
+                        B4A.CallSub('leaveRoom', true);
+                    }
                     return;
                 }
 
@@ -1255,6 +1263,10 @@ function showMobileMapButton_click() {
         document.getElementById('mobileMapPanel').style.display = "none";
         document.getElementById('showMobileMapButton').innerText = "Show Map";
     }
+}
+
+function showMemberListButton_click() {
+
 }
 
 function showMobileControlButton_click() {

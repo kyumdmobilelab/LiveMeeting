@@ -180,6 +180,20 @@ body {
     left: 5%;
 }
 
+#showMemberListButton {
+    position: absolute;
+    background-color:#7B7B7B;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9em;
+    width: 100px;
+    height: 30px;
+    top: 2px;
+    left: 12px;
+}
+
 #showMobileControlButton {
     position: absolute;
     background-color:#7B7B7B;
@@ -188,10 +202,10 @@ body {
     color: white;
     font-family: 'Roboto', sans-serif;
     font-size: 0.9em;
-    width: 130px;
-    height: 38px;
-    top: 6px;
-    left: 12px;
+    width: 100px;
+    height: 30px;
+    top: 2px;
+    left: 125px;
 }
 
 #showMobileMapButton {
@@ -202,9 +216,9 @@ body {
     color: white;
     font-family: 'Roboto', sans-serif;
     font-size: 0.9em;
-    width: 110px;
-    height: 38px;
-    top: 6px;
+    width: 105px;
+    height: 30px;
+    top: 2px;
     right: 12px;
 }
 
