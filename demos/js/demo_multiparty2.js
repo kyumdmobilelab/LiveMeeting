@@ -1093,6 +1093,11 @@ function updatePersonMapMarkers() {
                     });
 
                     markerArray.push(marker);
+
+                    let taskNode = document.getElementById(obj["id"] + "_taskName");
+                    if (taskNode) {
+                        taskNode.innerHTML = "&nbsp;(taskName : " + obj["t"] + ")";
+                    }
                 }
             });
         }, 5000);
@@ -1119,6 +1124,8 @@ function showUserList(otherPeople) {
 
     for(let easyrtcid in otherPeople) {
         let button = document.createElement('button');
+        button.className = "connectUserButton";
+        button.style.height = "25px";
         button.onclick = function(easyrtcid) {
             return function() {
                 performCall(easyrtcid);
@@ -1128,6 +1135,13 @@ function showUserList(otherPeople) {
         let label = document.createTextNode(easyrtc.idToName(easyrtcid));
         button.appendChild(label);
         otherClientDiv.appendChild(button);
+
+        let taskNode = document.createElement('div');
+        taskNode.id = easyrtc.idToName(easyrtcid).toLowerCase() + "_taskName";
+        taskNode.className = "connectUserInfo";
+        taskNode.style.height = "25px";
+        //taskNode.style.width = "200px";
+        otherClientDiv.appendChild(taskNode);
 
         let br = document.createElement("br");
         otherClientDiv.appendChild(br);
