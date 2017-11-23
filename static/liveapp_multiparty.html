@@ -32,7 +32,7 @@
                 <div id="mobileMap"></div>
             </div>
             <div id="mobileControlPanel" style="display:none">
-                <button type="button" id="closeMobileControlButton" onclick="closeMobileControlButton_click()">X</button>
+                <button type="button" class="closeMobileControlButton" onclick="closeMobileControlButton_click()">X</button>
                 <fieldset id="mobileControlFieldset">
                     <legend style="font-size: 1.2em;">&nbsp; Control Panel &nbsp;</legend>
                     <p id="taskP">Task:&nbsp;
@@ -40,6 +40,13 @@
                     </p>
                 </fieldset>
                 <button type="button" id="mobileLeaveRoomButton" onclick="leaveRoomButton_Click()">Leave Room</button>
+            </div>
+            <div id="mobileMemberList" style="display:none">
+                <button type="button" class="closeMobileControlButton" onclick="closeMobileMemberListButton_click()">X</button>
+                <fieldset id="mobileMemberListFieldset">
+                    <legend style="font-size: 1.2em;">&nbsp; Members List &nbsp;</legend>
+                    <div id="mobileOtherClients"></div>
+                </fieldset>
             </div>
 
             <img id="killButton" class="transit boxCommon" onclick="killActiveBox()" src="images/button_close.png" style="display:none;z-index:3" alt="close button" />

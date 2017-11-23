@@ -92,6 +92,15 @@ body {
     box-shadow: 5px 5px 5px #000000;
 }
 
+#mobileMemberList {
+    border:2px solid #7B7B7B;
+    border-radius:10px;
+    z-index:5;
+    position: absolute;
+    background-color: #f5f5f5;
+    box-shadow: 5px 5px 5px #000000;
+}
+
 #textentryBox {
     border:2px solid #a0ffa0;
     border-radius:10px;
@@ -127,7 +136,7 @@ body {
     left: 0;
 }
 
-#closeMobileControlButton {
+.closeMobileControlButton {
     position: absolute;
     background-color:#FF5151;
     border: none;
@@ -150,6 +159,15 @@ body {
     border-radius: 10px;
 }
 
+#mobileMemberListFieldset {
+    position: absolute;
+    width: 82%;
+    /*height: 65%;*/
+    top: 38px;
+    bottom: 20px;
+    left: 5%;
+    border-radius: 10px;
+}
 
 #taskP {
     position: absolute;
@@ -268,6 +286,14 @@ body {
     overflow-y:scroll;
     text-align: left;
 }
+
+#mobileOtherClients {
+    width: 100%;
+    height:100%;
+    overflow-y:scroll;
+    text-align: left;
+}
+
 
 .connectUserButton {
     margin-left: 15px;

@@ -88,6 +88,15 @@ function reshapeMobileControlPanel(parentw, parenth) {
     }
 }
 
+function reshapeMobileMemberList(parentw, parenth) {
+    return {
+        left:parentw/25,
+        top:parenth/6,
+        width:(parentw/10)*9,
+        height: (parenth/7)*5
+    }
+}
+
 
 var margin = 20;
 
@@ -802,6 +811,7 @@ function appInit() {
         if (urlSearchParams.get("os") !== "android") {
             setReshaper('mobileMapPanel', reshapeMobileMap);
             setReshaper('mobileControlPanel', reshapeMobileControlPanel);
+            setReshaper('mobileMemberList', reshapeMobileMemberList);
         }
     }
 
@@ -833,11 +843,11 @@ function appInit() {
     // support record?
     if( !easyrtc.supportsRecording()) {
         document.getElementById("recordButtons").style.display = 'none';
-     } else {
-         if( easyrtc.isRecordingTypeSupported("h264")) document.getElementById("useH264").disabled = false;
-         if( easyrtc.isRecordingTypeSupported("vp9")) document.getElementById("useVP9").disabled = false;
-         if( easyrtc.isRecordingTypeSupported("vp8")) document.getElementById("useVP8").disabled = false;
-     }
+    } else {
+        if( easyrtc.isRecordingTypeSupported("h264")) document.getElementById("useH264").disabled = false;
+        if( easyrtc.isRecordingTypeSupported("vp9")) document.getElementById("useVP9").disabled = false;
+        if( easyrtc.isRecordingTypeSupported("vp8")) document.getElementById("useVP8").disabled = false;
+    }
 
 
     easyrtc.setRoomOccupantListener(callEverybodyElse);
@@ -1100,6 +1110,11 @@ function updatePersonMapMarkers() {
                     if (taskNode) {
                         taskNode.innerHTML = "&nbsp;&nbsp;(task : " + obj["t"] + ")";
                     }
+
+                    let mTaskNode = document.getElementById(obj["id"] + "_taskNameM");
+                    if (mTaskNode) {
+                        mTaskNode.innerHTML = "&nbsp;(task: " + obj["t"] + ")";
+                    }
                 }
             });
         }, 5000);
@@ -1147,6 +1162,33 @@ function showUserList(otherPeople) {
         let br = document.createElement("br");
         otherClientDiv.appendChild(br);
     }
+
+    let mobileOtherClientDiv = document.getElementById('mobileOtherClients');
+    for(let easyrtcid in otherPeople) {
+        let button = document.createElement('button');
+        button.className = "connectUserButton";
+        button.style.height = "25px";
+        button.onclick = function(easyrtcid) {
+            return function() {
+                performCall(easyrtcid);
+            };
+        }(easyrtcid);
+
+        let label = document.createTextNode(easyrtc.idToName(easyrtcid));
+        button.appendChild(label);
+        mobileOtherClientDiv.appendChild(button);
+
+        let taskNode = document.createElement('div');
+        taskNode.id = easyrtc.idToName(easyrtcid).toLowerCase() + "_taskNameM";
+        taskNode.className = "connectUserInfo";
+        //taskNode.style.fontSize = "0.8em";
+        taskNode.style.height = "25px";
+        mobileOtherClientDiv.appendChild(taskNode);
+
+        let br = document.createElement("br");
+        mobileOtherClientDiv.appendChild(br);
+    }
+
 
     let mutedUsersDiv = document.getElementById('mutedUsers');
 
@@ -1293,7 +1335,9 @@ function showMobileMapButton_click() {
 }
 
 function showMemberListButton_click() {
-
+    if (document.getElementById('mobileMemberList').style.display === 'none'){
+        document.getElementById('mobileMemberList').style.display = "block";
+    }
 }
 
 function showMobileControlButton_click() {
@@ -1310,6 +1354,10 @@ function closeMobileControlButton_click() {
 
     let taskText = document.getElementById("mobileTaskNameText").value;
     localStorage.setItem("taskNameText", taskText);
+}
+
+function closeMobileMemberListButton_click() {
+    document.getElementById('mobileMemberList').style.display = "none";
 }
 
 
