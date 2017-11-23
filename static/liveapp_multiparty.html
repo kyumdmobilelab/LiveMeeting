@@ -29,6 +29,7 @@
             </div>
             <div id="mobileMapPanel" style="display:none">
                 <div id="trackYourself"><input type="checkbox" id="trackYourselfCheckbox" onchange="toggleTrackYourselfCheckbox(this)">&nbsp;Track yourself in Map</div>
+                <button type="button" class="closeMobileControlButton" onclick="closeMobileMapButton_click()">X</button>
                 <div id="mobileMap"></div>
             </div>
             <div id="mobileControlPanel" style="display:none">
@@ -56,7 +57,7 @@
         <div id="mobileControlBlock" style="visibility:hidden; ">
             <button type="button" id="showMemberListButton" onclick="showMemberListButton_click()">Members</button>
             <button type="button" id="showMobileControlButton" onclick="showMobileControlButton_click()">Control</button>
-            <button type="button" id="showMobileMapButton" onclick="showMobileMapButton_click()">Show Map</button>
+            <button type="button" id="showMobileMapButton" onclick="showMobileMapButton_click()">Map</button>
         </div>
         <div id="controlBlock" style="visibility:hidden">
             <button type="button" id="leaveRoomButton" onclick="leaveRoomButton_Click()">Leave Room >></button>

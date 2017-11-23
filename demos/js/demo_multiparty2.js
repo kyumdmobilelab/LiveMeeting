@@ -934,18 +934,25 @@ function appInit() {
             muteCheckboxIds[getIdOfBox(slot+1)] = "";
         },20);
     });
+
+
+    // 
+    if (urlSearchParams.get("isMobile") == "y") {
+        updatePersonMapMarkers();
+    }
 }
 
 //----------------------------------------------------------------//
 
 var personMap = null;
 
-function initMap() {
+// Desktop Map
+function initMap() { 
     if (urlSearchParams.get("isMobile") == "y") {
         if (urlSearchParams.get("os") === "android") {
             return;
         }
-    } else {  // Desktop Map
+    } else {  
         setTimeout(function(){
             let uluru = {lat: 25.0782782, lng: 121.537494};
             let myMap = document.getElementById('map');
@@ -968,8 +975,9 @@ function initMap() {
     }
 }
  
-function initializeMap() {
-    if (urlSearchParams.get("isMobile") == "y") {  // is mobile
+// mobile map
+function initializeMap() { 
+    if (urlSearchParams.get("isMobile") == "y") {  
         if (urlSearchParams.get("os") === "android") {
             return;
         } else {
@@ -986,8 +994,6 @@ function initializeMap() {
             let center = new google.maps.LatLng(myCurrentLocation.coords.latitude, myCurrentLocation.coords.longitude);
             personMap.panTo(center);
         }
-
-        updatePersonMapMarkers();
     }
 }
 
@@ -1009,45 +1015,50 @@ function updateMyPosition(position) {
 }
 
 function sendLocationInfoToServer() {
-    if (urlSearchParams.get("isMobile") == "y") {
-        if (urlSearchParams.get("os") == "android") {
-            return;
-        }
-
-        sendLocationInfoTimerId = window.setInterval(function() {
-            //console.log("Send Location Info Timer ...");
-            if (myCurrentLocation) {
-                let latStr = "h=" +  myCurrentLocation.coords.latitude;
-                let lngStr = "&c=" + myCurrentLocation.coords.longitude;
-
-                let nameStr = "&d=";
-                if (easyrtc.username == null) {
-                    nameStr = nameStr + easyrtc.cleanId(easyrtcid);
-                } else {
-                    nameStr = nameStr + easyrtc.username;
-                }
-
-                let roomStr = "&r=";
-                if (urlSearchParams.get("room") != null) {
-                    roomStr = roomStr + urlSearchParams.get("room");
-                } else {
-                    roomStr = roomStr + "default";
-                }
-
-                let taskStr = "&t=";
-                if (localStorage.getItem("taskNameText")) {
-                    taskStr = taskStr + localStorage.getItem("taskNameText");
-                }
-                
-                let url = "https://mndliveapp.website/ok.asp?" + latStr + lngStr + nameStr + roomStr + taskStr;
-                //console.log(url);
-
-                $.get(url, function(data){
-                    console.log("Send Location to Server: " + data);
-                });
-            }
-        }, 4500);
+    if (urlSearchParams.get("os") == "android") {
+        return;
     }
+
+    sendLocationInfoTimerId = window.setInterval(function() {
+        //console.log("Send Location Info Timer ...");
+        if (myCurrentLocation) {
+            let latStr = "h=" +  myCurrentLocation.coords.latitude;
+            let lngStr = "&c=" + myCurrentLocation.coords.longitude;
+
+            let nameStr = "&d=";
+            if (easyrtc.username == null) {
+                nameStr = nameStr + easyrtc.cleanId(easyrtcid);
+            } else {
+                nameStr = nameStr + easyrtc.username;
+            }
+
+            let roomStr = "&r=";
+            if (urlSearchParams.get("room") != null) {
+                roomStr = roomStr + urlSearchParams.get("room");
+            } else {
+                roomStr = roomStr + "default";
+            }
+
+            let taskStr = "&t=";
+
+            if (urlSearchParams.get("isMobile") == "y") {  // is mobile
+                if (localStorage.getItem("taskNameText")) {
+                    taskStr = taskStr + localStorage.getItem("taskNameText").replace(/ /g, "_");
+                }
+            } else {
+                if (easyrtc.username.toLowerCase() === "master") {
+                    taskStr = taskStr + "Control Center".replace(/ /g, "_");
+                }
+            }
+            
+            let url = "https://mndliveapp.website/ok.asp?" + latStr + lngStr + nameStr + roomStr + taskStr;
+            //console.log(url);
+
+            $.get(url, function(data){
+                console.log("Send Location to Server: " + data);
+            });
+        }
+    }, 4500);
 }
 
 var updateMapMarkersTimerId = null;
@@ -1055,33 +1066,37 @@ var markerArray = [];
 var memberJsonArray = null;
 
 function updatePersonMapMarkers() {
-    if (personMap) {
-        updateMapMarkersTimerId = window.setInterval(function() {
-            console.log("Update MapMarkers Timer ...");
+    updateMapMarkersTimerId = window.setInterval(function() {
+        console.log("Update MapMarkers Timer ...");
 
+        let roomStr = "r=";
+        if (urlSearchParams.get("room") != null) {
+            roomStr = roomStr + urlSearchParams.get("room");
+        } else {
+            roomStr = roomStr + "default";
+        }
+
+        let url = "https://mndliveapp.website/liveid.asp?" + roomStr;
+        //console.log(url);
+
+        $.get(url, function(data){
             // 刪除地圖裡的 marker
-            while(markerArray.length){
-                markerArray.pop().setMap(null);
+            if (personMap) {
+                while(markerArray.length){
+                    markerArray.pop().setMap(null);
+                }
             }
 
-            let roomStr = "r=";
-            if (urlSearchParams.get("room") != null) {
-                roomStr = roomStr + urlSearchParams.get("room");
-            } else {
-                roomStr = roomStr + "default";
-            }
+            console.log("Map Markers: " + data);
 
-            let url = "https://mndliveapp.website/liveid.asp?" + roomStr;
-            //console.log(url);
+            let jsonObj = JSON.parse(data);
+            memberJsonArray = jsonObj;
+            // console.log("Map Markers: " + JSON.stringify(jsonObj));
+            
+            for (let i=0; i<jsonObj.length; i++) {
+                let obj = jsonObj[i];
 
-            $.get(url, function(data){
-                console.log("Map Markers: " + data);
-                let jsonObj = JSON.parse(data);
-                memberJsonArray = jsonObj;
-                // console.log("Map Markers: " + JSON.stringify(jsonObj));
-                
-                for (let i=0; i<jsonObj.length; i++) {
-                    let obj = jsonObj[i];
+                if (personMap) {
                     let infoStr = "User: " + obj["id"] + "<BR>" + "Task: " + obj["t"];
                     let nameStr = obj["id"];
                     let point = new google.maps.LatLng(obj["h"], obj["c"]);
@@ -1103,20 +1118,20 @@ function updatePersonMapMarkers() {
                     });
 
                     markerArray.push(marker);
-
-                    let taskNode = document.getElementById(obj["id"].toLowerCase() + "_taskName");
-                    if (taskNode) {
-                        taskNode.innerHTML = "&nbsp;&nbsp;(task : " + obj["t"] + ")";
-                    }
-
-                    let mTaskNode = document.getElementById(obj["id"].toLowerCase() + "_taskNameM");
-                    if (mTaskNode) {
-                        mTaskNode.innerHTML = "&nbsp;(task: " + obj["t"] + ")";
-                    }
                 }
-            });
-        }, 5000);
-    }
+
+                let taskNode = document.getElementById(obj["id"].toLowerCase() + "_taskName");
+                if (taskNode) {
+                    taskNode.innerHTML = "&nbsp;&nbsp;(task : " + obj["t"] + ")";
+                }
+
+                let mTaskNode = document.getElementById(obj["id"].toLowerCase() + "_taskNameM");
+                if (mTaskNode) {
+                    mTaskNode.innerHTML = "&nbsp;(task: " + obj["t"] + ")";
+                }
+            }
+        });
+    }, 5000);
 }
 
 
@@ -1127,8 +1142,8 @@ function clearConnectList() {
     }
 
     var mobileOtherClientDiv = document.getElementById('mobileOtherClients');
-    while (otherClientDiv.hasChildNodes()) {
-        mobileOtherClientDiv.removeChild(otherClientDiv.lastChild);
+    while (mobileOtherClientDiv.hasChildNodes()) {
+        mobileOtherClientDiv.removeChild(mobileOtherClientDiv.lastChild);
     }
 
     var mutedUsersDiv = document.getElementById('mutedUsers');
@@ -1330,12 +1345,7 @@ function showMobileMapButton_click() {
             initializeMap();
             isMobileMapInit = true;
         }
-
         document.getElementById('mobileMapPanel').style.display = "block";
-        document.getElementById('showMobileMapButton').innerText = "Hide Map";
-    } else {
-        document.getElementById('mobileMapPanel').style.display = "none";
-        document.getElementById('showMobileMapButton').innerText = "Show Map";
     }
 }
 
@@ -1352,6 +1362,10 @@ function showMobileControlButton_click() {
         }
         document.getElementById('mobileControlPanel').style.display = "block";
     }
+}
+
+function closeMobileMapButton_click() {
+    document.getElementById('mobileMapPanel').style.display = "none";
 }
 
 function closeMobileControlButton_click() {
