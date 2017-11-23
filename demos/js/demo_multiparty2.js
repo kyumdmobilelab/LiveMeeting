@@ -1044,6 +1044,7 @@ function sendLocationInfoToServer() {
 
 var updateMapMarkersTimerId = null;
 var markerArray = [];
+var memberJsonArray = null;
 
 function updatePersonMapMarkers() {
     if (personMap) {
@@ -1068,6 +1069,7 @@ function updatePersonMapMarkers() {
             $.get(url, function(data){
                 console.log("Map Markers: " + data);
                 let jsonObj = JSON.parse(data);
+                memberJsonArray = jsonObj;
                 // console.log("Map Markers: " + JSON.stringify(jsonObj));
                 
                 for (let i=0; i<jsonObj.length; i++) {
@@ -1096,7 +1098,7 @@ function updatePersonMapMarkers() {
 
                     let taskNode = document.getElementById(obj["id"] + "_taskName");
                     if (taskNode) {
-                        taskNode.innerHTML = "&nbsp;(taskName : " + obj["t"] + ")";
+                        taskNode.innerHTML = "&nbsp;&nbsp;(task : " + obj["t"] + ")";
                     }
                 }
             });
@@ -1139,8 +1141,7 @@ function showUserList(otherPeople) {
         let taskNode = document.createElement('div');
         taskNode.id = easyrtc.idToName(easyrtcid).toLowerCase() + "_taskName";
         taskNode.className = "connectUserInfo";
-        taskNode.style.height = "25px";
-        //taskNode.style.width = "200px";
+        taskNode.style.height = "30px";
         otherClientDiv.appendChild(taskNode);
 
         let br = document.createElement("br");
@@ -1172,6 +1173,18 @@ function showUserList(otherPeople) {
 }
 
 function performCall(otherEasyrtcid) {
+    if (memberJsonArray) {
+        for (let i=0; i<memberJsonArray.length; i++) {
+            let member = memberJsonArray[i];
+            if (easyrtc.idToName(otherEasyrtcid).toLowerCase() === member["id"]) {
+                let point = new google.maps.LatLng(member["h"], member["c"]);
+                personMap.panTo(point);
+                break;
+            }
+        }
+    }
+    
+
     let slot = easyrtc.getSlotOfCaller(otherEasyrtcid);
     console.log(slot);
     expandThumb(slot+1);
