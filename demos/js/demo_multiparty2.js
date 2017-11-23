@@ -1126,6 +1126,11 @@ function clearConnectList() {
         otherClientDiv.removeChild(otherClientDiv.lastChild);
     }
 
+    var mobileOtherClientDiv = document.getElementById('mobileOtherClients');
+    while (otherClientDiv.hasChildNodes()) {
+        mobileOtherClientDiv.removeChild(otherClientDiv.lastChild);
+    }
+
     var mutedUsersDiv = document.getElementById('mutedUsers');
     while (mutedUsersDiv.hasChildNodes()) {
         mutedUsersDiv.removeChild(mutedUsersDiv.lastChild);
