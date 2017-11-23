@@ -1127,7 +1127,7 @@ function updatePersonMapMarkers() {
 
                 let mTaskNode = document.getElementById(obj["id"].toLowerCase() + "_taskNameM");
                 if (mTaskNode) {
-                    mTaskNode.innerHTML = "&nbsp;(task: " + obj["t"] + ")";
+                    mTaskNode.innerHTML = "&nbsp;(" + obj["t"] + ")";
                 }
             }
         });
@@ -1199,7 +1199,7 @@ function showUserList(otherPeople) {
         let taskNode = document.createElement('div');
         taskNode.id = easyrtc.idToName(easyrtcid).toLowerCase() + "_taskNameM";
         taskNode.className = "connectUserInfo";
-        //taskNode.style.fontSize = "0.8em";
+        taskNode.style.fontSize = "0.9em";
         taskNode.style.height = "25px";
         mobileOtherClientDiv.appendChild(taskNode);
 
@@ -1233,7 +1233,7 @@ function showUserList(otherPeople) {
 }
 
 function performCall(otherEasyrtcid) {
-    if (memberJsonArray) {
+    if (memberJsonArray && personMap) {
         for (let i=0; i<memberJsonArray.length; i++) {
             let member = memberJsonArray[i];
             if (easyrtc.idToName(otherEasyrtcid).toLowerCase() === member["id"] ||
