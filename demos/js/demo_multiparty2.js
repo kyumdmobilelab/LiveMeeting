@@ -195,7 +195,6 @@ function reshape1of2(parentw, parenth) {
 }
 
 
-
 function reshape2of2(parentw, parenth){
     if( layout== 'p' ) {
         return {
@@ -849,7 +848,13 @@ function appInit() {
 
 
     easyrtc.setRoomOccupantListener(callEverybodyElse);
-    easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3"], loginSuccess);
+
+    if (urlSearchParams.get("isMobile") == "y") {
+        easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1"], loginSuccess);
+    } else {
+        easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3"], loginSuccess);
+    }
+
     easyrtc.setPeerListener(messageListener);
     easyrtc.setDisconnectListener( function() {
         easyrtc.showError("LOST-CONNECTION", "Lost connection to signaling server");
@@ -1128,6 +1133,13 @@ function updatePersonMapMarkers() {
                 let mTaskNode = document.getElementById(obj["id"].toLowerCase() + "_taskNameM");
                 if (mTaskNode) {
                     mTaskNode.innerHTML = "&nbsp;(" + obj["t"] + ")";
+                }
+
+                if (obj["id"].toLowerCase() === easyrtc.username.toLowerCase()) {
+                    let mobileMeTaskNode = document.getElementById("mobileMeTaskLabel");
+                    if (mobileMeTaskNode) {
+                        mobileMeTaskNode.innerHTML = easyrtc.username + "&nbsp; : &nbsp;" + obj["t"];
+                    }
                 }
             }
         });
