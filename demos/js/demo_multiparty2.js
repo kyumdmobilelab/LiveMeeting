@@ -91,9 +91,9 @@ function reshapeMobileControlPanel(parentw, parenth) {
 function reshapeMobileMemberList(parentw, parenth) {
     return {
         left:parentw/25,
-        top:parenth/6,
+        top:parenth/10,
         width:(parentw/10)*9,
-        height: (parenth/7)*5
+        height: (parenth/7)*6
     }
 }
 
