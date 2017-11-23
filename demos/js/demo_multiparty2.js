@@ -1233,19 +1233,27 @@ function showUserList(otherPeople) {
 }
 
 function performCall(otherEasyrtcid) {
-    if (memberJsonArray && personMap) {
+    if (memberJsonArray) {
         for (let i=0; i<memberJsonArray.length; i++) {
             let member = memberJsonArray[i];
             if (easyrtc.idToName(otherEasyrtcid).toLowerCase() === member["id"] ||
                 easyrtc.idToName(otherEasyrtcid) === member["id"])
             {
-                let point = new google.maps.LatLng(member["h"], member["c"]);
-                personMap.panTo(point);
+                if (personMap) {
+                    let point = new google.maps.LatLng(member["h"], member["c"]);
+                    personMap.panTo(point);
+                }
+                
+                if (urlSearchParams.get("os") == "android") {  //android
+                    if (typeof B4A !== 'undefined') {
+                        B4A.CallSub('mapPanTo', true, member["h"], member["c"]);
+                    }
+                }
+
                 break;
             }
         }
     }
-    
 
     let slot = easyrtc.getSlotOfCaller(otherEasyrtcid);
     console.log(slot);
