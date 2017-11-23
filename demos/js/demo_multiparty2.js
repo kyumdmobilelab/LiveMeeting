@@ -808,11 +808,9 @@ function appInit() {
 
     //
     if (urlSearchParams.get("isMobile") == "y") {
-        if (urlSearchParams.get("os") !== "android") {
-            setReshaper('mobileMapPanel', reshapeMobileMap);
-            setReshaper('mobileControlPanel', reshapeMobileControlPanel);
-            setReshaper('mobileMemberList', reshapeMobileMemberList);
-        }
+        setReshaper('mobileMapPanel', reshapeMobileMap);
+        setReshaper('mobileControlPanel', reshapeMobileControlPanel);
+        setReshaper('mobileMemberList', reshapeMobileMemberList);
     }
 
 
