@@ -1104,12 +1104,12 @@ function updatePersonMapMarkers() {
 
                     markerArray.push(marker);
 
-                    let taskNode = document.getElementById(obj["id"] + "_taskName");
+                    let taskNode = document.getElementById(obj["id"].toLowerCase() + "_taskName");
                     if (taskNode) {
                         taskNode.innerHTML = "&nbsp;&nbsp;(task : " + obj["t"] + ")";
                     }
 
-                    let mTaskNode = document.getElementById(obj["id"] + "_taskNameM");
+                    let mTaskNode = document.getElementById(obj["id"].toLowerCase() + "_taskNameM");
                     if (mTaskNode) {
                         mTaskNode.innerHTML = "&nbsp;(task: " + obj["t"] + ")";
                     }
@@ -1221,7 +1221,9 @@ function performCall(otherEasyrtcid) {
     if (memberJsonArray) {
         for (let i=0; i<memberJsonArray.length; i++) {
             let member = memberJsonArray[i];
-            if (easyrtc.idToName(otherEasyrtcid).toLowerCase() === member["id"]) {
+            if (easyrtc.idToName(otherEasyrtcid).toLowerCase() === member["id"] ||
+                easyrtc.idToName(otherEasyrtcid) === member["id"])
+            {
                 let point = new google.maps.LatLng(member["h"], member["c"]);
                 personMap.panTo(point);
                 break;
