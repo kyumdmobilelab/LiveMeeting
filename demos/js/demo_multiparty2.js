@@ -1267,6 +1267,10 @@ function performCall(otherEasyrtcid) {
         }
     }
 
+    if (urlSearchParams.get("isMobile") == "y") {
+        return;
+    }
+
     let slot = easyrtc.getSlotOfCaller(otherEasyrtcid);
     console.log(slot);
     expandThumb(slot+1);
