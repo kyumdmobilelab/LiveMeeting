@@ -34,7 +34,7 @@ if (navigator.geolocation) {
 
 var activeBox = -1;  // nothing selected
 var aspectRatio = 4/3;  // standard definition video aspect ratio
-var maxCALLERS = 3;
+var maxCALLERS = 5;
 var numVideoOBJS = maxCALLERS+1;
 var layout;
 
@@ -307,7 +307,18 @@ function reshape4of4(parentw, parenth) {
     }
 }
 
-var boxUsed = [true, false, false, false];
+
+function reshape1of5(parentw, parenth) {
+
+}
+
+
+function reshape1of6(parentw, parenth) {
+    
+}
+
+
+var boxUsed = [true, false, false, false, false, false];
 var connectCount = 0;
 
 
@@ -361,6 +372,8 @@ var reshapeThumbs = [
                 case 1:return reshape1of2(parentw, parenth);
                 case 2:return reshape1of3(parentw, parenth);
                 case 3:return reshape1of4(parentw, parenth);
+                case 4:return reshape1of5(parentw, parenth);
+                case 5:return reshape1of6(parentw, parenth);
             }
         }
     },
@@ -853,7 +866,7 @@ function appInit() {
     if (urlSearchParams.get("isMobile") == "y") {
         easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1"], loginSuccess, null);
     } else {
-        easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3"], loginSuccess);
+        easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3", "box4", "box5"], loginSuccess);
     }
 
     easyrtc.setPeerListener(messageListener);
@@ -1127,7 +1140,7 @@ function updatePersonMapMarkers() {
 
                 let taskNode = document.getElementById(obj["id"].toLowerCase() + "_taskName");
                 if (taskNode) {
-                    taskNode.innerHTML = "&nbsp;&nbsp;(task : " + obj["t"] + ")";
+                    taskNode.innerHTML = "&nbsp;&nbsp;(" + obj["t"] + ")";
                 }
 
                 let mTaskNode = document.getElementById(obj["id"].toLowerCase() + "_taskNameM");
@@ -1255,13 +1268,11 @@ function performCall(otherEasyrtcid) {
                     let point = new google.maps.LatLng(member["h"], member["c"]);
                     personMap.panTo(point);
                 }
-                
                 if (urlSearchParams.get("os") == "android") {  //android
                     if (typeof B4A !== 'undefined') {
                         B4A.CallSub('mapPanTo', true, member["h"], member["c"]);
                     }
                 }
-
                 break;
             }
         }
