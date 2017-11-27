@@ -792,6 +792,7 @@ function messageListener(easyrtcid, msgType, content) {
 var currentTextTracks = [];
 var muteCheckboxIds = {};
 
+
 function appInit() {
 
     // Prep for the top-down layout manager
@@ -850,7 +851,7 @@ function appInit() {
     easyrtc.setRoomOccupantListener(callEverybodyElse);
 
     if (urlSearchParams.get("isMobile") == "y") {
-        easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1"], loginSuccess);
+        easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1"], loginSuccess, null);
     } else {
         easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3"], loginSuccess);
     }
@@ -939,7 +940,6 @@ function appInit() {
             muteCheckboxIds[getIdOfBox(slot+1)] = "";
         },20);
     });
-
 
     // 
     if (urlSearchParams.get("isMobile") == "y") {
@@ -1197,7 +1197,7 @@ function showUserList(otherPeople) {
     for(let easyrtcid in otherPeople) {
         let button = document.createElement('button');
         button.className = "connectUserButton";
-        button.style.height = "25px";
+        button.style.height = "40px";
         button.onclick = function(easyrtcid) {
             return function() {
                 performCall(easyrtcid);
@@ -1212,7 +1212,7 @@ function showUserList(otherPeople) {
         taskNode.id = easyrtc.idToName(easyrtcid).toLowerCase() + "_taskNameM";
         taskNode.className = "connectUserInfo";
         taskNode.style.fontSize = "0.9em";
-        taskNode.style.height = "25px";
+        taskNode.style.height = "50px";
         mobileOtherClientDiv.appendChild(taskNode);
 
         let br = document.createElement("br");
