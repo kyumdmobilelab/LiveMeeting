@@ -290,7 +290,7 @@ body {
 }
 
 #otherClients {
-    width: 300px;
+    width: 400px;
     height:250px;
     overflow-y:scroll;
     text-align: left;
