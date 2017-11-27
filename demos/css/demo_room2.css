@@ -170,8 +170,8 @@ body {
 
 #mobileMeTaskLabel {
     clear: both;
-    width: 80%;
-    height: 25px;
+    width: 95%;
+    height: 50px;
     margin-top: 0px;
     margin-left: 20px;
     text-align: left;
@@ -298,7 +298,7 @@ body {
 
 #mobileOtherClients {
     margin-top: 5px;
-    width: 90%;
+    width: 95%;
     height:100%;
     overflow-y:scroll;
     text-align: left;
