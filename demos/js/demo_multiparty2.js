@@ -550,7 +550,7 @@ function reshape8of8(parentw, parenth) {
 
 
 
-var boxUsed = [true, false, false, false, false, false];
+var boxUsed = [true, false, false, false, false, false, false, false];
 var connectCount = 0;
 
 
