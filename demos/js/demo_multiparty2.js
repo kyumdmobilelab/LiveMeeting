@@ -34,7 +34,7 @@ if (navigator.geolocation) {
 
 var activeBox = -1;  // nothing selected
 var aspectRatio = 4/3;  // standard definition video aspect ratio
-var maxCALLERS = 5;
+var maxCALLERS = 7;
 var numVideoOBJS = maxCALLERS+1;
 var layout;
 
@@ -289,6 +289,7 @@ function reshape2of4(parentw, parenth) {
         height: sharedVideoHeight
     }
 }
+
 function reshape3of4(parentw, parenth) {
     return {
         left: (parentw - sharedVideoWidth*2)/3,
@@ -297,6 +298,7 @@ function reshape3of4(parentw, parenth) {
         height: sharedVideoHeight
     }
 }
+
 
 function reshape4of4(parentw, parenth) {
     return {
@@ -309,13 +311,243 @@ function reshape4of4(parentw, parenth) {
 
 
 function reshape1of5(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*3)/3,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
 
+function reshape2of5(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2+ sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*3)/3,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape3of5(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*3)/3*2 + sharedVideoHeight,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape4of5(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2 + sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*3)/3*2 + sharedVideoHeight,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape5of5(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*3)/3*3 + sharedVideoHeight*2,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
 }
 
 
 function reshape1of6(parentw, parenth) {
-    
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*3)/3,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
 }
+
+function reshape2of6(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2+ sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*3)/3,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape3of6(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*3)/3*2 + sharedVideoHeight,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape4of6(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2 + sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*3)/3*2 + sharedVideoHeight,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape5of6(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*3)/3*3 + sharedVideoHeight*2,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape6of6(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2 + sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*3)/3*3 + sharedVideoHeight*2,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+
+function reshape1of7(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*4)/4,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape2of7(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2+ sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*4)/4,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape3of7(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*4)/4*2 + sharedVideoHeight,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape4of7(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2 + sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*4)/4*2 + sharedVideoHeight,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape5of7(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*4)/4*3 + sharedVideoHeight*2,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape6of7(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2 + sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*4)/4*3 + sharedVideoHeight*2,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape7of7(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*4)/4*4 + sharedVideoHeight*3,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+
+function reshape1of8(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*4)/4,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape2of8(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2+ sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*4)/4,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape3of8(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*4)/4*2 + sharedVideoHeight,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape4of8(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2 + sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*4)/4*2 + sharedVideoHeight,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape5of8(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*4)/4*3 + sharedVideoHeight*2,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape6of8(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2 + sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*4)/4*3 + sharedVideoHeight*2,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape7of8(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3,
+        top: (parenth - sharedVideoHeight*4)/4*4 + sharedVideoHeight*3,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+function reshape8of8(parentw, parenth) {
+    return {
+        left: (parentw - sharedVideoWidth*2)/3*2 + sharedVideoWidth,
+        top: (parenth - sharedVideoHeight*4)/4*4 + sharedVideoHeight*3,
+        width: sharedVideoWidth,
+        height: sharedVideoHeight
+    }
+}
+
+
 
 
 var boxUsed = [true, false, false, false, false, false];
@@ -354,14 +586,27 @@ function setSharedVideoSize(parentw, parenth) {
             w = sizeBy(parentw, 1);
             h = sizeBy(parenth, 3);
             break;
+        case 'p5':
+        case 'l5':
+        case 'p6':
+        case 'l6':
+            w = sizeBy(parentw, 2);
+            h = sizeBy(parenth, 3);
+            break;
+        case 'p7':
+        case 'l7':
+        case 'p8':
+        case 'l8':
+            w = sizeBy(parentw, 2);
+            h = sizeBy(parenth, 4);
+            break;
     }
     sharedVideoWidth = Math.min(w, h * aspectRatio);
     sharedVideoHeight = Math.min(h, w/aspectRatio);
 }
 
 var reshapeThumbs = [
-    function(parentw, parenth) {
-
+    function(parentw, parenth) {  //1
         if( activeBox > 0 ) {
             return setThumbSize(0.20, 0.01, 0.01, parentw, parenth);
         }
@@ -374,10 +619,12 @@ var reshapeThumbs = [
                 case 3:return reshape1of4(parentw, parenth);
                 case 4:return reshape1of5(parentw, parenth);
                 case 5:return reshape1of6(parentw, parenth);
+                case 6:return reshape1of7(parentw, parenth);
+                case 7:return reshape1of8(parentw, parenth);
             }
         }
     },
-    function(parentw, parenth) {
+    function(parentw, parenth) {  //2
         if( activeBox >= 0 || !boxUsed[1]) {
             return setThumbSize(0.20, 0.01, -0.01, parentw, parenth);
         }
@@ -389,10 +636,18 @@ var reshapeThumbs = [
                     return reshape2of3(parentw, parenth);
                 case 3:
                     return reshape2of4(parentw, parenth);
+                case 4:
+                    return reshape2of5(parentw, parenth);
+                case 5:
+                    return reshape2of6(parentw, parenth);
+                case 6:
+                    return reshape2of7(parentw, parenth);
+                case 7:
+                    return reshape2of8(parentw, parenth);
             }
         }
     },
-    function(parentw, parenth) {
+    function(parentw, parenth) {  //3
         if( activeBox >= 0 || !boxUsed[2] ) {
             return setThumbSize(0.20, -0.01, 0.01, parentw, parenth);
         }
@@ -409,10 +664,18 @@ var reshapeThumbs = [
                     }
                 case 3:
                     return reshape3of4(parentw, parenth);
+                case 4:
+                    return reshape3of5(parentw, parenth);
+                case 5:
+                    return reshape3of6(parentw, parenth);
+                case 6:
+                    return reshape3of7(parentw, parenth);
+                case 7:
+                    return reshape3of8(parentw, parenth);
             }
         }
     },
-    function(parentw, parenth) {
+    function(parentw, parenth) {  //4
         if( activeBox >= 0 || !boxUsed[3]) {
             return setThumbSize(0.20, -0.01, -0.01, parentw, parenth);
         }
@@ -424,6 +687,106 @@ var reshapeThumbs = [
                     return reshape3of3(parentw, parenth);
                 case 3:
                     return reshape4of4(parentw, parenth);
+                case 4:
+                    return reshape4of5(parentw, parenth);
+                case 5:
+                    return reshape4of6(parentw, parenth);
+                case 6:
+                    return reshape4of7(parentw, parenth);
+                case 7:
+                    return reshape4of8(parentw, parenth);
+            }
+        }
+    },
+    function(parentw, parenth) {  //5
+        if( activeBox >= 0 || !boxUsed[4]) {
+            return setThumbSize(0.20, -0.01, -0.01, parentw, parenth);
+        }
+        else{
+            switch(connectCount){
+                case 1:
+                    return reshape2of2(parentw, parenth);
+                case 2:
+                    return reshape3of3(parentw, parenth);
+                case 3:
+                    return reshape4of4(parentw, parenth);
+                case 4:
+                    return reshape5of5(parentw, parenth);
+                case 5:
+                    return reshape5of6(parentw, parenth);
+                case 6:
+                    return reshape5of7(parentw, parenth);
+                case 7:
+                    return reshape5of8(parentw, parenth);
+            }
+        }
+    },
+    function(parentw, parenth) {  //6
+        if( activeBox >= 0 || !boxUsed[5]) {
+            return setThumbSize(0.20, -0.01, -0.01, parentw, parenth);
+        }
+        else{
+            switch(connectCount){
+                case 1:
+                    return reshape2of2(parentw, parenth);
+                case 2:
+                    return reshape3of3(parentw, parenth);
+                case 3:
+                    return reshape4of4(parentw, parenth);
+                case 4:
+                    return reshape5of5(parentw, parenth);
+                case 5:
+                    return reshape6of6(parentw, parenth);
+                case 6:
+                    return reshape6of7(parentw, parenth);
+                case 7:
+                    return reshape6of8(parentw, parenth);
+            }
+        }
+    },
+    function(parentw, parenth) {  //7
+        if( activeBox >= 0 || !boxUsed[6]) {
+            return setThumbSize(0.20, -0.01, -0.01, parentw, parenth);
+        }
+        else{
+            switch(connectCount){
+                case 1:
+                    return reshape2of2(parentw, parenth);
+                case 2:
+                    return reshape3of3(parentw, parenth);
+                case 3:
+                    return reshape4of4(parentw, parenth);
+                case 4:
+                    return reshape5of5(parentw, parenth);
+                case 5:
+                    return reshape6of6(parentw, parenth);
+                case 6:
+                    return reshape7of7(parentw, parenth);
+                case 7:
+                    return reshape7of8(parentw, parenth);
+            }
+        }
+    },
+    function(parentw, parenth) {  //8
+        if( activeBox >= 0 || !boxUsed[7]) {
+            return setThumbSize(0.20, -0.01, -0.01, parentw, parenth);
+        }
+        else{
+            switch(connectCount){
+                case 1:
+                    return reshape2of2(parentw, parenth);
+                case 2:
+                    return reshape3of3(parentw, parenth);
+                case 3:
+                    return reshape4of4(parentw, parenth);
+                case 4:
+                    return reshape5of5(parentw, parenth);
+                case 5:
+                    return reshape6of6(parentw, parenth);
+                case 6:
+                    return reshape7of7(parentw, parenth);
+                case 7:
+                    return reshape8of8(parentw, parenth);
             }
         }
     },
@@ -510,8 +873,8 @@ function handleWindowResize() {
         } 
     } else {
         applyReshape(fullpage, window.innerWidth/2, window.innerHeight);
-        document.getElementById('controlBlock').style.width = (window.innerWidth/2) - 25 + "px";
-        document.getElementById('map').style.width = (window.innerWidth/2) - 25 + "px";
+        document.getElementById('controlBlock').style.width = (window.innerWidth/2) - 45 + "px";
+        document.getElementById('map').style.width = (window.innerWidth/2) - 45 + "px";
         document.getElementById('map').style.visibility = "visible";
     }
 }
@@ -863,11 +1226,11 @@ function appInit() {
 
     easyrtc.setRoomOccupantListener(callEverybodyElse);
 
-    if (urlSearchParams.get("isMobile") == "y") {
-        easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1"], loginSuccess, null);
-    } else {
-        easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3", "box4", "box5"], loginSuccess);
-    }
+    // if (urlSearchParams.get("isMobile") == "y") {
+    //     easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1"], loginSuccess, null);
+    // } else {
+        easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3", "box4", "box5", "box6", "box7"], loginSuccess);
+    // }
 
     easyrtc.setPeerListener(messageListener);
     easyrtc.setDisconnectListener( function() {
