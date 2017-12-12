@@ -34,8 +34,7 @@
     <legend style="text-align:center;">&nbsp;Login&nbsp;</legend>
     <p style="text-align:center;">User:&nbsp;&nbsp;&nbsp;
         <input type="text" name="username" id="usernameText" size="15" maxlength="30">
-    </p>
-            
+    </p>   
     <p style="text-align:center;">Room:&nbsp;
         <input type="text" name="room" id="roomText" size="15" maxlength="30">
     </p>
@@ -48,13 +47,11 @@
             <option value="WestArea">西區</option>
         </select>
     </p>
-    <!--
-    <p style="text-align:center;margin-top:30px;">
-        <input type="radio" name="GroupVideoRadios" value="one"/>One Video
-        <input type="radio" name="GroupVideoRadios" value="group" checked="checked" />Group Video
+    <p style="text-align:center;">Task:&nbsp;
+        <input type="text" name="taskDescription" id="taskDescription" size="20" maxlength="40">
     </p>
-    -->
     <br />
+
     <input type="checkbox" id="rememberCheckbox" onchange="toggleCheckbox(this)" style="float:left;">Remember Me
     <button type="button" onclick="gotoMeeting()" style="width:60px;float:right;">Go</button>
     <br />
@@ -94,6 +91,11 @@
         }
     }
 
+    if (localStorage.getItem("taskNameText") !== "") {
+            document.getElementById("taskDescription").value = localStorage.getItem("taskNameText");
+    }
+
+
     function selectRoom(e) {
         document.getElementById("roomText").value = e.value;
     }
@@ -110,6 +112,7 @@
     function gotoMeeting() {
         let username = document.getElementById("usernameText").value;
         let room = document.getElementById("roomText").value;
+        let taskText = document.getElementById("taskDescription").value;
 
         if (username == "") {
             window.alert("Please input a User Name!!");
@@ -125,6 +128,8 @@
             localStorage.setItem("username", username);
             localStorage.setItem("roomname", room);
         }
+
+        localStorage.setItem("taskNameText", taskText);
 
 
         // let radios = document.getElementsByName('GroupVideoRadios');
