@@ -73,25 +73,25 @@ function reshapeTextEntryField(parentw, parenth) {
 function reshapeMobileMap(parentw, parenth) {
     return {
         left:parentw/25,
-        top:parenth/9,
+        top:parenth/45,
         width:(parentw/10)*9,
-        height: (parenth/7)*6
+        height: (parenth/10)*5
     }
 }
 
 function reshapeMobileControlPanel(parentw, parenth) {
     return {
         left:parentw/25,
-        top:parenth/6,
+        top:parenth/30,
         width:(parentw/10)*9,
-        height: (parenth/7)*5
+        height: (parenth/10)*6
     }
 }
 
 function reshapeMobileMemberList(parentw, parenth) {
     return {
         left:parentw/25,
-        top:parenth/10,
+        top:parenth/30,
         width:(parentw/10)*9,
         height: (parenth/7)*6
     }
