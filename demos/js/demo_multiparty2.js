@@ -82,7 +82,7 @@ function reshapeMobileMap(parentw, parenth) {
 function reshapeMobileControlPanel(parentw, parenth) {
     return {
         left:parentw/25,
-        top:parenth/30,
+        top:parenth/20,
         width:(parentw/10)*9,
         height: (parenth/10)*6
     }
@@ -91,7 +91,7 @@ function reshapeMobileControlPanel(parentw, parenth) {
 function reshapeMobileMemberList(parentw, parenth) {
     return {
         left:parentw/25,
-        top:parenth/30,
+        top:parenth/20,
         width:(parentw/10)*9,
         height: (parenth/7)*6
     }
@@ -1322,6 +1322,7 @@ function appInit() {
         updatePersonMapMarkers();
     }
 }
+
 
 //----------------------------------------------------------------//
 
