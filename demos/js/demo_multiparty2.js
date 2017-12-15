@@ -1581,9 +1581,24 @@ function showUserList(otherPeople) {
             };
         }(easyrtcid);
 
+        let button2 = document.createElement('button');
+        button2.className = "callOtherButton";
+        button2.style.height = "40px";
+        button2.onclick = function(easyrtcid) {
+            return function() {
+                performCallOtherUser(easyrtcid);
+            };
+        }(easyrtcid);
+
+
         let label = document.createTextNode(easyrtc.idToName(easyrtcid));
         button.appendChild(label);
+
+        let label2 = document.createTextNode("Call");
+        button2.appendChild(label2);
+        
         mobileOtherClientDiv.appendChild(button);
+        mobileOtherClientDiv.appendChild(button2);
 
         let taskNode = document.createElement('div');
         taskNode.id = easyrtc.idToName(easyrtcid).toLowerCase() + "_taskNameM";
@@ -1657,6 +1672,13 @@ function performMutedCall(otherEasyrtcid, isMuted) {
     videoObject.muted = isMuted;
     updateMuteImage(false);
 }
+
+
+function performCallOtherUser(otherEasyrtcid) {
+
+}
+
+
 
 function mutedOtherBoxes(whichBox) {
     for (let key in muteCheckboxIds) {
