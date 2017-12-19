@@ -111,6 +111,16 @@ body {
     font-family: 'Courier New',Courier,monospace;
 }
 
+#otherMessageBox {
+    border:2px solid #a0ffa0;
+    border-radius:10px;
+    z-index:5;
+    position: absolute;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 5px #000000;
+    font-family: 'Courier New',Courier,monospace;
+}
+
 #textentryField {
     font-size:x-large;
     margin: 20px;

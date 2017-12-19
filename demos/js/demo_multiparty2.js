@@ -55,6 +55,16 @@ function reshapeFull(parentw, parenth) {
     };
 }
 
+function reshapeOtherMessageBox(parentw, parenth) {
+    return {
+        left:parentw/25,
+        top:parenth/5,
+        width:(parentw/10)*9,
+        height: (parenth/10)*5
+    }
+}
+
+
 function reshapeTextEntryBox(parentw, parenth) {
     return {
         left:parentw/10,
@@ -1152,7 +1162,15 @@ function showMessage(startX, startY, content) {
 }
 
 function messageListener(easyrtcid, msgType, content) {
-    console.log(easyrtc.idToName(easyrtcid));
+    console.log("have message from " + easyrtc.idToName(easyrtcid) + ": " + content);
+    console.log("Type: " + msgType);
+
+    if (msgType == "message") {
+
+
+        return;
+    }
+
 
     for(var i = 0; i < maxCALLERS; i++) {
         if( easyrtc.getIthCaller(i) == easyrtcid) {
@@ -1164,6 +1182,7 @@ function messageListener(easyrtcid, msgType, content) {
         }
     }
 }
+
 
 var currentTextTracks = [];
 var muteCheckboxIds = {};
@@ -1179,6 +1198,7 @@ function appInit() {
     setReshaper('killButton', killButtonReshaper);
     setReshaper('muteButton', muteButtonReshaper);
     setReshaper('textentryBox', reshapeTextEntryBox);
+    setReshaper('otherMessageBox', reshapeOtherMessageBox);
     setReshaper('textentryField', reshapeTextEntryField);
     setReshaper('textEntryButton', reshapeTextEntryButton);
 
@@ -1675,9 +1695,10 @@ function performMutedCall(otherEasyrtcid, isMuted) {
 
 
 function performCallOtherUser(otherEasyrtcid) {
-
+    document.getElementById('otherMessageBox').style.display = "block";
+    document.getElementById('mobileMemberList').style.display = "none";
+    easyrtc.sendDataWS(otherEasyrtcid, "message",  "text test msg");
 }
-
 
 
 function mutedOtherBoxes(whichBox) {
@@ -1799,6 +1820,11 @@ function closeMobileControlButton_click() {
 function closeMobileMemberListButton_click() {
     document.getElementById('mobileMemberList').style.display = "none";
 }
+
+function closeOtherMessageBoxButton_click() {
+    document.getElementById('otherMessageBox').style.display = "none";
+}
+
 
 
 var trackYourselfTimerId = null;
