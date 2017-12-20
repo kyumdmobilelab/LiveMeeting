@@ -32,8 +32,16 @@
                 <button id="textentryCancel" style="float:left;margin-left:1em" onclick="cancelText()">Cancel</button>
             </div>
 
-            <div id="otherMessageBox" style="display:none">
+            <div id="otherMessageBox" class="otherMessageBoxClass" style="display:none">
                 <button type="button" class="closeMobileControlButton" onclick="closeOtherMessageBoxButton_click()">X</button>
+                <div id="otherMessageText" class="otherMessageText"></div>
+                <button type="button" class="inviteOtherUserButton" onclick="inviteOtherUserButton_click()">Confirm</button>
+            </div>
+
+            <div id="replyOtherMessageBox" class="otherMessageBoxClass" style="display:none">
+                <button type="button" class="closeMobileControlButton" onclick="closeReplyOtherMessageBoxButton_click()">X</button>
+                <div id="replyOtherMessageText" class="otherMessageText"></div>
+                <button type="button" id="replyOtherUserButton" class="inviteOtherUserButton" onclick="replyOtherUserButton_click()"></button>
             </div>
 
             <div id="mobileMapPanel" style="display:none">

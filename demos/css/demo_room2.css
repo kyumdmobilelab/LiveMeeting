@@ -101,6 +101,20 @@ body {
     box-shadow: 5px 5px 5px #000000;
 }
 
+.inviteOtherUserButton {
+    position: absolute;
+    background-color:rgb(3, 121, 13);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3em;
+    width: 90%;
+    height: 40px;
+    bottom: 15px;
+    left: 5%;
+}
+
 #textentryBox {
     border:2px solid #a0ffa0;
     border-radius:10px;
@@ -111,7 +125,7 @@ body {
     font-family: 'Courier New',Courier,monospace;
 }
 
-#otherMessageBox {
+.otherMessageBoxClass {
     border:2px solid #a0ffa0;
     border-radius:10px;
     z-index:5;
@@ -119,6 +133,16 @@ body {
     background-color: #ffffff;
     box-shadow: 5px 5px 5px #000000;
     font-family: 'Courier New',Courier,monospace;
+}
+
+.otherMessageText {
+    position: absolute;
+    font-size: 1.1em;
+    width: 90%;
+    height: 60px;
+    top: 55px;
+    left: 5%;
+    text-align: center;
 }
 
 #textentryField {

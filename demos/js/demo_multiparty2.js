@@ -1161,13 +1161,21 @@ function showMessage(startX, startY, content) {
     }
 }
 
+
+var inviteMessageEasyrtcId = null;
+
 function messageListener(easyrtcid, msgType, content) {
     console.log("have message from " + easyrtc.idToName(easyrtcid) + ": " + content);
     console.log("Type: " + msgType);
 
     if (msgType == "message") {
-
-
+        if (content == "invite_message") {
+            inviteMessageEasyrtcId = easyrtcid;
+            document.getElementById('replyOtherMessageBox').style.display = "block";
+            document.getElementById('mobileMemberList').style.display = "none";
+            document.getElementById('replyOtherMessageText').innerHTML = "Accept " + easyrtc.idToName(easyrtcid) + "'s call?";
+            document.getElementById('replyOtherUserButton').innerHTML = "Accept";
+        }
         return;
     }
 
@@ -1199,6 +1207,7 @@ function appInit() {
     setReshaper('muteButton', muteButtonReshaper);
     setReshaper('textentryBox', reshapeTextEntryBox);
     setReshaper('otherMessageBox', reshapeOtherMessageBox);
+    setReshaper('replyOtherMessageBox', reshapeOtherMessageBox);
     setReshaper('textentryField', reshapeTextEntryField);
     setReshaper('textEntryButton', reshapeTextEntryButton);
 
@@ -1693,11 +1702,14 @@ function performMutedCall(otherEasyrtcid, isMuted) {
     updateMuteImage(false);
 }
 
+var callOtherUserId = null;
 
 function performCallOtherUser(otherEasyrtcid) {
     document.getElementById('otherMessageBox').style.display = "block";
     document.getElementById('mobileMemberList').style.display = "none";
-    easyrtc.sendDataWS(otherEasyrtcid, "message",  "text test msg");
+    document.getElementById('otherMessageText').innerHTML = "Call " + easyrtc.idToName(otherEasyrtcid) + "?";
+
+    callOtherUserId = otherEasyrtcid;
 }
 
 
@@ -1823,6 +1835,19 @@ function closeMobileMemberListButton_click() {
 
 function closeOtherMessageBoxButton_click() {
     document.getElementById('otherMessageBox').style.display = "none";
+}
+
+function inviteOtherUserButton_click() {
+    easyrtc.sendDataWS(callOtherUserId, "message",  "invite_message");
+    document.getElementById('otherMessageBox').style.display = "none";
+}
+
+function closeReplyOtherMessageBoxButton_click() {
+    document.getElementById('replyOtherMessageBox').style.display = "none";
+}
+
+function replyOtherUserButton_click() {
+
 }
 
 
