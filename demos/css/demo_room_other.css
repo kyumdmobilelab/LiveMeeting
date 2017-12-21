@@ -72,3 +72,24 @@ body {
 #textentryCancel {
     font-size:larger;
 }
+
+#mobileControlBlock {
+    background-color: #e4e4e4;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#backMainRoomButton {
+    position: absolute;
+    background-color:#7B7B7B;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9em;
+    width: 160px;
+    height: 30px;
+    top: 2px;
+    left: 12px;
+}

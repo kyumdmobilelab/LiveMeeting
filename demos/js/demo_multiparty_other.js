@@ -1,4 +1,5 @@
 
+var urlSearchParams = new URLSearchParams(location.search);
 
 var activeBox = -1;  // nothing selected
 var aspectRatio = 4/3;  // standard definition video aspect ratio
@@ -424,7 +425,11 @@ function handleWindowResize() {
         }
     }
 
-    applyReshape(fullpage, window.innerWidth, window.innerHeight);
+    // applyReshape(fullpage, window.innerWidth, window.innerHeight);
+
+    applyReshape(fullpage, window.innerWidth, (window.innerHeight-35) );
+    document.getElementById('mobileControlBlock').style.height = 35 + "px";
+    document.getElementById('mobileControlBlock').style.width = window.innerWidth + "px";
 }
 
 
@@ -688,6 +693,18 @@ function appInit() {
     handleWindowResize(); //initial call of the top-down layout manager
 
 
+    // user name
+    if (urlSearchParams.get("user") != null) {
+        easyrtc.setUsername(urlSearchParams.get("user"));
+    }
+    // room
+    if (urlSearchParams.get("room") != null) {
+        easyrtc.joinRoom(urlSearchParams.get("room"), null, null, null);
+    }
+
+    document.getElementById("mobileControlBlock").style.visibility = "visible";
+
+
     easyrtc.setRoomOccupantListener(callEverybodyElse);
     easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3"], loginSuccess);
     easyrtc.setPeerListener(messageListener);
@@ -724,4 +741,28 @@ function appInit() {
     });
 }
 
+//------------------------------------------------
+
+function backMainPageButton_click() {
+    if (confirm("Leave this room?")) {
+        easyrtc.hangupAll();
+
+        let currentRoomName = urlSearchParams.get("room");
+        if (currentRoomName === null || currentRoomName === "")  {
+            currentRoomName = "default";
+        }
+
+        easyrtc.leaveRoom(currentRoomName, 
+            function(roomName) {
+                console.log("No longer in room " + roomName);
+
+                let username = urlSearchParams.get("user");
+                let oldroom = urlSearchParams.get("oldroom");
+                window.location.href = "liveapp_multiparty.html?" + "user=" + username + "&room=" + oldroom + "&isMobile=y";
+            },
+            function(errorCode, errorText, roomName) {
+                console.log("had problems leaving " + roomName);
+            });
+    }
+}
 

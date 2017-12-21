@@ -1,3 +1,4 @@
+
 var urlSearchParams = new URLSearchParams(location.search);
 
 if (urlSearchParams.get("user") === null || 
@@ -1175,8 +1176,33 @@ function messageListener(easyrtcid, msgType, content) {
             document.getElementById('mobileMemberList').style.display = "none";
             document.getElementById('replyOtherMessageText').innerHTML = "Accept " + easyrtc.idToName(easyrtcid) + "'s call?";
             document.getElementById('replyOtherUserButton').innerHTML = "Accept";
+
+            replyOtherMessageState = "reply_invite_message";
+            replyCallOtherUserId = easyrtcid;
+            return;
         }
-        return;
+        
+        if (/^reply_invite_message/.test(content)) {
+            easyrtc.hangupAll();
+            let parameters = content.split("-");
+            let room = parameters[1];
+
+            let currentRoomName = urlSearchParams.get("room");
+            if (currentRoomName === null || currentRoomName === "")  {
+                currentRoomName = "default";
+            }
+            let username = urlSearchParams.get("user");
+
+            easyrtc.leaveRoom(currentRoomName, 
+                function(roomName) {
+                    console.log("No longer in room " + roomName);
+                    let oldroom = roomName;
+                    window.location.href = "liveapp_multiparty_other.html?" + "room=" + room + "&user=" + username + "&oldroom=" + oldroom;
+                },
+                function(errorCode, errorText, roomName) {
+                    console.log("had problems leaving " + roomName);
+                });
+        }
     }
 
 
@@ -1254,13 +1280,7 @@ function appInit() {
 
 
     easyrtc.setRoomOccupantListener(callEverybodyElse);
-
-    // if (urlSearchParams.get("isMobile") == "y") {
-    //     easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1"], loginSuccess, null);
-    // } else {
-        easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3", "box4", "box5", "box6", "box7"], loginSuccess);
-    // }
-
+    easyrtc.easyApp("easyrtc.multiparty", "box0", ["box1", "box2", "box3", "box4", "box5", "box6", "box7"], loginSuccess);
     easyrtc.setPeerListener(messageListener);
     easyrtc.setDisconnectListener( function() {
         easyrtc.showError("LOST-CONNECTION", "Lost connection to signaling server");
@@ -1610,24 +1630,24 @@ function showUserList(otherPeople) {
             };
         }(easyrtcid);
 
-        let button2 = document.createElement('button');
-        button2.className = "callOtherButton";
-        button2.style.height = "40px";
-        button2.onclick = function(easyrtcid) {
-            return function() {
-                performCallOtherUser(easyrtcid);
-            };
-        }(easyrtcid);
-
-
         let label = document.createTextNode(easyrtc.idToName(easyrtcid));
         button.appendChild(label);
-
-        let label2 = document.createTextNode("Call");
-        button2.appendChild(label2);
-        
         mobileOtherClientDiv.appendChild(button);
-        mobileOtherClientDiv.appendChild(button2);
+
+        if (easyrtc.idToName(easyrtcid).toLowerCase() !== "master") {
+            let button2 = document.createElement('button');
+            button2.className = "callOtherButton";
+            button2.style.height = "40px";
+            button2.onclick = function(easyrtcid) {
+                return function() {
+                    performCallOtherUser(easyrtcid);
+                };
+            }(easyrtcid);
+
+            let label2 = document.createTextNode("Call");
+            button2.appendChild(label2);
+            mobileOtherClientDiv.appendChild(button2);
+        }
 
         let taskNode = document.createElement('div');
         taskNode.id = easyrtc.idToName(easyrtcid).toLowerCase() + "_taskNameM";
@@ -1842,14 +1862,47 @@ function inviteOtherUserButton_click() {
     document.getElementById('otherMessageBox').style.display = "none";
 }
 
+
+var replyOtherMessageState = null;
+var replyCallOtherUserId = null;
+
 function closeReplyOtherMessageBoxButton_click() {
     document.getElementById('replyOtherMessageBox').style.display = "none";
+    replyOtherMessageState = null;
 }
 
 function replyOtherUserButton_click() {
+    if (replyOtherMessageState === "reply_invite_message") {
+        let nowdate = new Date().toLocaleDateString().replace(/\//g, '');
+        let nowtime = new Date().toLocaleTimeString('en-US', { hour12: false, 
+                                                            hour: "numeric", 
+                                                            minute: "numeric",
+                                                            second: "numeric" }).replace(/:/g, '');
+        let timeStr = nowdate + nowtime;
+        console.log(timeStr);
 
+        easyrtc.sendDataWS(replyCallOtherUserId, "message",  "reply_invite_message-" + timeStr);
+        document.getElementById('replyOtherMessageBox').style.display = "none";
+        
+        easyrtc.hangupAll();
+        let currentRoomName = urlSearchParams.get("room");
+        if (currentRoomName === null || currentRoomName === "")  {
+            currentRoomName = "default";
+        }
+
+        easyrtc.leaveRoom(currentRoomName, 
+            function(roomName) {
+                console.log("No longer in room " + roomName);
+                let username = urlSearchParams.get("user");
+                let oldroom = roomName;
+
+                window.location.href = "liveapp_multiparty_other.html?" + "room=" + timeStr + "&user=" + username + "&oldroom=" + oldroom;
+            },
+            function(errorCode, errorText, roomName) {
+                console.log("had problems leaving " + roomName);
+            });
+    }
 }
-
 
 
 var trackYourselfTimerId = null;
