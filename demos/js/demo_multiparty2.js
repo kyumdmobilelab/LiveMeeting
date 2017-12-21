@@ -58,9 +58,9 @@ function reshapeFull(parentw, parenth) {
 function reshapeOtherMessageBox(parentw, parenth) {
     return {
         left:parentw/25,
-        top:parenth/5,
+        top:parenth/20,
         width:(parentw/10)*9,
-        height: (parenth/10)*5
+        height: (parenth/10)*7
     }
 }
 
