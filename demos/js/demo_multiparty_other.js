@@ -26,10 +26,10 @@ function reshapeFull(parentw, parenth) {
 
 function reshapeTextEntryBox(parentw, parenth) {
     return {
-        left:parentw/4,
-        top:parenth/4,
-        width:parentw/2,
-        height: parenth/4
+        left:parentw/10,
+        top:parenth/10,
+        width:(parentw/10)*8,
+        height: (parenth/10)*5
     }
 }
 
@@ -641,7 +641,7 @@ function showMessage(startX, startY, content) {
             textObject.className = "boxCommon";
             textObject.style.left = Math.floor(centerEndX-fullW/8) + "px";
             textObject.style.top = Math.floor(centerEndY) + "px";
-            textObject.style.fontSize = "36pt";
+            textObject.style.fontSize = "16pt";
             textObject.style.width = (fullW*.4) + "px";
             textObject.style.height = (fullH*.4) + "px";
             textObject.style.zIndex = 6;
