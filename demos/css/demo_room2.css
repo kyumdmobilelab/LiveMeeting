@@ -331,9 +331,12 @@ body {
 }
 
 #mobileOtherClients {
-    margin-top: 5px;
-    width: 95%;
-    height:100%;
+    position: absolute;
+    box-shadow: 1px 1px 1px #ADADAD;
+    border-radius:5px;
+    top: 65px;
+    width: 90%;
+    bottom: 5px;
     overflow-y:scroll;
     text-align: left;
     font-size: 0.9em;
