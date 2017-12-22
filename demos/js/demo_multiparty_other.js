@@ -675,8 +675,12 @@ function messageListener(easyrtcid, msgType, content) {
 }
 
 
-function appInit() {
 
+var currentTextTracks = [];
+
+
+
+function appInit() {
     // Prep for the top-down layout manager
     setReshaper('fullpage', reshapeFull);
     for(var i = 0; i < numVideoOBJS; i++) {
@@ -719,6 +723,24 @@ function appInit() {
             document.getElementById('textEntryButton').style.display = 'block';
         }
         document.getElementById(getIdOfBox(slot+1)).style.visibility = "visible";
+
+        //------
+        let video = document.getElementById(getIdOfBox(slot+1));
+        let userName = " " + easyrtc.idToName(easyrtcid) + " ";
+
+        if (currentTextTracks[slot]) {
+            let currentTextTrack = currentTextTracks[slot];
+            let currentCue = currentTextTrack.cues[0];
+            currentTextTrack.removeCue(currentCue);
+            currentTextTrack.addCue(new VTTCue(0, Number.MAX_SAFE_INTEGER, userName));
+        } else {
+            let newTextTrack = video.addTextTrack("captions", "sample");
+            newTextTrack.mode = "showing";
+            newTextTrack.addCue(new VTTCue(0, Number.MAX_SAFE_INTEGER, userName));
+            currentTextTracks[slot] = newTextTrack;
+        }
+        //------
+
         handleWindowResize();
     });
 
