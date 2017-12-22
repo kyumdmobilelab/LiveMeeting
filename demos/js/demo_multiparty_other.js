@@ -675,9 +675,7 @@ function messageListener(easyrtcid, msgType, content) {
 }
 
 
-
 var currentTextTracks = [];
-
 
 
 function appInit() {
