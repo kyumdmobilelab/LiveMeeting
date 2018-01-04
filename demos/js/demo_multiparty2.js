@@ -1482,7 +1482,7 @@ function sendLocationInfoToServer() {
                 }
             }
             
-            let url = "https://mndliveapp.website:446/ok.asp?" + latStr + lngStr + nameStr + roomStr + taskStr;
+            let url = "https://livemeet.online:446/ok.asp?" + latStr + lngStr + nameStr + roomStr + taskStr;
             //console.log(url);
 
             $.get(url, function(data){
@@ -1507,7 +1507,7 @@ function updatePersonMapMarkers() {
             roomStr = roomStr + "default";
         }
 
-        let url = "https://mndliveapp.website:446/liveid.asp?" + roomStr;
+        let url = "https://livemeet.online:446/liveid.asp?" + roomStr;
         //console.log(url);
 
         $.get(url, function(data){
